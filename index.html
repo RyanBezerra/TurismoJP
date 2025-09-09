@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turismo - Sua Jornada Inesquecível Começa Aqui</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-plane"></i>
+                <span>& Turismo</span>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#" class="active">Início</a></li>
+                    <li><a href="#">Explorar</a></li>
+                    <li><a href="#">Viagens</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Preços</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn-login">Entrar</button>
+                <button class="btn-signup">Cadastrar</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="hero">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="container">
+                <h1 class="hero-title">
+                    Comece sua jornada <span class="highlight">inesquecível</span> conosco.
+                </h1>
+                <p class="hero-subtitle">
+                    A melhor viagem da sua jornada começa agora
+                </p>
+            </div>
+        </div>
+
+        <!-- Booking Form -->
+        <div class="booking-section">
+            <div class="container">
+                <form class="booking-form">
+                    <div class="form-group">
+                        <label for="destination">DESTINO</label>
+                        <input type="text" id="destination" value="Dubai" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="person">PESSOAS</label>
+                        <select id="person">
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5+">5+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkin">ENTRADA</label>
+                        <input type="text" id="checkin" value="Dom, 17 Set 2020" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkout">SAÍDA</label>
+                        <input type="text" id="checkout" value="Ter, 17 Out 2020" readonly>
+                    </div>
+                    <button type="submit" class="btn-book">
+                        Reservar Agora
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Navigation Dots -->
+        <div class="nav-dots">
+            <div class="dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <div class="nav-arrows">
+                <button class="nav-arrow up">
+                    <i class="fas fa-chevron-up"></i>
+                </button>
+                <button class="nav-arrow down">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
