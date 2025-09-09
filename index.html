@@ -25,10 +25,6 @@
                     <li><a href="#">Sobre</a></li>
                 </ul>
             </nav>
-            <div class="auth-buttons">
-                <button class="btn-login">Entrar</button>
-                <button class="btn-signup">Cadastrar</button>
-            </div>
         </div>
     </header>
 
@@ -102,6 +98,49 @@
             </div>
         </div>
     </main>
+
+    <!-- Popular Destinations Section -->
+    <section class="popular-destinations">
+        <div class="container">
+            <div class="section-header">
+                <div class="header-content">
+                    <h2 class="section-title">Destinos Populares</h2>
+                    <div class="title-line"></div>
+                    <p class="section-subtitle">Os roteiros mais procurados da Paraíba, de lugares históricos a maravilhas naturais.</p>
+                </div>
+                <div class="navigation-buttons">
+                    <button class="nav-btn prev-btn" onclick="navigateDestinations('prev')">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="nav-btn next-btn" onclick="navigateDestinations('next')">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="destinations-grid">
+                <div class="destination-card">
+                    <img src="img/WhatsApp-Image-2022-05-27-at-16.49.42-300x277.jpeg.webp" alt="Caminhos do Frio">
+                    <h3>Caminhos do Frio</h3>
+                </div>
+
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Rota do Cangaço">
+                    <h3>Rota do Cangaço</h3>
+                </div>
+
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Trilhas Ecológicas">
+                    <h3>Trilhas Ecológicas</h3>
+                </div>
+
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Ecoparques">
+                    <h3>Ecoparques</h3>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script src="js/script.js"></script>
 </body>

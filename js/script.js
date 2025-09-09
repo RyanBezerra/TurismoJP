@@ -51,10 +51,18 @@ const sampleDates = [
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
-    initializeNavigation();
-    initializeBookingForm();
-    initializeAnimations();
-    startSlideshow();
+    try {
+        console.log('Inicializando aplicação...');
+        initializeNavigation();
+        initializeBookingForm();
+        initializeAnimations();
+        startSlideshow();
+        initializeDestinationsNavigation();
+        initializeDestinationCards();
+        console.log('Aplicação inicializada com sucesso!');
+    } catch (error) {
+        console.log('Erro na inicialização:', error);
+    }
 });
 
 // Navigation functionality
@@ -271,14 +279,7 @@ function getOrdinalSuffix(day) {
 
 // Animation and effects
 function initializeAnimations() {
-    // Parallax effect for hero background
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const heroBackground = document.querySelector('.hero-background');
-        if (heroBackground) {
-            heroBackground.style.transform = `translateY(${scrolled * 0.5}px)`;
-        }
-    });
+    // Removed parallax effect to keep background fixed
     
     // Smooth reveal animations
     const observerOptions = {
@@ -342,8 +343,141 @@ function debounce(func, wait) {
 }
 
 // Otimização de performance
+// Popular Destinations Navigation - Versão Simplificada
+function initializeDestinationsNavigation() {
+    console.log('Iniciando navegação de destinos...');
+    
+    // Aguardar um pouco para garantir que o DOM está pronto
+    setTimeout(() => {
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        const cards = document.querySelectorAll('.destination-card');
+        
+        console.log('Botões encontrados:', prevBtn, nextBtn);
+        console.log('Cartões encontrados:', cards.length);
+        
+        if (prevBtn && nextBtn && cards.length > 0) {
+            let currentIndex = 0;
+            const totalCards = cards.length;
+            
+            // Função para mostrar apenas os cartões visíveis
+            function showCards() {
+                const cardsPerView = window.innerWidth > 768 ? 4 : 1;
+                
+                // Mostrar todos os cartões primeiro
+                cards.forEach((card, index) => {
+                    card.style.display = 'block';
+                });
+                
+                // Depois esconder os que não devem aparecer
+                cards.forEach((card, index) => {
+                    if (index < currentIndex || index >= currentIndex + cardsPerView) {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Atualizar estado dos botões
+                prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+                nextBtn.style.opacity = currentIndex >= totalCards - cardsPerView ? '0.5' : '1';
+                
+                console.log('Índice atual:', currentIndex, 'Cartões por view:', cardsPerView);
+            }
+            
+            // Event listener para botão anterior
+            prevBtn.onclick = function() {
+                console.log('Clicou no botão anterior');
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    showCards();
+                }
+            };
+            
+            // Event listener para botão próximo
+            nextBtn.onclick = function() {
+                console.log('Clicou no botão próximo');
+                const cardsPerView = window.innerWidth > 768 ? 4 : 1;
+                if (currentIndex < totalCards - cardsPerView) {
+                    currentIndex++;
+                    showCards();
+                }
+            };
+            
+            // Inicializar
+            showCards();
+            console.log('Navegação configurada com sucesso!');
+        } else {
+            console.log('Elementos não encontrados!');
+        }
+    }, 100);
+}
+
+// Destination card interactions
+function initializeDestinationCards() {
+    const cards = document.querySelectorAll('.destination-card');
+    
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            const title = card.querySelector('h3').textContent;
+            
+            // Update the main form with selected destination
+            const destinationInput = document.getElementById('destination');
+            if (destinationInput) {
+                destinationInput.value = title;
+            }
+            
+            // Scroll to booking form
+            const bookingSection = document.querySelector('.booking-section');
+            if (bookingSection) {
+                bookingSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Show confirmation
+            setTimeout(() => {
+                alert(`Roteiro "${title}" selecionado! Preencha os dados para continuar.`);
+            }, 500);
+        });
+    });
+}
+
 const debouncedScroll = debounce(() => {
     // Manipular eventos de scroll de forma eficiente
 }, 10);
 
 window.addEventListener('scroll', debouncedScroll);
+
+// Função global para navegação (fallback)
+let currentDestIndex = 0;
+
+function navigateDestinations(direction) {
+    console.log('Navegação chamada:', direction);
+    
+    const cards = document.querySelectorAll('.destination-card');
+    const totalCards = cards.length;
+    const cardsPerView = window.innerWidth > 768 ? 4 : 1;
+    
+    if (direction === 'prev' && currentDestIndex > 0) {
+        currentDestIndex--;
+    } else if (direction === 'next' && currentDestIndex < totalCards - cardsPerView) {
+        currentDestIndex++;
+    }
+    
+    // Mostrar/ocultar cartões
+    cards.forEach((card, index) => {
+        if (index >= currentDestIndex && index < currentDestIndex + cardsPerView) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+    
+    // Atualizar botões
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    
+    if (prevBtn) prevBtn.style.opacity = currentDestIndex === 0 ? '0.5' : '1';
+    if (nextBtn) nextBtn.style.opacity = currentDestIndex >= totalCards - cardsPerView ? '0.5' : '1';
+    
+    console.log('Índice atual:', currentDestIndex);
+}
+
+// Features already initialized in main DOMContentLoaded
