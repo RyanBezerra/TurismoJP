@@ -11,32 +11,32 @@ const checkoutInput = document.getElementById('checkout');
 let currentSlide = 0;
 const totalSlides = navDots.length;
 
-// Dados dos destinos
+// Roteiros turísticos da Paraíba
 const destinations = [
     {
-        name: 'Dubai',
-        image: 'dubai.jpg',
-        description: 'Cidade moderna com luxo e tradição'
+        name: 'Caminhos do Frio',
+        image: 'caminhos-frio.jpg',
+        description: 'Serras históricas com clima ameno e cultura rica'
     },
     {
-        name: 'Paris',
-        image: 'paris.jpg',
-        description: 'Cidade das luzes e do romance'
+        name: 'Rota do Cangaço',
+        image: 'rota-cangaco.jpg',
+        description: 'Caminhos de Lampião e a história do sertão'
     },
     {
-        name: 'Tokyo',
-        image: 'tokyo.jpg',
-        description: 'Metrópole moderna com cultura ancestral'
+        name: 'Trilhas Ecológicas',
+        image: 'trilhas-ecologicas.jpg',
+        description: 'Natureza preservada e aventuras ao ar livre'
     },
     {
-        name: 'Nova York',
-        image: 'newyork.jpg',
-        description: 'A cidade que nunca dorme'
+        name: 'Ecoparques',
+        image: 'ecoparques.jpg',
+        description: 'Parques naturais e conservação ambiental'
     },
     {
-        name: 'Londres',
-        image: 'london.jpg',
-        description: 'Capital histórica com charme moderno'
+        name: 'Artesanato Local',
+        image: 'artesanato.jpg',
+        description: 'Tradições artesanais e cultura popular'
     }
 ];
 
@@ -117,7 +117,7 @@ function updateSlideDisplay() {
     // Atualizar conteúdo baseado no slide atual
     const destination = destinations[currentSlide];
     if (destination) {
-        heroTitle.innerHTML = `Comece sua jornada <span class="highlight">inesquecível</span> para ${destination.name}.`;
+        heroTitle.innerHTML = `Descubra ${destination.name} na <span class="highlight">Paraíba</span>`;
         heroSubtitle.textContent = destination.description;
     }
 }
@@ -182,12 +182,13 @@ function showBookingConfirmation(data) {
     modal.className = 'booking-modal';
     modal.innerHTML = `
         <div class="modal-content">
-            <h3>Confirmação de Reserva</h3>
-            <p>Destino: ${data.destination}</p>
-            <p>Hóspedes: ${data.person}</p>
-            <p>Entrada: ${data.checkin}</p>
-            <p>Saída: ${data.checkout}</p>
-            <button class="btn-confirm">Confirmar Reserva</button>
+            <h3>Confirmação de Roteiro</h3>
+            <p>Roteiro: ${data.destination}</p>
+            <p>Viajantes: ${data.person}</p>
+            <p>Data de Início: ${data.checkin}</p>
+            <p>Data de Retorno: ${data.checkout}</p>
+            <p class="local-businesses">✨ Conectando com negócios locais</p>
+            <button class="btn-confirm">Confirmar Roteiro</button>
             <button class="btn-cancel">Cancelar</button>
         </div>
     `;
@@ -221,7 +222,7 @@ function showBookingConfirmation(data) {
     
     // Manipular botões do modal
     modal.querySelector('.btn-confirm').addEventListener('click', () => {
-        alert('Reserva confirmada! Obrigado por escolher Turismo.');
+        alert('Roteiro confirmado! Obrigado por escolher a Paraíba Turismo.');
         document.body.removeChild(modal);
     });
     
