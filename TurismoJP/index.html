@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paraíba Turismo - Plataforma Inteligente de Roteiros Culturais e Ecológicos</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-map-marked-alt"></i>
+                <span>Paraíba Turismo</span>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#" class="active">Início</a></li>
+                    <li><a href="#">Roteiros</a></li>
+                    <li><a href="#">Experiências</a></li>
+                    <li><a href="#">Negócios Locais</a></li>
+                    <li><a href="#">Sobre</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="hero">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="container">
+                <h1 class="hero-title">
+                    Descubra a Paraíba além do <span class="highlight">sol e mar</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Roteiros culturais e ecológicos que conectam você aos negócios locais
+                </p>
+            </div>
+        </div>
+
+        <!-- Booking Form -->
+        <div class="booking-section">
+            <div class="container">
+                <form class="booking-form">
+                    <div class="form-group">
+                        <label for="destination">ROTEIRO</label>
+                        <input type="text" id="destination" value="Caminhos do Frio" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="person">VIAJANTES</label>
+                        <select id="person">
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5+">5+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkin">ENTRADA</label>
+                        <input type="text" id="checkin" value="Dom, 17 Set 2020" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkout">SAÍDA</label>
+                        <input type="text" id="checkout" value="Ter, 17 Out 2020" readonly>
+                    </div>
+                    <button type="submit" class="btn-book">
+                        Explorar Roteiro
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Navigation Dots -->
+        <div class="nav-dots">
+            <div class="dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <div class="nav-arrows">
+                <button class="nav-arrow up">
+                    <i class="fas fa-chevron-up"></i>
+                </button>
+                <button class="nav-arrow down">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Popular Destinations Section -->
+    <section class="popular-destinations">
+        <div class="">
+            <div class="section-header">
+                <div class="header-content">
+                    <h2 class="section-title">Destinos Populares</h2>
+                    <div class="title-line"></div>
+                    <p class="section-subtitle">Os roteiros mais procurados da Paraíba, de lugares históricos a maravilhas naturais.</p>
+                </div>
+                <div class="navigation-buttons">
+                    <button class="nav-btn prev-btn" onclick="navigateDestinations('prev')">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="nav-btn next-btn" onclick="navigateDestinations('next')">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="slider-container">
+                <div class="destinations-grid">
+                    <div class="destination-card" style="background: linear-gradient(0deg, rgba(255, 119, 87, 0.1), rgba(255, 119, 87, 0.1)), url('img/WhatsApp-Image-2022-05-27-at-16.49.42-300x277.jpeg.webp'); background-size: cover; background-position: center;">
+                        <img src="img/WhatsApp-Image-2022-05-27-at-16.49.42-300x277.jpeg.webp" alt="Caminhos do Frio">
+                        <div class="text-block">
+                            <h3>Caminhos do Frio</h3>
+                            <div class="location">
+                                <div class="location-icon"></div>
+                                <p class="location-text">Serra da Borborema, PB</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="destination-card" style="background: linear-gradient(0deg, rgba(255, 119, 87, 0.1), rgba(255, 119, 87, 0.1)), url('img/canganco.webp'); background-size: cover; background-position: center;">
+                        <img src="img/canganco.webp" alt="Rota do Cangaço">
+                        <div class="text-block">
+                            <h3>Rota do Cangaço</h3>
+                            <div class="location">
+                                <div class="location-icon"></div>
+                                <p class="location-text">Sertão Paraibano, PB</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="destination-card" style="background: linear-gradient(0deg, rgba(255, 119, 87, 0.1), rgba(255, 119, 87, 0.1)), url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center;">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Parque Arruda Câmara">
+                        <div class="text-block">
+                            <h3>Parque Arruda Câmara</h3>
+                            <div class="location">
+                                <div class="location-icon"></div>
+                                <p class="location-text">João Pessoa, PB</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="destination-card" style="background: linear-gradient(0deg, rgba(255, 119, 87, 0.1), rgba(255, 119, 87, 0.1)), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center;">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Bosque dos Sonhos">
+                        <div class="text-block">
+                            <h3>Bosque dos Sonhos</h3>
+                            <div class="location">
+                                <div class="location-icon"></div>
+                                <p class="location-text">Campina Grande, PB</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="destination-card" style="background: linear-gradient(0deg, rgba(255, 119, 87, 0.1), rgba(255, 119, 87, 0.1)), url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center;">
+                        <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Litoral Norte">
+                        <div class="text-block">
+                            <h3>Litoral Norte</h3>
+                            <div class="location">
+                                <div class="location-icon"></div>
+                                <p class="location-text">Cabedelo, PB</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="destination-card" style="background: linear-gradient(0deg, rgba(255, 119, 87, 0.1), rgba(255, 119, 87, 0.1)), url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center;">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Serra da Borborema">
+                        <div class="text-block">
+                            <h3>Serra da Borborema</h3>
+                            <div class="location">
+                                <div class="location-icon"></div>
+                                <p class="location-text">Interior da Paraíba, PB</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
