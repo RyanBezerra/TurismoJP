@@ -53,6 +53,15 @@ const sampleDates = [
 document.addEventListener('DOMContentLoaded', function() {
     try {
         console.log('Inicializando aplicação...');
+        
+        // Debug: verificar se os elementos existem
+        console.log('Elementos encontrados:');
+        console.log('navDots:', document.querySelectorAll('.dot').length);
+        console.log('navArrows:', document.querySelectorAll('.nav-arrow').length);
+        console.log('prevBtn:', document.querySelector('.prev-btn'));
+        console.log('nextBtn:', document.querySelector('.next-btn'));
+        console.log('destination cards:', document.querySelectorAll('.destination-card').length);
+        
         initializeNavigation();
         initializeBookingForm();
         initializeAnimations();
@@ -342,73 +351,91 @@ function debounce(func, wait) {
     };
 }
 
-// Otimização de performance
-// Popular Destinations Navigation - Versão Simplificada
+// Slider de Destinos - Versão Simplificada e Robusta
+let sliderState = {
+    currentIndex: 0,
+    totalCards: 0,
+    cardsPerView: 4,
+    cardWidth: 0
+};
+
 function initializeDestinationsNavigation() {
-    console.log('Iniciando navegação de destinos...');
+    console.log('🚀 Iniciando slider de destinos...');
     
-    // Aguardar um pouco para garantir que o DOM está pronto
-    setTimeout(() => {
-        const prevBtn = document.querySelector('.prev-btn');
-        const nextBtn = document.querySelector('.next-btn');
-        const cards = document.querySelectorAll('.destination-card');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    const grid = document.querySelector('.destinations-grid');
+    const cards = document.querySelectorAll('.destination-card');
+    
+    if (!prevBtn || !nextBtn || !grid || cards.length === 0) {
+        console.error('❌ Elementos do slider não encontrados!');
+        return;
+    }
+    
+    // Configurar estado inicial
+    sliderState.totalCards = cards.length;
+    sliderState.cardsPerView = window.innerWidth > 768 ? 3 : 1; // 3 cards por view no desktop
+    sliderState.cardWidth = 529; // 497px (card width) + 32px (gap)
+    
+    console.log('✅ Slider configurado:', sliderState);
+    
+    // Função para atualizar o slider
+    function updateSlider() {
+        const translateX = -sliderState.currentIndex * sliderState.cardWidth;
+        grid.style.transform = `translateX(${translateX}px)`;
         
-        console.log('Botões encontrados:', prevBtn, nextBtn);
-        console.log('Cartões encontrados:', cards.length);
+        // Atualizar botões - lógica simples de 1 card por vez
+        const maxIndex = sliderState.totalCards - sliderState.cardsPerView;
+        const canGoPrev = sliderState.currentIndex > 0;
+        const canGoNext = sliderState.currentIndex < maxIndex;
         
-        if (prevBtn && nextBtn && cards.length > 0) {
-            let currentIndex = 0;
-            const totalCards = cards.length;
-            
-            // Função para mostrar apenas os cartões visíveis
-            function showCards() {
-                const cardsPerView = window.innerWidth > 768 ? 4 : 1;
-                
-                // Mostrar todos os cartões primeiro
-                cards.forEach((card, index) => {
-                    card.style.display = 'block';
-                });
-                
-                // Depois esconder os que não devem aparecer
-                cards.forEach((card, index) => {
-                    if (index < currentIndex || index >= currentIndex + cardsPerView) {
-                        card.style.display = 'none';
-                    }
-                });
-                
-                // Atualizar estado dos botões
-                prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
-                nextBtn.style.opacity = currentIndex >= totalCards - cardsPerView ? '0.5' : '1';
-                
-                console.log('Índice atual:', currentIndex, 'Cartões por view:', cardsPerView);
-            }
-            
-            // Event listener para botão anterior
-            prevBtn.onclick = function() {
-                console.log('Clicou no botão anterior');
-                if (currentIndex > 0) {
-                    currentIndex--;
-                    showCards();
-                }
-            };
-            
-            // Event listener para botão próximo
-            nextBtn.onclick = function() {
-                console.log('Clicou no botão próximo');
-                const cardsPerView = window.innerWidth > 768 ? 4 : 1;
-                if (currentIndex < totalCards - cardsPerView) {
-                    currentIndex++;
-                    showCards();
-                }
-            };
-            
-            // Inicializar
-            showCards();
-            console.log('Navegação configurada com sucesso!');
+        prevBtn.style.opacity = canGoPrev ? '1' : '0.5';
+        prevBtn.disabled = !canGoPrev;
+        nextBtn.style.opacity = canGoNext ? '1' : '0.5';
+        nextBtn.disabled = !canGoNext;
+        
+        console.log(`📍 Posição: ${sliderState.currentIndex}, TranslateX: ${translateX}px`);
+        console.log(`📊 Máximo permitido: ${maxIndex}, Pode ir anterior: ${canGoPrev}, Pode ir próximo: ${canGoNext}`);
+    }
+    
+    // Event listeners
+    prevBtn.addEventListener('click', () => {
+        console.log('🔄 Botão anterior clicado');
+        if (sliderState.currentIndex > 0) {
+            sliderState.currentIndex--;
+            updateSlider();
         } else {
-            console.log('Elementos não encontrados!');
+            console.log('⚠️ Já está no primeiro card');
         }
-    }, 100);
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        console.log('🔄 Botão próximo clicado');
+        
+        // Mover apenas 1 card por vez
+        const maxIndex = sliderState.totalCards - sliderState.cardsPerView;
+        
+        console.log(`📊 Índice atual: ${sliderState.currentIndex}, Máximo: ${maxIndex}, Total: ${sliderState.totalCards}, Por view: ${sliderState.cardsPerView}`);
+        
+        if (sliderState.currentIndex < maxIndex) {
+            sliderState.currentIndex++;
+            updateSlider();
+        } else {
+            console.log('⚠️ Já está no último card possível');
+        }
+    });
+    
+    // Inicializar
+    updateSlider();
+    
+    // Listener para redimensionamento
+    window.addEventListener('resize', () => {
+        sliderState.cardsPerView = window.innerWidth > 768 ? 3 : 1; // 3 cards por view no desktop
+        sliderState.cardWidth = 529; // 497px (card width) + 32px (gap)
+        updateSlider();
+    });
+    
+    console.log('✅ Slider inicializado com sucesso!');
 }
 
 // Destination card interactions
@@ -446,38 +473,54 @@ const debouncedScroll = debounce(() => {
 window.addEventListener('scroll', debouncedScroll);
 
 // Função global para navegação (fallback)
-let currentDestIndex = 0;
-
 function navigateDestinations(direction) {
-    console.log('Navegação chamada:', direction);
+    console.log('🔄 Navegação global chamada:', direction);
+    console.log('📊 Estado atual:', sliderState);
     
-    const cards = document.querySelectorAll('.destination-card');
-    const totalCards = cards.length;
-    const cardsPerView = window.innerWidth > 768 ? 4 : 1;
-    
-    if (direction === 'prev' && currentDestIndex > 0) {
-        currentDestIndex--;
-    } else if (direction === 'next' && currentDestIndex < totalCards - cardsPerView) {
-        currentDestIndex++;
+    if (direction === 'prev' && sliderState.currentIndex > 0) {
+        sliderState.currentIndex--;
+        console.log('⬅️ Movendo para anterior');
+    } else if (direction === 'next') {
+        // Mover apenas 1 card por vez
+        const maxIndex = sliderState.totalCards - sliderState.cardsPerView;
+        
+        if (sliderState.currentIndex < maxIndex) {
+            sliderState.currentIndex++;
+            console.log('➡️ Movendo para próximo');
+        } else {
+            console.log('⚠️ Navegação bloqueada - já no último card');
+            return;
+        }
+    } else {
+        console.log('⚠️ Navegação bloqueada - limite atingido');
+        return;
     }
     
-    // Mostrar/ocultar cartões
-    cards.forEach((card, index) => {
-        if (index >= currentDestIndex && index < currentDestIndex + cardsPerView) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
+    // Atualizar visual
+    const grid = document.querySelector('.destinations-grid');
+    if (grid) {
+        const translateX = -sliderState.currentIndex * sliderState.cardWidth;
+        grid.style.transform = `translateX(${translateX}px)`;
+        console.log(`🎯 Aplicando translateX: ${translateX}px`);
+        
+        // Atualizar botões
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        
+        if (prevBtn) {
+            prevBtn.style.opacity = sliderState.currentIndex === 0 ? '0.5' : '1';
+            prevBtn.disabled = sliderState.currentIndex === 0;
         }
-    });
+        if (nextBtn) {
+            const maxIndex = sliderState.totalCards - sliderState.cardsPerView;
+            const canGoNext = sliderState.currentIndex < maxIndex;
+            
+            nextBtn.style.opacity = canGoNext ? '1' : '0.5';
+            nextBtn.disabled = !canGoNext;
+        }
+    }
     
-    // Atualizar botões
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    
-    if (prevBtn) prevBtn.style.opacity = currentDestIndex === 0 ? '0.5' : '1';
-    if (nextBtn) nextBtn.style.opacity = currentDestIndex >= totalCards - cardsPerView ? '0.5' : '1';
-    
-    console.log('Índice atual:', currentDestIndex);
+    console.log('✅ Novo índice:', sliderState.currentIndex);
 }
 
 // Features already initialized in main DOMContentLoaded

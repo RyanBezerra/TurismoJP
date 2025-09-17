@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paraíba Turismo - Plataforma Inteligente de Roteiros Culturais e Ecológicos</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -101,7 +101,7 @@
 
     <!-- Popular Destinations Section -->
     <section class="popular-destinations">
-        <div class="container">
+        <div class="">
             <div class="section-header">
                 <div class="header-content">
                     <h2 class="section-title">Destinos Populares</h2>
@@ -118,25 +118,73 @@
                 </div>
             </div>
             
-            <div class="destinations-grid">
-                <div class="destination-card">
-                    <img src="img/WhatsApp-Image-2022-05-27-at-16.49.42-300x277.jpeg.webp" alt="Caminhos do Frio">
-                    <h3>Caminhos do Frio</h3>
-                </div>
+            <div class="slider-container">
+                <div class="destinations-grid">
+                    <div class="destination-card" style="background: linear-gradient(0deg, rgba(255, 119, 87, 0.1), rgba(255, 119, 87, 0.1)), url('img/WhatsApp-Image-2022-05-27-at-16.49.42-300x277.jpeg.webp'); background-size: cover; background-position: center;">
+                        <img src="img/WhatsApp-Image-2022-05-27-at-16.49.42-300x277.jpeg.webp" alt="Caminhos do Frio">
+                        <div class="text-block">
+                            <h3>Caminhos do Frio</h3>
+                            <div class="location">
+                                <div class="location-icon"></div>
+                                <p class="location-text">Serra da Borborema, PB</p>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="destination-card">
-                    <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Rota do Cangaço">
-                    <h3>Rota do Cangaço</h3>
-                </div>
+                    <div class="destination-card" style="background: linear-gradient(0deg, rgba(255, 119, 87, 0.1), rgba(255, 119, 87, 0.1)), url('img/canganco.webp'); background-size: cover; background-position: center;">
+                        <img src="img/canganco.webp" alt="Rota do Cangaço">
+                        <div class="text-block">
+                            <h3>Rota do Cangaço</h3>
+                            <div class="location">
+                                <div class="location-icon"></div>
+                                <p class="location-text">Sertão Paraibano, PB</p>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="destination-card">
-                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Trilhas Ecológicas">
-                    <h3>Trilhas Ecológicas</h3>
-                </div>
+                    <div class="destination-card" style="background: linear-gradient(0deg, rgba(255, 119, 87, 0.1), rgba(255, 119, 87, 0.1)), url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center;">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Parque Arruda Câmara">
+                        <div class="text-block">
+                            <h3>Parque Arruda Câmara</h3>
+                            <div class="location">
+                                <div class="location-icon"></div>
+                                <p class="location-text">João Pessoa, PB</p>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="destination-card">
-                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Ecoparques">
-                    <h3>Ecoparques</h3>
+                    <div class="destination-card" style="background: linear-gradient(0deg, rgba(255, 119, 87, 0.1), rgba(255, 119, 87, 0.1)), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center;">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Bosque dos Sonhos">
+                        <div class="text-block">
+                            <h3>Bosque dos Sonhos</h3>
+                            <div class="location">
+                                <div class="location-icon"></div>
+                                <p class="location-text">Campina Grande, PB</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="destination-card" style="background: linear-gradient(0deg, rgba(255, 119, 87, 0.1), rgba(255, 119, 87, 0.1)), url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center;">
+                        <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Litoral Norte">
+                        <div class="text-block">
+                            <h3>Litoral Norte</h3>
+                            <div class="location">
+                                <div class="location-icon"></div>
+                                <p class="location-text">Cabedelo, PB</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="destination-card" style="background: linear-gradient(0deg, rgba(255, 119, 87, 0.1), rgba(255, 119, 87, 0.1)), url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center;">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Serra da Borborema">
+                        <div class="text-block">
+                            <h3>Serra da Borborema</h3>
+                            <div class="location">
+                                <div class="location-icon"></div>
+                                <p class="location-text">Interior da Paraíba, PB</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
