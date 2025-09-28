@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiências - Paraíba Turismo</title>
+    <link rel="stylesheet" href="../../shared/css/common.css">
+    <link rel="stylesheet" href="experiencias.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-map-marked-alt"></i>
+                <span>Paraíba Turismo</span>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index/index.html">Início</a></li>
+                    <li><a href="#">Roteiros</a></li>
+                    <li><a href="experiencias.html" class="active">Experiências</a></li>
+                    <li><a href="#">Negócios Locais</a></li>
+                    <li><a href="../sobre/sobre.html">Sobre</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="experiencias-hero">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="container">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        Descubra as <span class="highlight">experiências</span> únicas da Paraíba
+                    </h1>
+                    <p class="hero-subtitle">
+                        Explore pontos turísticos incríveis e viva momentos inesquecíveis em cada canto do nosso estado
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filtros e Busca -->
+    <section class="filters-section">
+        <div class="container">
+            <div class="filters-wrapper">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Buscar experiências...">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-globe"></i>
+                        <span>Todas</span>
+                    </button>
+                    <button class="filter-btn" data-filter="cultural">
+                        <i class="fas fa-theater-masks"></i>
+                        <span>Cultural</span>
+                    </button>
+                    <button class="filter-btn" data-filter="natureza">
+                        <i class="fas fa-tree"></i>
+                        <span>Natureza</span>
+                    </button>
+                    <button class="filter-btn" data-filter="gastronomia">
+                        <i class="fas fa-utensils"></i>
+                        <span>Gastronomia</span>
+                    </button>
+                    <button class="filter-btn" data-filter="aventura">
+                        <i class="fas fa-mountain"></i>
+                        <span>Aventura</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catálogo de Experiências -->
+    <section class="experiencias-catalog">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-star"></i>
+                    <span>Experiências</span>
+                </div>
+                <h2 class="section-title">
+                    Pontos turísticos que <span class="highlight-text">encantam</span> a Paraíba
+                </h2>
+                <p class="section-description">
+                    Descubra os destinos mais incríveis do nosso estado, onde cada lugar conta uma história única
+                </p>
+            </div>
+
+            <div class="experiencias-grid" id="experienciasGrid">
+                <!-- Experiência 1 - Centro Histórico de João Pessoa -->
+                <div class="experiencia-card" data-category="cultural">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Centro Histórico de João Pessoa">
+                        <div class="card-overlay">
+                            <div class="card-badge">
+                                <i class="fas fa-landmark"></i>
+                                <span>Histórico</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn" title="Favoritar">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="action-btn" title="Compartilhar">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">Centro Histórico de João Pessoa</h3>
+                            <div class="card-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.9 (234 avaliações)</span>
+                            </div>
+                        </div>
+                        <div class="card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>João Pessoa, PB</span>
+                        </div>
+                        <p class="card-description">
+                            Caminhe pelas ruas históricas da terceira cidade mais antiga do Brasil, 
+                            com arquitetura colonial preservada e igrejas centenárias.
+                        </p>
+                        <div class="card-tags">
+                            <span class="tag">Histórico</span>
+                            <span class="tag">Arquitetura</span>
+                            <span class="tag">Cultura</span>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-price">
+                                <span class="price-label">A partir de</span>
+                                <span class="price-value">R$ 45</span>
+                                <span class="price-period">/pessoa</span>
+                            </div>
+                            <button class="card-btn">
+                                <span>Explorar</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experiência 2 - Parque Arruda Câmara -->
+                <div class="experiencia-card" data-category="natureza">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Parque Arruda Câmara">
+                        <div class="card-overlay">
+                            <div class="card-badge">
+                                <i class="fas fa-tree"></i>
+                                <span>Natureza</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn" title="Favoritar">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="action-btn" title="Compartilhar">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">Parque Arruda Câmara</h3>
+                            <div class="card-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.8 (189 avaliações)</span>
+                            </div>
+                        </div>
+                        <div class="card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>João Pessoa, PB</span>
+                        </div>
+                        <p class="card-description">
+                            Conhecido como Bica, este parque urbano oferece trilhas, lago, 
+                            zoológico e uma rica diversidade de fauna e flora da Mata Atlântica.
+                        </p>
+                        <div class="card-tags">
+                            <span class="tag">Parque</span>
+                            <span class="tag">Trilhas</span>
+                            <span class="tag">Família</span>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-price">
+                                <span class="price-label">A partir de</span>
+                                <span class="price-value">R$ 25</span>
+                                <span class="price-period">/pessoa</span>
+                            </div>
+                            <button class="card-btn">
+                                <span>Explorar</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experiência 3 - Farol do Cabo Branco -->
+                <div class="experiencia-card" data-category="cultural">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Farol do Cabo Branco">
+                        <div class="card-overlay">
+                            <div class="card-badge">
+                                <i class="fas fa-lighthouse"></i>
+                                <span>Histórico</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn" title="Favoritar">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="action-btn" title="Compartilhar">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">Farol do Cabo Branco</h3>
+                            <div class="card-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.8 (198 avaliações)</span>
+                            </div>
+                        </div>
+                        <div class="card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>João Pessoa, PB</span>
+                        </div>
+                        <p class="card-description">
+                            Marco geográfico do ponto mais oriental das Américas, 
+                            com vista panorâmica do oceano e arquitetura única em formato de cajueiro.
+                        </p>
+                        <div class="card-tags">
+                            <span class="tag">Marco</span>
+                            <span class="tag">Vista</span>
+                            <span class="tag">Histórico</span>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-price">
+                                <span class="price-label">A partir de</span>
+                                <span class="price-value">R$ 30</span>
+                                <span class="price-period">/pessoa</span>
+                            </div>
+                            <button class="card-btn">
+                                <span>Explorar</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experiência 4 - Praia de Tambaba -->
+                <div class="experiencia-card" data-category="natureza">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Praia de Tambaba">
+                        <div class="card-overlay">
+                            <div class="card-badge">
+                                <i class="fas fa-water"></i>
+                                <span>Praia</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn" title="Favoritar">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="action-btn" title="Compartilhar">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">Praia de Tambaba</h3>
+                            <div class="card-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.9 (312 avaliações)</span>
+                            </div>
+                        </div>
+                        <div class="card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Conde, PB</span>
+                        </div>
+                        <p class="card-description">
+                            Praia paradisíaca com falésias coloridas, águas cristalinas e 
+                            uma das poucas praias de naturismo do Brasil.
+                        </p>
+                        <div class="card-tags">
+                            <span class="tag">Praia</span>
+                            <span class="tag">Falésias</span>
+                            <span class="tag">Naturismo</span>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-price">
+                                <span class="price-label">A partir de</span>
+                                <span class="price-value">R$ 55</span>
+                                <span class="price-period">/pessoa</span>
+                            </div>
+                            <button class="card-btn">
+                                <span>Explorar</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experiência 5 - Serra da Borborema -->
+                <div class="experiencia-card" data-category="aventura">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Serra da Borborema">
+                        <div class="card-overlay">
+                            <div class="card-badge">
+                                <i class="fas fa-mountain"></i>
+                                <span>Serra</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn" title="Favoritar">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="action-btn" title="Compartilhar">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">Serra da Borborema</h3>
+                            <div class="card-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.7 (198 avaliações)</span>
+                            </div>
+                        </div>
+                        <div class="card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Interior da Paraíba, PB</span>
+                        </div>
+                        <p class="card-description">
+                            Paisagens serranas com clima ameno, trilhas ecológicas e 
+                            vistas panorâmicas que encantam os visitantes.
+                        </p>
+                        <div class="card-tags">
+                            <span class="tag">Trilhas</span>
+                            <span class="tag">Vistas</span>
+                            <span class="tag">Clima</span>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-price">
+                                <span class="price-label">A partir de</span>
+                                <span class="price-value">R$ 75</span>
+                                <span class="price-period">/pessoa</span>
+                            </div>
+                            <button class="card-btn">
+                                <span>Explorar</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experiência 6 - Restaurante Regional -->
+                <div class="experiencia-card" data-category="gastronomia">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Gastronomia Paraibana">
+                        <div class="card-overlay">
+                            <div class="card-badge">
+                                <i class="fas fa-utensils"></i>
+                                <span>Gastronomia</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn" title="Favoritar">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="action-btn" title="Compartilhar">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">Gastronomia Paraibana</h3>
+                            <div class="card-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.9 (267 avaliações)</span>
+                            </div>
+                        </div>
+                        <div class="card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>João Pessoa, PB</span>
+                        </div>
+                        <p class="card-description">
+                            Saboreie os pratos típicos da Paraíba como carne de sol, tapioca, 
+                            peixe frito e outras iguarias da culinária regional.
+                        </p>
+                        <div class="card-tags">
+                            <span class="tag">Comida</span>
+                            <span class="tag">Tradição</span>
+                            <span class="tag">Local</span>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-price">
+                                <span class="price-label">A partir de</span>
+                                <span class="price-value">R$ 65</span>
+                                <span class="price-period">/pessoa</span>
+                            </div>
+                            <button class="card-btn">
+                                <span>Explorar</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experiência 7 - Lajedo de Pai Mateus -->
+                <div class="experiencia-card" data-category="natureza">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Lajedo de Pai Mateus">
+                        <div class="card-overlay">
+                            <div class="card-badge">
+                                <i class="fas fa-mountain"></i>
+                                <span>Geologia</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn" title="Favoritar">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="action-btn" title="Compartilhar">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">Lajedo de Pai Mateus</h3>
+                            <div class="card-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.8 (145 avaliações)</span>
+                            </div>
+                        </div>
+                        <div class="card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Cabaceiras, PB</span>
+                        </div>
+                        <p class="card-description">
+                            Formação rochosa única com pedras gigantes em equilíbrio, 
+                            cenário de filmes e espetáculo natural impressionante.
+                        </p>
+                        <div class="card-tags">
+                            <span class="tag">Geologia</span>
+                            <span class="tag">Cinema</span>
+                            <span class="tag">Único</span>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-price">
+                                <span class="price-label">A partir de</span>
+                                <span class="price-value">R$ 85</span>
+                                <span class="price-period">/pessoa</span>
+                            </div>
+                            <button class="card-btn">
+                                <span>Explorar</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experiência 8 - Trilha do Jacaré -->
+                <div class="experiencia-card" data-category="aventura">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Trilha do Jacaré">
+                        <div class="card-overlay">
+                            <div class="card-badge">
+                                <i class="fas fa-hiking"></i>
+                                <span>Trilha</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn" title="Favoritar">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="action-btn" title="Compartilhar">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">Trilha do Jacaré</h3>
+                            <div class="card-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.6 (123 avaliações)</span>
+                            </div>
+                        </div>
+                        <div class="card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>João Pessoa, PB</span>
+                        </div>
+                        <p class="card-description">
+                            Trilha ecológica pela Mata Atlântica com observação de jacarés, 
+                            pássaros e outras espécies da fauna local.
+                        </p>
+                        <div class="card-tags">
+                            <span class="tag">Ecológica</span>
+                            <span class="tag">Fauna</span>
+                            <span class="tag">Aventura</span>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-price">
+                                <span class="price-label">A partir de</span>
+                                <span class="price-value">R$ 40</span>
+                                <span class="price-period">/pessoa</span>
+                            </div>
+                            <button class="card-btn">
+                                <span>Explorar</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botão Carregar Mais -->
+            <div class="load-more-section">
+                <button class="load-more-btn">
+                    <span>Carregar Mais Experiências</span>
+                    <i class="fas fa-arrow-down"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">
+                    Pronto para viver suas <span class="highlight-text">experiências</span> na Paraíba?
+                </h2>
+                <p class="cta-description">
+                    Escolha suas experiências favoritas e comece a planejar sua viagem inesquecível
+                </p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn-primary">
+                        <span>Começar Planejamento</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="../sobre/sobre.html" class="btn-secondary">
+                        <span>Conhecer Mais</span>
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>Paraíba Turismo</span>
+                    </div>
+                    <p class="footer-description">
+                        Conectando turistas aos roteiros culturais e ecológicos 
+                        únicos da Paraíba, promovendo o desenvolvimento sustentável.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index/index.html">Início</a></li>
+                        <li><a href="#">Roteiros</a></li>
+                        <li><a href="experiencias.html">Experiências</a></li>
+                        <li><a href="../sobre/sobre.html">Sobre</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Categorias</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Cultural</a></li>
+                        <li><a href="#">Natureza</a></li>
+                        <li><a href="#">Gastronomia</a></li>
+                        <li><a href="#">Aventura</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Contato</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>(83) 99999-9999</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>contato@paraibaturismo.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>João Pessoa, PB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Paraíba Turismo. Todos os direitos reservados.</p>
+                <div class="footer-links-bottom">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../shared/js/common.js"></script>
+    <script src="experiencias.js"></script>
+</body>
+</html>
