@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paraíba Turismo - Plataforma Inteligente de Roteiros Culturais e Ecológicos</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ff6b35, #1e3c72);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .nav-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .nav-link {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+        .nav-link h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+        }
+        .nav-link p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        .icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🌴 Paraíba Turismo</h1>
+        <p>Plataforma Inteligente de Roteiros Culturais e Ecológicos</p>
+        
+        <div class="nav-links">
+            <a href="pages/index/index.html" class="nav-link">
+                <div class="icon">🏠</div>
+                <h3>Página Inicial</h3>
+                <p>Hero section, formulário de reserva e destinos populares</p>
+            </a>
+            
+            <a href="roteiros.html" class="nav-link">
+                <div class="icon">🗺️</div>
+                <h3>Roteiros</h3>
+                <p>Roteiros culturais e ecológicos da Paraíba</p>
+            </a>
+            
+            <a href="pages/experiencias/experiencias.html" class="nav-link">
+                <div class="icon">🌟</div>
+                <h3>Experiências</h3>
+                <p>Experiências turísticas únicas e personalizadas</p>
+            </a>
+            
+            <a href="pages/sobre/sobre.html" class="nav-link">
+                <div class="icon">ℹ️</div>
+                <h3>Sobre</h3>
+                <p>Informações sobre o projeto e seus objetivos</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
+
