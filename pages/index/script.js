@@ -498,7 +498,7 @@ function startSlideshow() {
 window.addEventListener('scroll', debounce(() => {
     const header = document.querySelector('.header');
     if (header) {
-        header.style.background = window.scrollY > 100 ? 'rgba(0, 0, 0, 0.9)' : 'rgba(0, 0, 0, 0.1)';
+        header.style.backgroundColor = window.scrollY > 100 ? 'rgba(0, 0, 0, 0.6)' : 'transparent';
     }
 }, 10));
 
