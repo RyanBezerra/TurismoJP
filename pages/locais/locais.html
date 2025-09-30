@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Negócios Locais - Paraíba Turismo</title>
+    <link rel="stylesheet" href="../../shared/css/common.css">
+    <link rel="stylesheet" href="locais.css?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-store"></i>
+                <span>Negócios Locais</span>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index/index.html">Início</a></li>
+                    <li><a href="../../roteiros.html">Roteiros</a></li>
+                    <li><a href="../experiencias/experiencias.html">Experiências</a></li>
+                    <li><a href="#" class="active">Negócios Locais</a></li>
+                    <li><a href="../sobre/sobre.html">Sobre</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="locais-hero">
+        <div class="container">
+            <h1 class="page-title">Descubra e apoie <span class="highlight">negócios</span> locais</h1>
+            <p class="page-subtitle">Comércio, gastronomia, artesanato e serviços que movimentam a economia criativa da Paraíba.</p>
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="search">Buscar</label>
+                    <input id="search" type="text" placeholder="Ex.: café, artesanato, pousada" />
+                </div>
+                <div class="filter-group">
+                    <label for="categoria">Categoria</label>
+                    <select id="categoria">
+                        <option value="todas" selected>Todas</option>
+                        <option value="Entretenimento">Entretenimento</option>
+                        <option value="Gastronomia">Gastronomia</option>
+                        <option value="Shoppings e Lojas">Shoppings e Lojas</option>
+                        <option value="Hospedagem">Hospedagem</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="bairro">Bairro</label>
+                    <select id="bairro">
+                        <option value="todos" selected>Todos</option>
+                        <option value="Centro">Centro</option>
+                        <option value="Tambaú">Tambaú</option>
+                        <option value="Jaguaribe">Jaguaribe</option>
+                        <option value="Cabo Branco">Cabo Branco</option>
+                        <option value="Manaíra">Manaíra</option>
+                        <option value="Mangabeira">Mangabeira</option>
+                        <option value="Valentina">Valentina</option>
+                        <option value="Jardim Cidade Universitária">Jardim Cidade Universitária</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="locais-grid-section">
+        <div class="container">
+            <div id="locais-grid" class="locais-grid"></div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© Paraíba Turismo — Conectando viajantes e negócios locais</p>
+        </div>
+    </footer>
+
+    <script src="../../shared/js/common.js"></script>
+    <script src="locais.js?v=2"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            if (window.LocaisPage && typeof window.LocaisPage.initialize === 'function') {
+                window.LocaisPage.initialize();
+            }
+        });
+    </script>
+</body>
+</html>
+
+
