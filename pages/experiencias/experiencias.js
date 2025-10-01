@@ -315,7 +315,7 @@ function initializeMobileMenu() {
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const nav = document.querySelector('.nav');
     
-    if (!mobileMenuToggle || !nav) return;
+    if (!mobileMenuToggle || !nav) return; 
     
     mobileMenuToggle.addEventListener('click', toggleMobileMenu);
     

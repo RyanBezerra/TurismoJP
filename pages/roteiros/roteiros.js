@@ -20,7 +20,7 @@ const RoteirosState = {
 
 // Dados dos roteiros
 const ROTEIROS_DATA = [
-    {
+    { 
         id: 'caminhos-frio',
         title: 'Caminhos do Frio',
         category: 'cultural',

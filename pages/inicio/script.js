@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 nav.classList.remove('active');
                 mobileMenuToggle.classList.remove('active');
             });
-        });
+        }); 
         
         // Close menu when clicking outside
         document.addEventListener('click', function(e) {

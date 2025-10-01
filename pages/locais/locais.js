@@ -21,7 +21,7 @@ window.LocaisPage = (function(){
         { nome: 'Nord Luxxor Tambaú', categoria: 'Hospedagem', bairro: 'Tambaú', descricao: 'Hotel moderno em frente à praia, próximo à Feirinha de Artesanato de Tambaú e ao Centro Cultural São Francisco', nota: 4.6, imagem: 'img/Nord Luxxor Tambaú.jpg' },
         { nome: 'Hardman Praia Hotel', categoria: 'Hospedagem', bairro: 'Manaíra', descricao: 'Hotel descontraído em frente à Praia de Manaíra, perto da Praça Alcides Carneiro e do Aeroporto Internacional de João Pessoa-Bayeux', nota: 4.3, imagem: 'img/Hardman Praia Hotel.jpg' },
         { nome: 'Hotel Cabo Branco Atlântico', categoria: 'Hospedagem', bairro: 'Cabo Branco', descricao: 'Hotel sofisticado em frente à praia, próximo ao Centro de Convenções e ao Aeroporto Internacional Castro Pinto', nota: 4.5, imagem: 'img/Hotel Cabo Branco Atlântico.jpg' }
-    ];
+    ]; 
 
     function initialize(){
         bindFilters();

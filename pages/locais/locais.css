@@ -20,7 +20,7 @@ body {
     background-position: center;
     background-attachment: fixed;
     z-index: 0;
-    animation: fadeInUp 1s ease-out;
+    animation: fadeInUp 1s ease-out; 
 }
 
 .locais-hero .container { position: relative; z-index: 1; color: #fff; }
