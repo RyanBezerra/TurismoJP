@@ -38,18 +38,22 @@
             <h1 class="page-title">Descubra e apoie <span class="highlight">negócios</span> locais</h1>
             <p class="page-subtitle">Comércio, gastronomia, artesanato e serviços que movimentam a economia criativa da Paraíba.</p>
             <div class="filters">
+                <div class="auth-bar">
+                    <span id="auth-status">Você está desconectado</span>
+                    <button id="btn-login" class="btn-secondary">Entrar para adicionar serviço</button>
+                    <button id="btn-logout" class="btn-secondary" style="display:none">Sair</button>
+                </div>
                 <div class="filter-group">
                     <label for="search">Buscar</label>
                     <input id="search" type="text" placeholder="Ex.: café, artesanato, pousada" />
                 </div>
                 <div class="filter-group">
-                    <label for="categoria">Categoria</label>
-                    <select id="categoria">
-                        <option value="todas" selected>Todas</option>
-                        <option value="Entretenimento">Entretenimento</option>
-                        <option value="Gastronomia">Gastronomia</option>
-                        <option value="Shoppings e Lojas">Shoppings e Lojas</option>
-                        <option value="Hospedagem">Hospedagem</option>
+                    <label for="tipoFilter">Tipo</label>
+                    <select id="tipoFilter">
+                        <option value="todos" selected>Todos</option>
+                        <option value="Guia">Guia</option>
+                        <option value="Artesão">Artesão</option>
+                        <option value="Restaurante">Restaurante</option>
                     </select>
                 </div>
                 <div class="filter-group">
@@ -69,6 +73,51 @@
             </div>
         </div>
     </main>
+
+    <section class="ecosistema-section">
+        <div class="container">
+            <details id="cadastro-accordion" class="cadastro-accordion" open>
+                <summary class="cadastro-summary">Cadastrar serviço ou produto</summary>
+                <p class="ecosistema-subtitle">Guias turísticos, artesãos e restaurantes podem divulgar ofertas e adicionar um link de pagamento.</p>
+                <form id="cadastro-form" class="cadastro-form" novalidate>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="tipo">Tipo</label>
+                            <select id="tipo" required>
+                                <option value="Guia">Guia</option>
+                                <option value="Artesão">Artesão</option>
+                                <option value="Restaurante">Restaurante</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nomeItem">Nome</label>
+                            <input id="nomeItem" type="text" placeholder="Ex.: Tour Centro Histórico, Cerâmica, Almoço executivo" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="bairroForm">Bairro</label>
+                            <input id="bairroForm" type="text" placeholder="Ex.: Tambaú" required />
+                        </div>
+                        <div class="form-group form-span-2">
+                            <label for="descricaoForm">Descrição</label>
+                            <textarea id="descricaoForm" rows="3" placeholder="Conte em poucas linhas o que você oferece" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="contatoForm">Contato</label>
+                            <input id="contatoForm" type="text" placeholder="WhatsApp ou e-mail" />
+                        </div>
+                        <div class="form-group">
+                            <label for="pagamentoUrl">Link de Pagamento (PIX/Stripe, etc.)</label>
+                            <input id="pagamentoUrl" type="url" placeholder="https://..." />
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Publicar oferta</button>
+                        <span id="cadastro-feedback" class="form-feedback" aria-live="polite"></span>
+                    </div>
+                </form>
+            </details>
+        </div>
+    </section>
 
     <section class="locais-grid-section">
         <div class="container">
