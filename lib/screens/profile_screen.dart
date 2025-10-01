@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../providers/app_provider.dart';
 import '../providers/destination_provider.dart';
 import '../widgets/bottom_navigation.dart';
+import '../theme/app_theme.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -12,10 +13,12 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Perfil'),
-      ),
-      body: Consumer2<AppProvider, DestinationProvider>(
+      backgroundColor: Colors.transparent,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: AppTheme.backgroundGradient,
+        ),
+        child: Consumer2<AppProvider, DestinationProvider>(
         builder: (context, appProvider, destinationProvider, child) {
           return SingleChildScrollView(
             padding: const EdgeInsets.all(16),
@@ -185,6 +188,7 @@ class ProfileScreen extends StatelessWidget {
             ),
           );
         },
+        ),
       ),
       bottomNavigationBar: const BottomNavigation(),
     );

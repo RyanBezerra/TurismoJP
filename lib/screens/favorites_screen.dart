@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../providers/destination_provider.dart';
 import '../widgets/destination_card.dart';
 import '../widgets/bottom_navigation.dart';
+import '../theme/app_theme.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
@@ -12,11 +13,13 @@ class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Favoritos'),
-      ),
-      body: Consumer<DestinationProvider>(
-        builder: (context, provider, child) {
+      backgroundColor: Colors.transparent,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: AppTheme.backgroundGradient,
+        ),
+        child: Consumer<DestinationProvider>(
+          builder: (context, provider, child) {
           final favorites = provider.favoriteDestinations;
 
           if (favorites.isEmpty) {
@@ -67,7 +70,8 @@ class FavoritesScreen extends StatelessWidget {
               );
             },
           );
-        },
+          },
+        ),
       ),
       bottomNavigationBar: const BottomNavigation(),
     );

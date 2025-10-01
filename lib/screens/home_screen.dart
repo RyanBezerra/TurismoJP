@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../providers/destination_provider.dart';
 import '../widgets/destination_card.dart';
+import '../theme/app_theme.dart';
 import '../widgets/hero_section.dart';
 import '../widgets/search_bar.dart' as custom_search;
 import '../widgets/category_filter.dart';
@@ -37,7 +38,15 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<DestinationProvider>(
+      backgroundColor: Colors.transparent,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: AppTheme.backgroundGradient,
+        ),
+        child: SafeArea(
+          top: true,
+          bottom: false,
+          child: Consumer<DestinationProvider>(
         builder: (context, provider, child) {
           if (provider.isLoading) {
             return const Center(
@@ -78,135 +87,96 @@ class _HomeScreenState extends State<HomeScreen> {
 
           return CustomScrollView(
             slivers: [
-              // App Bar Moderno
-              SliverAppBar(
-                expandedHeight: 160,
-                floating: false,
-                pinned: true,
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                flexibleSpace: FlexibleSpaceBar(
-                  title: const Text(
-                    'Paraíba Turismo',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 20,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black26,
-                          blurRadius: 4,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
+              // Header Section
+              SliverToBoxAdapter(
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Color(0xFFFF6B35), Color(0xFFFF8C42)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
                     ),
                   ),
-                  background: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color(0xFFFF6B35),
-                          Color(0xFFFF8C42),
-                          Color(0xFFFFB74D),
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Welcome Text
+                      const Text(
+                        'Turismo JP',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    child: Stack(
-                      children: [
-                        // Padrão de fundo sutil
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.white.withOpacity(0.1),
-                                  Colors.transparent,
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                              ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Descubra os melhores destinos da Paraíba',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.9),
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      // Search Bar
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
                             ),
-                          ),
+                          ],
                         ),
-                        // Conteúdo central
-                        const Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.explore,
-                                size: 32,
-                                color: Colors.white,
-                                shadows: [
-                                  Shadow(
-                                    color: Colors.black26,
-                                    blurRadius: 6,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                'Descubra a Paraíba além do sol e mar',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w300,
-                                  shadows: [
-                                    Shadow(
-                                      color: Colors.black26,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 1),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                        child: const custom_search.SearchBar(),
+                      ),
+                    ],
                   ),
                 ),
-                actions: [
-                  Container(
-                    margin: const EdgeInsets.only(right: 8),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: IconButton(
-                      icon: const Icon(Icons.favorite_border, color: Colors.white),
-                      onPressed: () => context.go('/favorites'),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(right: 16),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: IconButton(
-                      icon: const Icon(Icons.person_outline, color: Colors.white),
-                      onPressed: () => context.go('/profile'),
-                    ),
-                  ),
-                ],
               ),
 
-              // Hero Section
-              const SliverToBoxAdapter(
-                child: HeroSection(),
-              ),
-
-              // Search Bar
-              const SliverToBoxAdapter(
+              // Quick Actions
+              SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: custom_search.SearchBar(),
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: _buildQuickAction(
+                          context,
+                          'Explorar',
+                          Icons.explore,
+                          () => context.go('/destinations'),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: _buildQuickAction(
+                          context,
+                          'Favoritos',
+                          Icons.favorite,
+                          () => context.go('/favorites'),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: _buildQuickAction(
+                          context,
+                          'Roteiros',
+                          Icons.route,
+                          () => context.go('/routes'),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
 
@@ -218,17 +188,27 @@ class _HomeScreenState extends State<HomeScreen> {
               // Featured Destinations
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Destinos em Destaque',
-                        style: Theme.of(context).textTheme.headlineSmall,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF1A1A1A),
+                        ),
                       ),
                       TextButton(
                         onPressed: () => context.go('/destinations'),
-                        child: const Text('Ver todos'),
+                        child: const Text(
+                          'Ver todos',
+                          style: TextStyle(
+                            color: Color(0xFFFF6B35),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -241,18 +221,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 200,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     itemCount: provider.featuredDestinations.length,
                     itemBuilder: (context, index) {
                       final destination = provider.featuredDestinations[index];
-                      return SizedBox(
+                      return Container(
                         width: 160,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 12),
-                          child: DestinationCard(
-                            destination: destination,
-                            onTap: () => context.go('/destination/${destination.id}'),
-                          ),
+                        margin: const EdgeInsets.only(right: 16),
+                        child: DestinationCard(
+                          destination: destination,
+                          onTap: () => context.go('/destination/${destination.id}'),
                         ),
                       );
                     },
@@ -263,23 +241,27 @@ class _HomeScreenState extends State<HomeScreen> {
               // Popular Destinations
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Text(
+                  padding: const EdgeInsets.fromLTRB(20, 30, 20, 10),
+                  child: const Text(
                     'Mais Procurados',
-                    style: Theme.of(context).textTheme.headlineSmall,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF1A1A1A),
+                    ),
                   ),
                 ),
               ),
 
               // Popular Destinations Grid
               SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 sliver: SliverGrid(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 0.75,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
                   ),
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
@@ -290,20 +272,66 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: () => context.go('/destination/${destination.id}'),
                       );
                     },
-                    childCount: provider.destinations.length > 6 ? 6 : provider.destinations.length,
+                    childCount: provider.destinations.length > 4 ? 4 : provider.destinations.length,
                   ),
                 ),
               ),
 
               // Bottom spacing
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 80),
-              ),
+              const SliverToBoxAdapter(child: SizedBox(height: 100)),
             ],
           );
         },
+          ),
+        ),
       ),
       bottomNavigationBar: const BottomNavigation(),
+    );
+  }
+
+  Widget _buildQuickAction(BuildContext context, String title, IconData icon, VoidCallback onTap) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFF6B35).withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(
+                icon,
+                color: const Color(0xFFFF6B35),
+                size: 24,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              title,
+              style: const TextStyle(
+                color: Color(0xFF1A1A1A),
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

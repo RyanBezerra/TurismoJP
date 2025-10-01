@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import '../providers/destination_provider.dart';
 import '../models/booking.dart';
 import '../models/destination.dart';
+import '../theme/app_theme.dart';
 
 class BookingScreen extends StatefulWidget {
   final String? destinationId;
@@ -41,11 +42,13 @@ class _BookingScreenState extends State<BookingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Reservar Roteiro'),
-      ),
-      body: Consumer<DestinationProvider>(
-        builder: (context, provider, child) {
+      backgroundColor: Colors.transparent,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: AppTheme.backgroundGradient,
+        ),
+        child: Consumer<DestinationProvider>(
+          builder: (context, provider, child) {
           final destination = widget.destinationId != null
               ? provider.getDestinationById(widget.destinationId!)
               : null;
@@ -327,7 +330,8 @@ class _BookingScreenState extends State<BookingScreen> {
               ),
             ),
           );
-        },
+          },
+        ),
       ),
     );
   }
