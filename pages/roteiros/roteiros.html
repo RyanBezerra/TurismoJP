@@ -43,106 +43,62 @@
             <div class="container">
                 <div class="hero-text">
                     <h1 class="hero-title">
-                        Descubra <span class="highlight">roteiros únicos</span> na Paraíba
+                        Descubra roteiros únicos na Paraíba e crie memórias que durarão para sempre
                     </h1>
-                    <p class="hero-subtitle">
-                        Experiências culturais e ecológicas que conectam você aos negócios locais
-                    </p>
+                </div>
+                
+                <!-- Busca Integrada -->
+                <div class="search-form-container">
+                    <div class="search-form">
+                        <div class="search-field">
+                            <label for="destination">Destino</label>
+                            <select id="destination">
+                                <option value="">Escolha um destino</option>
+                                <option value="serra-borborema">Serra da Borborema</option>
+                                <option value="litoral">Litoral</option>
+                                <option value="sertao">Sertão</option>
+                                <option value="agreste">Agreste</option>
+                            </select>
+                        </div>
+                        <div class="search-field">
+                            <label for="travelers">Viajantes</label>
+                            <select id="travelers">
+                                <option value="1">1 pessoa</option>
+                                <option value="2">2 pessoas</option>
+                                <option value="3-4">3-4 pessoas</option>
+                                <option value="5-8">5-8 pessoas</option>
+                                <option value="9+">9+ pessoas</option>
+                            </select>
+                        </div>
+                        <div class="search-field">
+                            <label for="checkin">Data de Início</label>
+                            <input type="date" id="checkin">
+                        </div>
+                        <div class="search-field">
+                            <label for="checkout">Data de Fim</label>
+                            <input type="date" id="checkout">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Filtros e Busca -->
-    <section class="filters-section">
-        <div class="container">
-            <div class="filters-container">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="Buscar roteiros...">
-                </div>
-                
-                <div class="filters-row">
-                    <div class="filter-group">
-                        <label for="categoryFilter">Categoria</label>
-                        <select id="categoryFilter">
-                            <option value="">Todas as categorias</option>
-                            <option value="cultural">Cultural</option>
-                            <option value="ecologico">Ecológico</option>
-                            <option value="gastronomico">Gastronômico</option>
-                            <option value="aventura">Aventura</option>
-                            <option value="historico">Histórico</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label for="durationFilter">Duração</label>
-                        <select id="durationFilter">
-                            <option value="">Qualquer duração</option>
-                            <option value="1">1 dia</option>
-                            <option value="2">2 dias</option>
-                            <option value="3">3 dias</option>
-                            <option value="4+">4+ dias</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label for="priceFilter">Preço</label>
-                        <select id="priceFilter">
-                            <option value="">Qualquer preço</option>
-                            <option value="0-50">Até R$ 50</option>
-                            <option value="50-100">R$ 50 - R$ 100</option>
-                            <option value="100-200">R$ 100 - R$ 200</option>
-                            <option value="200+">Acima de R$ 200</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label for="difficultyFilter">Dificuldade</label>
-                        <select id="difficultyFilter">
-                            <option value="">Qualquer nível</option>
-                            <option value="facil">Fácil</option>
-                            <option value="medio">Médio</option>
-                            <option value="dificil">Difícil</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="filter-actions">
-                    <button class="btn-clear-filters" onclick="clearFilters()">
-                        <i class="fas fa-times"></i>
-                        Limpar Filtros
-                    </button>
-                    <button class="btn-apply-filters" onclick="applyFilters()">
-                        <i class="fas fa-filter"></i>
-                        Aplicar Filtros
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Roteiros Grid -->
+    <!-- Roteiros Section -->
     <section class="roteiros-section">
         <div class="container">
             <div class="section-header">
-                <div class="results-info">
-                    <h2>Roteiros Disponíveis</h2>
-                    <span class="results-count" id="resultsCount">12 roteiros encontrados</span>
-                </div>
-                <div class="view-options">
-                    <button class="view-btn active" data-view="grid" onclick="changeView('grid')">
-                        <i class="fas fa-th"></i>
-                    </button>
-                    <button class="view-btn" data-view="list" onclick="changeView('list')">
-                        <i class="fas fa-list"></i>
-                    </button>
+                <div class="section-title">
+                    <h2>Roteiros Populares</h2>
+                    <p>Os roteiros mais procurados da Paraíba, de lugares históricos a maravilhas naturais.</p>
+                    <span class="results-count" id="resultsCount">6 roteiros encontrados</span>
                 </div>
             </div>
 
             <div class="roteiros-grid" id="roteirosGrid">
-                <!-- Roteiro 1 -->
-                <div class="roteiro-card" data-category="cultural" data-duration="2" data-price="89" data-difficulty="facil">
+                <!-- Roteiro 1 - Caminhos do Frio -->
+                <div class="roteiro-card">
                     <div class="card-image">
                         <img src="../../shared/img/WhatsApp-Image-2022-05-27-at-16.49.42-300x277.jpeg.webp" alt="Caminhos do Frio">
                         <div class="card-overlay">
@@ -151,10 +107,10 @@
                                 <span>Serra</span>
                             </div>
                             <div class="card-actions">
-                                <button class="action-btn" title="Favoritar">
+                                <button class="action-btn" title="Favoritar" onclick="toggleFavorite(this)">
                                     <i class="far fa-heart"></i>
                                 </button>
-                                <button class="action-btn" title="Compartilhar">
+                                <button class="action-btn" title="Compartilhar" onclick="shareRoteiro('caminhos-frio')">
                                     <i class="fas fa-share-alt"></i>
                                 </button>
                             </div>
@@ -179,8 +135,7 @@
                             <span>Serra da Borborema, PB</span>
                         </div>
                         <p class="card-description">
-                            Roteiro pelas serras históricas com clima ameno, artesanato local e gastronomia típica. 
-                            Inclui visita a ateliês de artesãos e degustação de comidas regionais.
+                            Roteiro pelas serras históricas com clima ameno, artesanato local e gastronomia típica.
                         </p>
                         <div class="card-details">
                             <div class="detail-item">
@@ -198,7 +153,6 @@
                         </div>
                         <div class="card-footer">
                             <div class="card-price">
-                                <span class="price-label">A partir de</span>
                                 <span class="price-value">R$ 89</span>
                                 <span class="price-period">/pessoa</span>
                             </div>
@@ -210,8 +164,8 @@
                     </div>
                 </div>
 
-                <!-- Roteiro 2 -->
-                <div class="roteiro-card" data-category="historico" data-duration="1" data-price="75" data-difficulty="medio">
+                <!-- Roteiro 2 - Rota do Cangaço -->
+                <div class="roteiro-card">
                     <div class="card-image">
                         <img src="../../shared/img/canganco.webp" alt="Rota do Cangaço">
                         <div class="card-overlay">
@@ -220,10 +174,10 @@
                                 <span>Histórico</span>
                             </div>
                             <div class="card-actions">
-                                <button class="action-btn" title="Favoritar">
+                                <button class="action-btn" title="Favoritar" onclick="toggleFavorite(this)">
                                     <i class="far fa-heart"></i>
                                 </button>
-                                <button class="action-btn" title="Compartilhar">
+                                <button class="action-btn" title="Compartilhar" onclick="shareRoteiro('rota-cangaco')">
                                     <i class="fas fa-share-alt"></i>
                                 </button>
                             </div>
@@ -248,8 +202,7 @@
                             <span>Sertão Paraibano, PB</span>
                         </div>
                         <p class="card-description">
-                            Caminhos de Lampião e a rica história do sertão nordestino. Visita a locais históricos 
-                            e museus que contam a saga do cangaço.
+                            Caminhos de Lampião e a rica história do sertão nordestino com visitas a locais históricos.
                         </p>
                         <div class="card-details">
                             <div class="detail-item">
@@ -267,7 +220,6 @@
                         </div>
                         <div class="card-footer">
                             <div class="card-price">
-                                <span class="price-label">A partir de</span>
                                 <span class="price-value">R$ 75</span>
                                 <span class="price-period">/pessoa</span>
                             </div>
@@ -279,23 +231,21 @@
                     </div>
                 </div>
 
-                <!-- Roteiro 3 -->
-                <div class="roteiro-card" data-category="ecologico" data-duration="1" data-price="45" data-difficulty="facil">
+                <!-- Roteiro 3 - Parque Arruda Câmara -->
+                <div class="roteiro-card">
                     <div class="card-image">
                         <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Parque Arruda Câmara">
-                        <div class="card-overlay">
-                            <div class="card-badge">
-                                <i class="fas fa-tree"></i>
-                                <span>Natureza</span>
-                            </div>
-                            <div class="card-actions">
-                                <button class="action-btn" title="Favoritar">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                                <button class="action-btn" title="Compartilhar">
-                                    <i class="fas fa-share-alt"></i>
-                                </button>
-                            </div>
+                        <div class="card-badge">
+                            <i class="fas fa-tree"></i>
+                            <span>Natureza</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="action-btn" title="Favoritar" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="action-btn" title="Compartilhar" onclick="shareRoteiro('parque-arruda')">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="card-content">
@@ -317,8 +267,7 @@
                             <span>João Pessoa, PB</span>
                         </div>
                         <p class="card-description">
-                            Parque urbano com trilhas, lago e diversidade de fauna e flora. 
-                            Ideal para famílias e amantes da natureza.
+                            Parque urbano com trilhas, lago e diversidade de fauna e flora da Mata Atlântica.
                         </p>
                         <div class="card-details">
                             <div class="detail-item">
@@ -336,7 +285,6 @@
                         </div>
                         <div class="card-footer">
                             <div class="card-price">
-                                <span class="price-label">A partir de</span>
                                 <span class="price-value">R$ 45</span>
                                 <span class="price-period">/pessoa</span>
                             </div>
@@ -348,23 +296,21 @@
                     </div>
                 </div>
 
-                <!-- Roteiro 4 -->
-                <div class="roteiro-card" data-category="ecologico" data-duration="2" data-price="65" data-difficulty="medio">
+                <!-- Roteiro 4 - Bosque dos Sonhos -->
+                <div class="roteiro-card">
                     <div class="card-image">
                         <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bosque dos Sonhos">
-                        <div class="card-overlay">
-                            <div class="card-badge">
-                                <i class="fas fa-leaf"></i>
-                                <span>Ecológico</span>
-                            </div>
-                            <div class="card-actions">
-                                <button class="action-btn" title="Favoritar">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                                <button class="action-btn" title="Compartilhar">
-                                    <i class="fas fa-share-alt"></i>
-                                </button>
-                            </div>
+                        <div class="card-badge">
+                            <i class="fas fa-leaf"></i>
+                            <span>Ecológico</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="action-btn" title="Favoritar" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="action-btn" title="Compartilhar" onclick="shareRoteiro('bosque-sonhos')">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="card-content">
@@ -386,8 +332,7 @@
                             <span>Campina Grande, PB</span>
                         </div>
                         <p class="card-description">
-                            Área de preservação com trilhas ecológicas e atividades de aventura. 
-                            Inclui camping e observação de aves.
+                            Área de preservação com trilhas ecológicas e atividades de aventura na natureza.
                         </p>
                         <div class="card-details">
                             <div class="detail-item">
@@ -405,7 +350,6 @@
                         </div>
                         <div class="card-footer">
                             <div class="card-price">
-                                <span class="price-label">A partir de</span>
                                 <span class="price-value">R$ 65</span>
                                 <span class="price-period">/pessoa</span>
                             </div>
@@ -417,23 +361,21 @@
                     </div>
                 </div>
 
-                <!-- Roteiro 5 -->
-                <div class="roteiro-card" data-category="gastronomico" data-duration="1" data-price="95" data-difficulty="facil">
+                <!-- Roteiro 5 - Rota Gastronômica -->
+                <div class="roteiro-card">
                     <div class="card-image">
                         <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Rota Gastronômica">
-                        <div class="card-overlay">
-                            <div class="card-badge">
-                                <i class="fas fa-utensils"></i>
-                                <span>Gastronômico</span>
-                            </div>
-                            <div class="card-actions">
-                                <button class="action-btn" title="Favoritar">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                                <button class="action-btn" title="Compartilhar">
-                                    <i class="fas fa-share-alt"></i>
-                                </button>
-                            </div>
+                        <div class="card-badge">
+                            <i class="fas fa-utensils"></i>
+                            <span>Gastronômico</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="action-btn" title="Favoritar" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="action-btn" title="Compartilhar" onclick="shareRoteiro('rota-gastronomica')">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="card-content">
@@ -455,8 +397,7 @@
                             <span>João Pessoa, PB</span>
                         </div>
                         <p class="card-description">
-                            Tour gastronômico pelos melhores restaurantes e barracas de praia. 
-                            Degustação de pratos típicos e drinks locais.
+                            Tour gastronômico pelos melhores restaurantes e barracas de praia da região.
                         </p>
                         <div class="card-details">
                             <div class="detail-item">
@@ -474,7 +415,6 @@
                         </div>
                         <div class="card-footer">
                             <div class="card-price">
-                                <span class="price-label">A partir de</span>
                                 <span class="price-value">R$ 95</span>
                                 <span class="price-period">/pessoa</span>
                             </div>
@@ -486,23 +426,21 @@
                     </div>
                 </div>
 
-                <!-- Roteiro 6 -->
-                <div class="roteiro-card" data-category="aventura" data-duration="3" data-price="120" data-difficulty="dificil">
+                <!-- Roteiro 6 - Trilhas de Aventura -->
+                <div class="roteiro-card">
                     <div class="card-image">
                         <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Trilhas de Aventura">
-                        <div class="card-overlay">
-                            <div class="card-badge">
-                                <i class="fas fa-hiking"></i>
-                                <span>Aventura</span>
-                            </div>
-                            <div class="card-actions">
-                                <button class="action-btn" title="Favoritar">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                                <button class="action-btn" title="Compartilhar">
-                                    <i class="fas fa-share-alt"></i>
-                                </button>
-                            </div>
+                        <div class="card-badge">
+                            <i class="fas fa-hiking"></i>
+                            <span>Aventura</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="action-btn" title="Favoritar" onclick="toggleFavorite(this)">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="action-btn" title="Compartilhar" onclick="shareRoteiro('trilhas-aventura')">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="card-content">
@@ -524,8 +462,7 @@
                             <span>Interior da Paraíba, PB</span>
                         </div>
                         <p class="card-description">
-                            Trilhas desafiadoras pelas serras com rapel, escalada e camping selvagem. 
-                            Para aventureiros experientes.
+                            Trilhas desafiadoras pelas serras com rapel, escalada e camping selvagem.
                         </p>
                         <div class="card-details">
                             <div class="detail-item">
@@ -543,7 +480,6 @@
                         </div>
                         <div class="card-footer">
                             <div class="card-price">
-                                <span class="price-label">A partir de</span>
                                 <span class="price-value">R$ 120</span>
                                 <span class="price-period">/pessoa</span>
                             </div>
@@ -554,21 +490,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Paginação -->
-            <div class="pagination">
-                <button class="page-btn" onclick="changePage(-1)">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="page-numbers">
-                    <button class="page-number active">1</button>
-                    <button class="page-number">2</button>
-                    <button class="page-number">3</button>
-                </div>
-                <button class="page-btn" onclick="changePage(1)">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
             </div>
         </div>
     </section>
