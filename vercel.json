@@ -1,6 +1,11 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/pages/inicio/index.html" }
+    { "source": "/", "destination": "/pages/inicio/index.html" },
+    { "source": "/inicio", "destination": "/pages/inicio/index.html" },
+    { "source": "/roteiros", "destination": "/pages/roteiros/roteiros.html" },
+    { "source": "/experiencias", "destination": "/pages/experiencias/experiencias.html" },
+    { "source": "/locais", "destination": "/pages/locais/locais.html" },
+    { "source": "/sobre", "destination": "/pages/sobre/sobre.html" }
   ]
 }
 
