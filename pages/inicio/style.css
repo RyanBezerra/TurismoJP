@@ -18,75 +18,12 @@ body {
     padding: 0 20px;
 }
 
-/* Header Styles */
+/* Header Styles - Usando CSS comum */
+
+/* Garantindo estilos de header */
 .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    padding: 20px 0;
-    background: rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
+    transition: background 0.3s ease;
 }
-
-.header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header .nav {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    font-size: 24px;
-    font-weight: 600;
-    color: #fff;
-}
-
-.logo i {
-    margin-right: 8px;
-    color: #ff6b35;
-}
-
-.nav ul {
-    display: flex;
-    list-style: none;
-    gap: 40px;
-}
-
-.nav a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 400;
-    position: relative;
-    transition: color 0.3s ease;
-}
-
-.nav a:hover {
-    color: #ff6b35;
-}
-
-.nav a.active {
-    color: #ff6b35;
-}
-
-.nav a.active::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: #ff6b35;
-}
-
 
 /* Hero Section */
 .hero {
@@ -95,6 +32,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-top: 80px; /* Compensar altura do header */
 }
 
 .hero-background {
@@ -301,37 +239,7 @@ body {
     transform: scale(1.1);
 }
 
-/* Mobile Menu Toggle */
-.mobile-menu-toggle {
-    display: none;
-    flex-direction: column;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    z-index: 1001;
-}
-
-.mobile-menu-toggle span {
-    width: 25px;
-    height: 3px;
-    background: #fff;
-    margin: 3px 0;
-    transition: 0.3s;
-    border-radius: 2px;
-}
-
-.mobile-menu-toggle.active span:nth-child(1) {
-    transform: rotate(-45deg) translate(-5px, 6px);
-}
-
-.mobile-menu-toggle.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.mobile-menu-toggle.active span:nth-child(3) {
-    transform: rotate(45deg) translate(-5px, -6px);
-}
+/* Mobile Menu Toggle - Usando CSS comum */
 
 /* Responsive Design */
 @media (max-width: 1024px) {
@@ -345,55 +253,27 @@ body {
     
     .booking-form {
         max-width: 900px;
+        padding: 25px;
     }
     
-    .header-content {
-        padding-left: 2rem;
+    .form-group {
+        margin-bottom: 15px;
     }
     
-    .slider-container {
-        margin-left: calc(-50vw + 60%);
-        margin-right: calc(-50vw + 40%);
+    .destinations-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+    }
+    
+    .gastronomy-grid,
+    .culture-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
     }
 }
 
 @media (max-width: 768px) {
-    .mobile-menu-toggle {
-        display: flex;
-    }
-    
-    .header .container {
-        justify-content: space-between;
-    }
-    
-    .nav {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 100%;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.95);
-        backdrop-filter: blur(10px);
-        transition: right 0.3s ease;
-        z-index: 1000;
-    }
-    
-    .nav.active {
-        right: 0;
-    }
-    
-    .nav ul {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        gap: 30px;
-    }
-    
-    .nav a {
-        font-size: 1.2rem;
-        padding: 10px 20px;
-    }
+    /* Menu mobile - usando CSS comum */
     
     .hero-title {
         font-size: 2.5rem;
@@ -406,7 +286,7 @@ body {
     }
     
     .hero-content {
-        padding-top: 100px;
+        padding-top: 60px;
         text-align: center;
     }
     
@@ -428,7 +308,7 @@ body {
     
     .nav-dots {
         right: 15px;
-        display: none; /* Hide on mobile for cleaner look */
+        display: none;
     }
     
     .section-header {
@@ -436,10 +316,6 @@ body {
         gap: 30px;
         align-items: center;
         text-align: center;
-    }
-    
-    .header-content {
-        padding-left: 0;
     }
     
     .section-title {
@@ -457,12 +333,6 @@ body {
         margin-bottom: 18px;
     }
     
-    .section-title {
-        font-size: 2.5rem;
-        margin-bottom: 18px;
-        white-space: normal;
-    }
-    
     .section-description {
         font-size: 1rem;
         max-width: 450px;
@@ -478,11 +348,13 @@ body {
     }
     
     .destination-card {
-        flex: 0 0 320px;
+        flex: 0 0 300px;
+        min-width: 280px;
     }
     
     .destination-card.featured {
-        flex: 0 0 320px;
+        flex: 0 0 300px;
+        min-width: 280px;
         transform: none;
     }
     
@@ -514,6 +386,17 @@ body {
         padding: 10px 16px;
         font-size: 13px;
     }
+    
+    .gastronomy-grid,
+    .culture-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .gastronomy-section,
+    .culture-section {
+        padding: 60px 0;
+    }
 }
 
 @media (max-width: 480px) {
@@ -539,12 +422,8 @@ body {
         font-size: 2rem;
     }
     
-    .section-subtitle {
-        font-size: 1rem;
-    }
-    
     .popular-destinations {
-        padding: 80px 0;
+        padding: 60px 0;
     }
     
     .destinations-header {
@@ -556,12 +435,6 @@ body {
         padding: 6px 14px;
         font-size: 12px;
         margin-bottom: 15px;
-    }
-    
-    .section-title {
-        font-size: 2rem;
-        margin-bottom: 15px;
-        white-space: normal;
     }
     
     .section-description {
@@ -578,11 +451,13 @@ body {
     }
     
     .destination-card {
-        flex: 0 0 280px;
+        flex: 0 0 260px;
+        min-width: 240px;
     }
     
     .destination-card.featured {
-        flex: 0 0 280px;
+        flex: 0 0 260px;
+        min-width: 240px;
     }
     
     .card-image {
@@ -614,13 +489,6 @@ body {
         padding: 12px;
     }
     
-    .control-btn {
-        width: 48px;
-        height: 48px;
-        font-size: 16px;
-    }
-    
-    
     .slider-navigation {
         top: 50%;
         left: 15px;
@@ -636,6 +504,29 @@ body {
     
     .slider-dots {
         bottom: -30px;
+    }
+    
+    .gastronomy-section,
+    .culture-section {
+        padding: 50px 0;
+    }
+    
+    .gastronomy-card,
+    .culture-item {
+        padding: 20px 15px;
+    }
+    
+    .gastronomy-image {
+        height: 150px;
+    }
+    
+    .culture-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .culture-icon i {
+        font-size: 24px;
     }
 }
 
@@ -654,11 +545,13 @@ body {
     }
     
     .destination-card {
-        flex: 0 0 260px;
+        flex: 0 0 240px;
+        min-width: 220px;
     }
     
     .destination-card.featured {
-        flex: 0 0 260px;
+        flex: 0 0 240px;
+        min-width: 220px;
     }
     
     .card-image {
@@ -677,13 +570,6 @@ body {
         font-size: 11px;
     }
     
-    .control-btn {
-        width: 44px;
-        height: 44px;
-        font-size: 14px;
-    }
-    
-    
     .slider-navigation {
         top: 50%;
         left: 10px;
@@ -700,6 +586,29 @@ body {
     .slider-dots {
         bottom: -25px;
     }
+    
+    .gastronomy-section,
+    .culture-section {
+        padding: 40px 0;
+    }
+    
+    .gastronomy-card,
+    .culture-item {
+        padding: 15px 10px;
+    }
+    
+    .gastronomy-image {
+        height: 130px;
+    }
+    
+    .culture-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .culture-icon i {
+        font-size: 20px;
+    }
 }
 
 /* Animation */
@@ -714,9 +623,7 @@ body {
     }
 }
 
-.hero-content {
-    animation: fadeInUp 1s ease-out;
-}
+/* Animação já definida acima */
 
 .booking-form {
     animation: fadeInUp 1s ease-out 0.3s both;
@@ -731,8 +638,9 @@ body {
 }
 
 .popular-destinations .container {
-    max-width: none;
+    max-width: 100%;
     padding: 0;
+    overflow-x: hidden;
 }
 
 .popular-destinations::before {
@@ -935,6 +843,8 @@ body {
     margin-bottom: 40px;
     padding: 0 60px;
     width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 /* Navigation Controls */
@@ -1069,11 +979,13 @@ body {
     gap: 32px;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     padding: 20px 0;
+    max-width: 100%;
 }
 
 /* Destination Cards */
 .destination-card {
-    flex: 0 0 400px;
+    flex: 0 0 380px;
+    min-width: 300px;
     background: white;
     border-radius: 24px;
     border: none;
@@ -1085,7 +997,8 @@ body {
 }
 
 .destination-card.featured {
-    flex: 0 0 400px;
+    flex: 0 0 380px;
+    min-width: 300px;
     transform: none;
     box-shadow: 0 8px 25px rgba(255, 107, 53, 0.15);
 }

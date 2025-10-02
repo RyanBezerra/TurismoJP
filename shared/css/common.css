@@ -28,7 +28,7 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 10000;
     padding: 20px 0;
     background: rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
@@ -99,7 +99,7 @@ body {
     border: none;
     cursor: pointer;
     padding: 5px;
-    z-index: 1001;
+    z-index: 10002;
 }
 
 .mobile-menu-toggle span {
@@ -252,6 +252,33 @@ body {
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .header {
+        padding: 15px 0;
+    }
+    
+    .logo {
+        font-size: 20px;
+    }
+    
+    .nav ul {
+        gap: 30px;
+    }
+    
+    .section-title {
+        font-size: 3rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 30px;
+    }
+}
+
 @media (max-width: 768px) {
     .mobile-menu-toggle {
         display: flex;
@@ -270,7 +297,7 @@ body {
         background: rgba(0, 0, 0, 0.95);
         backdrop-filter: blur(10px);
         transition: right 0.3s ease;
-        z-index: 1000;
+        z-index: 10001;
     }
     
     .nav.active {
@@ -290,9 +317,72 @@ body {
         padding: 10px 20px;
     }
     
+    .section-title {
+        font-size: 2.5rem;
+    }
+    
+    .section-description {
+        font-size: 1rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+    }
+    
     .footer-bottom {
         flex-direction: column;
         text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    .header {
+        padding: 10px 0;
+    }
+    
+    .logo {
+        font-size: 18px;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .section-description {
+        font-size: 0.95rem;
+    }
+    
+    .footer {
+        padding: 40px 0 20px;
+    }
+    
+    .footer-content {
+        gap: 25px;
+    }
+}
+
+@media (max-width: 360px) {
+    .container {
+        padding: 0 8px;
+    }
+    
+    .logo {
+        font-size: 16px;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .nav a {
+        font-size: 1.1rem;
+        padding: 8px 16px;
     }
 }
 
@@ -375,4 +465,91 @@ button:focus,
 a:focus {
     outline: 2px solid #ff6b35;
     outline-offset: 2px;
+}
+
+/* Touch improvements for mobile devices */
+@media (hover: none) and (pointer: coarse) {
+    .nav a:hover {
+        color: #fff;
+    }
+    
+    .footer .social-link:hover {
+        transform: none;
+        background: rgba(255, 107, 53, 0.1);
+    }
+    
+    .footer-links a:hover {
+        color: #a0aec0;
+    }
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .header {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+    .header {
+        padding: 10px 0;
+    }
+    
+    .nav ul {
+        gap: 20px;
+    }
+    
+    .nav a {
+        font-size: 1rem;
+        padding: 8px 16px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .header,
+    .footer,
+    .mobile-menu-toggle {
+        display: none;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+    
+    .container {
+        max-width: none;
+        padding: 0;
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .nav {
+        transition: none;
+    }
+    
+    .mobile-menu-toggle span {
+        transition: none;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .header {
+        background: rgba(0, 0, 0, 0.8);
+    }
+    
+    .nav {
+        background: rgba(0, 0, 0, 0.98);
+    }
 }

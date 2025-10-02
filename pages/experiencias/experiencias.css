@@ -593,6 +593,10 @@
 
 /* Responsive Design */
 @media (max-width: 1024px) {
+    .experiencias-hero .hero-title {
+        font-size: 3rem;
+    }
+    
     .experiencias-grid {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 25px;
@@ -605,11 +609,28 @@
     .filter-buttons {
         gap: 12px;
     }
+    
+    .experiencias-catalog {
+        padding: 70px 0;
+    }
+    
+    .cta-section {
+        padding: 70px 0;
+    }
 }
 
 @media (max-width: 768px) {
+    .experiencias-hero {
+        height: 50vh;
+        min-height: 350px;
+    }
+    
     .experiencias-hero .hero-title {
         font-size: 2.5rem;
+    }
+    
+    .experiencias-hero .hero-subtitle {
+        font-size: 1.1rem;
     }
     
     .experiencias-grid {
@@ -636,6 +657,14 @@
         max-width: 100%;
     }
     
+    .experiencias-catalog {
+        padding: 60px 0;
+    }
+    
+    .cta-section {
+        padding: 60px 0;
+    }
+    
     .cta-buttons {
         flex-direction: column;
         align-items: center;
@@ -651,9 +680,22 @@
         width: 100%;
         justify-content: center;
     }
+    
+    .card-image {
+        height: 200px;
+    }
+    
+    .card-content {
+        padding: 20px;
+    }
 }
 
 @media (max-width: 480px) {
+    .experiencias-hero {
+        height: 45vh;
+        min-height: 300px;
+    }
+    
     .experiencias-hero .hero-title {
         font-size: 2rem;
     }
@@ -663,11 +705,15 @@
     }
     
     .experiencias-catalog {
-        padding: 60px 0;
+        padding: 50px 0;
+    }
+    
+    .filters-section {
+        padding: 30px 0;
     }
     
     .card-content {
-        padding: 20px;
+        padding: 18px;
     }
     
     .card-title {
@@ -678,6 +724,14 @@
         font-size: 13px;
     }
     
+    .card-image {
+        height: 180px;
+    }
+    
+    .cta-section {
+        padding: 50px 0;
+    }
+    
     .cta-title {
         font-size: 2rem;
     }
@@ -685,6 +739,79 @@
     .filter-btn {
         width: 100%;
         max-width: 250px;
+    }
+    
+    .search-box input {
+        padding: 12px 15px 12px 45px;
+        font-size: 14px;
+    }
+    
+    .filter-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 360px) {
+    .experiencias-hero {
+        height: 40vh;
+        min-height: 280px;
+    }
+    
+    .experiencias-hero .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .experiencias-hero .hero-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .experiencias-catalog {
+        padding: 40px 0;
+    }
+    
+    .filters-section {
+        padding: 25px 0;
+    }
+    
+    .card-content {
+        padding: 15px;
+    }
+    
+    .card-title {
+        font-size: 1.1rem;
+    }
+    
+    .card-description {
+        font-size: 12px;
+    }
+    
+    .card-image {
+        height: 160px;
+    }
+    
+    .cta-section {
+        padding: 40px 0;
+    }
+    
+    .cta-title {
+        font-size: 1.8rem;
+    }
+    
+    .search-box input {
+        padding: 10px 12px 10px 40px;
+        font-size: 13px;
+    }
+    
+    .filter-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+        max-width: 220px;
+    }
+    
+    .card-btn {
+        padding: 10px 16px;
+        font-size: 13px;
     }
 }
 

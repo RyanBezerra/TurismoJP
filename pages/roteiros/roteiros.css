@@ -904,7 +904,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 10000;
+    z-index: 9999;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
@@ -1056,6 +1056,9 @@
         font-size: 2rem;
     }
     
+    .roteiros-hero .hero-subtitle {
+        font-size: 1rem;
+    }
     
     .search-form {
         padding: 15px;
@@ -1070,6 +1073,33 @@
     .search-btn {
         padding: 12px 24px;
         font-size: 14px;
+    }
+    
+    .filters-section {
+        padding: 40px 0;
+    }
+    
+    .search-box input {
+        padding: 14px 50px 14px 45px;
+        font-size: 14px;
+    }
+    
+    .filters-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .filter-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-clear-filters,
+    .btn-apply-filters,
+    .btn-advanced-search {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
     }
     
     .section-title h2 {
@@ -1110,6 +1140,113 @@
     .modal-content {
         width: 95%;
         margin: 20px;
+    }
+    
+    .pagination {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .page-numbers {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 360px) {
+    .roteiros-hero {
+        height: 65vh;
+        min-height: 350px;
+    }
+    
+    .roteiros-hero .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .roteiros-hero .hero-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .search-form {
+        padding: 12px;
+    }
+    
+    .search-field select,
+    .search-field input {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+    
+    .filters-section {
+        padding: 30px 0;
+    }
+    
+    .search-box input {
+        padding: 12px 45px 12px 40px;
+        font-size: 13px;
+    }
+    
+    .filter-group select {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+    
+    .btn-clear-filters,
+    .btn-apply-filters,
+    .btn-advanced-search {
+        padding: 10px 20px;
+        font-size: 13px;
+        max-width: 220px;
+    }
+    
+    .section-title h2 {
+        font-size: 1.6rem;
+    }
+    
+    .card-image {
+        height: 180px;
+    }
+    
+    .card-content {
+        padding: 14px;
+    }
+    
+    .card-title {
+        font-size: 1rem;
+    }
+    
+    .card-description {
+        font-size: 12px;
+    }
+    
+    .card-details {
+        gap: 10px;
+    }
+    
+    .detail-item {
+        font-size: 11px;
+    }
+    
+    .card-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+    
+    .price-value {
+        font-size: 1.3rem;
+    }
+    
+    .modal-content {
+        width: 98%;
+        margin: 10px;
+    }
+    
+    .modal-header {
+        padding: 20px 20px 0;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.5rem;
     }
 }
 

@@ -788,20 +788,253 @@
 }
 
 @media (max-width: 480px) {
+    .sobre-hero {
+        height: 50vh;
+        min-height: 350px;
+    }
+    
     .sobre-hero .hero-title {
         font-size: 2rem;
+    }
+    
+    .sobre-hero .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .missao-section,
+    .historia-section,
+    .equipe-section,
+    .impacto-section,
+    .cta-section {
+        padding: 60px 0;
+    }
+    
+    .missao-card,
+    .equipe-card,
+    .impacto-card {
+        padding: 25px 20px;
+    }
+    
+    .missao-card .card-icon,
+    .impacto-card .card-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .missao-card .card-icon i,
+    .impacto-card .card-icon i {
+        font-size: 24px;
+    }
+    
+    .missao-card .card-title,
+    .impacto-card .card-title {
+        font-size: 1.3rem;
+    }
+    
+    .missao-card .card-description,
+    .impacto-card .card-description {
+        font-size: 13px;
     }
     
     .historia-text .section-title {
         font-size: 2rem;
     }
     
-    .cta-title {
-        font-size: 2rem;
+    .historia-description {
+        font-size: 14px;
+    }
+    
+    .historia-image img {
+        height: 300px;
     }
     
     .stats-grid {
         grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .stat-item {
+        padding: 15px;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .equipe-card .card-image {
+        height: 200px;
+    }
+    
+    .equipe-card .card-content {
+        padding: 20px;
+    }
+    
+    .card-name {
+        font-size: 1.2rem;
+    }
+    
+    .card-bio {
+        font-size: 13px;
+    }
+    
+    .cta-title {
+        font-size: 2rem;
+    }
+    
+    .cta-description {
+        font-size: 1rem;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+    
+    .footer {
+        padding: 40px 0 15px;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .footer-links-bottom {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .sobre-hero {
+        height: 45vh;
+        min-height: 300px;
+    }
+    
+    .sobre-hero .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .sobre-hero .hero-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .missao-section,
+    .historia-section,
+    .equipe-section,
+    .impacto-section,
+    .cta-section {
+        padding: 50px 0;
+    }
+    
+    .missao-card,
+    .equipe-card,
+    .impacto-card {
+        padding: 20px 15px;
+    }
+    
+    .missao-card .card-icon,
+    .impacto-card .card-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .missao-card .card-icon i,
+    .impacto-card .card-icon i {
+        font-size: 20px;
+    }
+    
+    .missao-card .card-title,
+    .impacto-card .card-title {
+        font-size: 1.2rem;
+    }
+    
+    .missao-card .card-description,
+    .impacto-card .card-description {
+        font-size: 12px;
+    }
+    
+    .historia-text .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .historia-description {
+        font-size: 13px;
+    }
+    
+    .historia-image img {
+        height: 250px;
+    }
+    
+    .stat-item {
+        padding: 12px;
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+    }
+    
+    .stat-label {
+        font-size: 12px;
+    }
+    
+    .equipe-card .card-image {
+        height: 180px;
+    }
+    
+    .equipe-card .card-content {
+        padding: 15px;
+    }
+    
+    .card-name {
+        font-size: 1.1rem;
+    }
+    
+    .card-role {
+        font-size: 13px;
+    }
+    
+    .card-bio {
+        font-size: 12px;
+    }
+    
+    .cta-title {
+        font-size: 1.8rem;
+    }
+    
+    .cta-description {
+        font-size: 0.95rem;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+    
+    .footer {
+        padding: 30px 0 10px;
+    }
+    
+    .footer-content {
+        gap: 25px;
+    }
+    
+    .footer-logo {
+        font-size: 20px;
+    }
+    
+    .footer-title {
+        font-size: 1.1rem;
+    }
+    
+    .footer-description {
+        font-size: 13px;
+    }
+    
+    .contact-item {
+        font-size: 13px;
     }
 }
 
