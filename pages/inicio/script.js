@@ -1,3 +1,7 @@
+// ========================================
+//   NOVA TELA DE INÍCIO - JAVASCRIPT INTERATIVO
+// ========================================
+
 // ===== MOBILE MENU TOGGLE =====
 document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
@@ -28,360 +32,469 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// ===== DESTINATIONS SLIDER =====
-let currentSlide = 0;
-const totalSlides = 3;
-let slider, dots;
 
-function initDestinationsSlider() {
-    slider = document.querySelector('.destinations-slider');
-    dots = document.querySelectorAll('.slider-dots .dot');
+// ===== SEARCH SYSTEM =====
+function initSearchSystem() {
+    const searchTabs = document.querySelectorAll('.search-tab');
+    const searchForm = document.getElementById('searchForm');
+    const destinationInput = document.getElementById('destination');
+    const suggestionsContainer = document.getElementById('destinationSuggestions');
     
-    if (slider && dots.length > 0) {
-        // Add event listeners to dots
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentSlide = index;
-                updateSlider();
-            });
+    // Sample destinations data
+    const destinations = [
+        'João Pessoa', 'Campina Grande', 'Cabedelo', 'Santa Rita', 'Patos',
+        'Caminhos do Frio', 'Rota do Cangaço', 'Serra da Borborema',
+        'Centro Histórico', 'Farol do Cabo Branco', 'Parque Arruda Câmara',
+        'Praia de Tambaba', 'Litoral Norte', 'Sertão Paraibano'
+    ];
+    
+    // Tab switching
+    searchTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            searchTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            
+            // Update form action based on tab
+            const tabType = tab.dataset.tab;
+            // You can add logic here to change form behavior based on tab
+        });
+    });
+    
+    // Destination suggestions
+    if (destinationInput && suggestionsContainer) {
+        destinationInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            if (query.length > 1) {
+                const matches = destinations.filter(dest => 
+                    dest.toLowerCase().includes(query)
+                );
+                
+                if (matches.length > 0) {
+                    suggestionsContainer.innerHTML = matches
+                        .slice(0, 5)
+                        .map(match => `<div class="suggestion-item">${match}</div>`)
+                        .join('');
+                    suggestionsContainer.style.display = 'block';
+                } else {
+                    suggestionsContainer.style.display = 'none';
+                }
+            } else {
+                suggestionsContainer.style.display = 'none';
+            }
+        });
+        
+        // Handle suggestion clicks
+        suggestionsContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('suggestion-item')) {
+                destinationInput.value = e.target.textContent;
+                suggestionsContainer.style.display = 'none';
+            }
+        });
+        
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!destinationInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+                suggestionsContainer.style.display = 'none';
+            }
+        });
+    }
+    
+    // Form submission
+    if (searchForm) {
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const destination = destinationInput.value;
+            const category = document.getElementById('category').value;
+            const duration = document.getElementById('duration').value;
+            const price = document.getElementById('price').value;
+            
+            // Build search URL
+            let searchUrl = '../roteiros/roteiros.html';
+            const params = new URLSearchParams();
+            
+            if (destination) params.append('destination', destination);
+            if (category) params.append('category', category);
+            if (duration) params.append('duration', duration);
+            if (price) params.append('price', price);
+            
+            if (params.toString()) {
+                searchUrl += '?' + params.toString();
+            }
+            
+            showNotification('Redirecionando para os resultados...');
+            setTimeout(() => {
+                window.location.href = searchUrl;
+            }, 1000);
         });
     }
 }
 
-function navigateDestinations(direction) {
-    if (direction === 'next') {
-        currentSlide = (currentSlide + 1) % totalSlides;
-    } else if (direction === 'prev') {
-        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+// ===== DESTINATIONS SLIDER =====
+let currentDestinationSlide = 0;
+const destinationsPerSlide = 3;
+
+function initDestinationsSlider() {
+    const slider = document.getElementById('destinationsSlider');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const cards = document.querySelectorAll('.destination-card');
+    
+    if (!slider || !cards.length) return;
+    
+    const totalSlides = Math.ceil(cards.length / destinationsPerSlide);
+    
+    function updateSlider() {
+        const translateX = -currentDestinationSlide * (100 / destinationsPerSlide);
+        slider.style.transform = `translateX(${translateX}%)`;
+        
+        // Update button states
+        if (prevBtn) prevBtn.disabled = currentDestinationSlide === 0;
+        if (nextBtn) nextBtn.disabled = currentDestinationSlide >= totalSlides - 1;
     }
     
+    function nextSlide() {
+        if (currentDestinationSlide < totalSlides - 1) {
+            currentDestinationSlide++;
+            updateSlider();
+        }
+    }
+    
+    function prevSlide() {
+        if (currentDestinationSlide > 0) {
+            currentDestinationSlide--;
+            updateSlider();
+        }
+    }
+    
+    // Event listeners
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+    
+    // Touch/swipe support
+    let startX = 0;
+    let isDragging = false;
+    
+    slider.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+    });
+    
+    slider.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+    });
+    
+    slider.addEventListener('touchend', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        const endX = e.changedTouches[0].clientX;
+        const diff = startX - endX;
+        
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+        }
+    });
+    
+    // Initialize
     updateSlider();
 }
 
-function updateSlider() {
-    if (slider) {
-        const translateX = -currentSlide * 100;
-        slider.style.transform = `translateX(${translateX}%)`;
-    }
+// ===== TESTIMONIALS SLIDER =====
+let currentTestimonial = 0;
+
+function initTestimonialsSlider() {
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    const navButtons = document.querySelectorAll('.testimonial-nav-btn');
     
-    // Update dots
-    if (dots && dots.length > 0) {
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentSlide);
+    if (!testimonialCards.length) return;
+    
+    function showTestimonial(index) {
+        testimonialCards.forEach((card, i) => {
+            card.classList.toggle('active', i === index);
         });
-    }
-}
-
-// Initialize sliders when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    initDestinationsSlider();
-    initHeroSlider();
-});
-
-// ===== HERO NAVIGATION DOTS =====
-let heroDots, heroArrows;
-
-function initHeroSlider() {
-    heroDots = document.querySelectorAll('.nav-dots .dot');
-    heroArrows = document.querySelectorAll('.nav-arrow');
-    
-    if (heroDots.length > 0) {
-        heroDots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                // Remove active class from all dots
-                heroDots.forEach(d => d.classList.remove('active'));
-                // Add active class to clicked dot
-                dot.classList.add('active');
-                
-                // Here you can add logic to change hero content
-                changeHeroContent(index);
-            });
+        
+        navButtons.forEach((btn, i) => {
+            btn.classList.toggle('active', i === index);
         });
     }
     
-    if (heroArrows.length > 0) {
-        heroArrows.forEach(arrow => {
-            arrow.addEventListener('click', () => {
-                const isUp = arrow.classList.contains('up');
-                let currentIndex = Array.from(heroDots).findIndex(dot => dot.classList.contains('active'));
-                
-                if (isUp) {
-                    currentIndex = (currentIndex - 1 + heroDots.length) % heroDots.length;
-                } else {
-                    currentIndex = (currentIndex + 1) % heroDots.length;
-                }
-                
-                // Update active dot
-                heroDots.forEach(d => d.classList.remove('active'));
-                heroDots[currentIndex].classList.add('active');
-                
-                changeHeroContent(currentIndex);
-            });
+    function nextTestimonial() {
+        currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
+        showTestimonial(currentTestimonial);
+    }
+    
+    // Event listeners
+    navButtons.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+            currentTestimonial = index;
+            showTestimonial(currentTestimonial);
         });
-    }
-}
-
-function changeHeroContent(index) {
-    const heroTitle = document.querySelector('.hero-title');
-    const heroSubtitle = document.querySelector('.hero-subtitle');
-    const destinationInput = document.getElementById('destination');
+    });
     
-    const heroContent = [
-        {
-            title: 'Descubra a Paraíba além do <span class="highlight">sol e mar</span>',
-            subtitle: 'Roteiros culturais e ecológicos que conectam você aos negócios locais',
-            destination: 'Caminhos do Frio'
-        },
-        {
-            title: 'Explore a <span class="highlight">cultura nordestina</span>',
-            subtitle: 'História, tradições e sabores únicos da Paraíba',
-            destination: 'Rota do Cangaço'
-        },
-        {
-            title: 'Conecte-se com a <span class="highlight">natureza</span>',
-            subtitle: 'Parques, trilhas e experiências ecológicas inesquecíveis',
-            destination: 'Parque Arruda Câmara'
-        },
-        {
-            title: 'Saboreie a <span class="highlight">gastronomia local</span>',
-            subtitle: 'Pratos típicos e ingredientes frescos da região',
-            destination: 'Gastronomia Paraibana'
-        },
-        {
-            title: 'Viva experiências <span class="highlight">únicas</span>',
-            subtitle: 'Aventuras e descobertas que marcam para sempre',
-            destination: 'Experiências Especiais'
-        }
-    ];
-    
-    if (heroTitle && heroSubtitle && destinationInput) {
-        heroTitle.innerHTML = heroContent[index].title;
-        heroSubtitle.textContent = heroContent[index].subtitle;
-        destinationInput.value = heroContent[index].destination;
-    }
+    // Auto-play
+    setInterval(nextTestimonial, 5000);
 }
 
 // ===== CARD INTERACTIONS =====
-document.addEventListener('DOMContentLoaded', function() {
-    // Favorite button functionality
-    const favoriteButtons = document.querySelectorAll('.action-btn[title="Favoritar"]');
+function initCardInteractions() {
+    // Favorite functionality
+    const favoriteButtons = document.querySelectorAll('.action-btn.favorite');
     favoriteButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
             const icon = this.querySelector('i');
-            if (icon.classList.contains('far')) {
-                icon.classList.remove('far');
-                icon.classList.add('fas');
-                this.style.color = '#ff6b35';
-            } else {
+            const isFavorited = icon.classList.contains('fas');
+            
+            if (isFavorited) {
                 icon.classList.remove('fas');
                 icon.classList.add('far');
                 this.style.color = '';
+                showNotification('Removido dos favoritos');
+            } else {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                this.style.color = '#ff6b35';
+                showNotification('Adicionado aos favoritos');
             }
         });
     });
     
-    // Share button functionality
-    const shareButtons = document.querySelectorAll('.action-btn[title="Compartilhar"]');
+    // Share functionality
+    const shareButtons = document.querySelectorAll('.action-btn.share');
     shareButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const card = this.closest('.destination-card');
+            const title = card.querySelector('.card-title').textContent;
+            
             if (navigator.share) {
                 navigator.share({
-                    title: 'Paraíba Turismo',
-                    text: 'Descubra os melhores roteiros da Paraíba!',
+                    title: title,
+                    text: 'Confira este destino incrível na Paraíba!',
                     url: window.location.href
                 });
             } else {
-                // Fallback: copy to clipboard
                 navigator.clipboard.writeText(window.location.href).then(() => {
                     showNotification('Link copiado para a área de transferência!');
                 });
             }
         });
     });
-});
+    
+    // Compare functionality
+    const compareButtons = document.querySelectorAll('.action-btn.compare');
+    let comparedItems = [];
+    
+    compareButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const card = this.closest('.destination-card');
+            const title = card.querySelector('.card-title').textContent;
+            
+            if (this.classList.contains('comparing')) {
+                // Remove from comparison
+                comparedItems = comparedItems.filter(item => item !== title);
+                this.classList.remove('comparing');
+                this.style.background = '';
+                showNotification('Removido da comparação');
+            } else {
+                // Add to comparison
+                if (comparedItems.length >= 3) {
+                    showNotification('Máximo de 3 itens para comparação');
+                    return;
+                }
+                comparedItems.push(title);
+                this.classList.add('comparing');
+                this.style.background = '#ff6b35';
+                this.style.color = 'white';
+                showNotification('Adicionado à comparação');
+            }
+            
+            // Update compare counter (if you have one)
+            updateCompareCounter(comparedItems.length);
+        });
+    });
+}
 
 // ===== NOTIFICATION SYSTEM =====
-function showNotification(message) {
+function showNotification(message, type = 'success') {
     const notification = document.createElement('div');
-    notification.className = 'notification';
-    notification.textContent = message;
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+            <span>${message}</span>
+        </div>
+    `;
+    
     notification.style.cssText = `
         position: fixed;
         top: 20px;
         right: 20px;
-        background: #ff6b35;
+        background: ${type === 'success' ? '#10b981' : '#ef4444'};
         color: white;
-        padding: 1rem 2rem;
-        border-radius: 10px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-        animation: slideIn 0.3s ease;
+        padding: 16px 20px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        z-index: 10000;
+        animation: slideInRight 0.3s ease;
+        max-width: 300px;
+        backdrop-filter: blur(10px);
     `;
     
     document.body.appendChild(notification);
     
     setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease';
+        notification.style.animation = 'slideOutRight 0.3s ease';
         setTimeout(() => {
-            document.body.removeChild(notification);
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+            }
         }, 300);
     }, 3000);
 }
 
-// ===== SMOOTH SCROLLING =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
 // ===== SCROLL ANIMATIONS =====
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
-
-// Observe elements for animation
-document.addEventListener('DOMContentLoaded', function() {
-    const animatedElements = document.querySelectorAll('.destination-card, .gastronomy-card, .culture-item');
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    // Observe elements for animation
+    const animatedElements = document.querySelectorAll(
+        '.feature-card, .destination-card, .testimonial-card, .map-container'
+    );
+    
     animatedElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
-});
-
-// ===== FORM VALIDATION =====
-document.addEventListener('DOMContentLoaded', function() {
-    const bookingForm = document.querySelector('.booking-form');
-    if (bookingForm) {
-        bookingForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const personSelect = document.getElementById('person');
-            if (personSelect && personSelect.value) {
-                showNotification('Redirecionando para os roteiros...');
-                setTimeout(() => {
-                    window.location.href = '../roteiros/roteiros.html';
-                }, 1000);
-            }
-        });
-    }
-});
-
-// ===== KEYBOARD NAVIGATION =====
-document.addEventListener('keydown', function(e) {
-    // Arrow keys for hero navigation
-    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-        e.preventDefault();
-        const isUp = e.key === 'ArrowUp';
-        const currentIndex = Array.from(heroDots).findIndex(dot => dot.classList.contains('active'));
-        let newIndex;
-        
-        if (isUp) {
-            newIndex = (currentIndex - 1 + heroDots.length) % heroDots.length;
-        } else {
-            newIndex = (currentIndex + 1) % heroDots.length;
-        }
-        
-        heroDots.forEach(d => d.classList.remove('active'));
-        heroDots[newIndex].classList.add('active');
-        changeHeroContent(newIndex);
-    }
-    
-    // Left/Right arrows for destinations slider
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-        e.preventDefault();
-        const direction = e.key === 'ArrowLeft' ? 'prev' : 'next';
-        navigateDestinations(direction);
-    }
-});
-
-// ===== AUTO-PLAY FOR HERO SLIDER =====
-let heroAutoPlay = setInterval(() => {
-    const currentIndex = Array.from(heroDots).findIndex(dot => dot.classList.contains('active'));
-    const nextIndex = (currentIndex + 1) % heroDots.length;
-    
-    heroDots.forEach(d => d.classList.remove('active'));
-    heroDots[nextIndex].classList.add('active');
-    changeHeroContent(nextIndex);
-}, 5000);
-
-// Pause auto-play on hover
-const hero = document.querySelector('.hero');
-if (hero) {
-    hero.addEventListener('mouseenter', () => {
-        clearInterval(heroAutoPlay);
-    });
-    
-    hero.addEventListener('mouseleave', () => {
-        heroAutoPlay = setInterval(() => {
-            const currentIndex = Array.from(heroDots).findIndex(dot => dot.classList.contains('active'));
-            const nextIndex = (currentIndex + 1) % heroDots.length;
-            
-            heroDots.forEach(d => d.classList.remove('active'));
-            heroDots[nextIndex].classList.add('active');
-            changeHeroContent(nextIndex);
-        }, 5000);
-    });
 }
 
-// ===== CSS ANIMATIONS =====
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideIn {
-        from {
-            transform: translateX(100%);
+// ===== INTERACTIVE MAP =====
+function initInteractiveMap() {
+    const mapBtn = document.querySelector('.map-btn');
+    
+    if (mapBtn) {
+        mapBtn.addEventListener('click', () => {
+            showNotification('Funcionalidade do mapa em desenvolvimento!');
+            // Here you would integrate with a real map service like Google Maps or Leaflet
+        });
+    }
+}
+
+// ===== UTILITY FUNCTIONS =====
+function updateCompareCounter(count) {
+    // Update compare counter in UI if it exists
+    const counter = document.querySelector('.compare-counter');
+    if (counter) {
+        counter.textContent = count;
+        counter.style.display = count > 0 ? 'block' : 'none';
+    }
+}
+
+// ===== INITIALIZATION =====
+document.addEventListener('DOMContentLoaded', function() {
+    initSearchSystem();
+    initDestinationsSlider();
+    initTestimonialsSlider();
+    initCardInteractions();
+    initScrollAnimations();
+    initInteractiveMap();
+    
+    // Add CSS animations
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+        
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .nav.active {
+            display: flex;
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .mobile-menu-toggle.active span:nth-child(2) {
             opacity: 0;
         }
-        to {
-            transform: translateX(0);
-            opacity: 1;
+        
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
         }
-    }
-    
-    @keyframes slideOut {
-        from {
-            transform: translateX(0);
-            opacity: 1;
+        
+        .action-btn.comparing {
+            background: #ff6b35 !important;
+            color: white !important;
         }
-        to {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-    }
+    `;
+    document.head.appendChild(style);
+});
+
+// ===== PERFORMANCE OPTIMIZATIONS =====
+// Lazy loading for images
+function initLazyLoading() {
+    const images = document.querySelectorAll('img[loading="lazy"]');
     
-    .nav.active {
-        display: flex;
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src || img.src;
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+        
+        images.forEach(img => imageObserver.observe(img));
     }
-    
-    .mobile-menu-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-    
-    .mobile-menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .mobile-menu-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-    }
-`;
-document.head.appendChild(style);
+}
+
+// Initialize lazy loading
+document.addEventListener('DOMContentLoaded', initLazyLoading);

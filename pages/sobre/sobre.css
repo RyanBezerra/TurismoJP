@@ -620,6 +620,59 @@
     transform: translateY(-2px);
 }
 
+.sobre-hero .hero-background {
+    
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .container {
+        padding: 0 20px;
+    }
+    
+    .sobre-hero .hero-title {
+        font-size: 3.2rem;
+    }
+    
+    .sobre-hero .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .missao-grid,
+    .equipe-grid,
+    .impacto-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+    
+    .historia-content {
+        gap: 45px;
+    }
+    
+    .stats-grid {
+        gap: 25px;
+    }
+}
+
+/* Ajuste mobile: evitar background fixo para performance/estabilidade */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .sobre-hero .hero-background {
+        background-attachment: scroll;
+    }
+    
+    .sobre-hero .hero-title {
+        font-size: 3rem;
+    }
+    
+    .sobre-hero .hero-subtitle {
+        font-size: 1.1rem;
+    }
+}
+
 /* Footer */
 .footer {
     background: #1a202c;
@@ -761,8 +814,18 @@
 }
 
 @media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
     .sobre-hero .hero-title {
         font-size: 2.5rem;
+        line-height: 1.2;
+    }
+    
+    .sobre-hero .hero-subtitle {
+        font-size: 1.1rem;
+        line-height: 1.5;
     }
     
     .missao-grid,
@@ -774,6 +837,25 @@
     
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .equipe-member {
+        padding: 20px;
+    }
+    
+    .equipe-member img {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .equipe-member h4 {
+        font-size: 1.1rem;
+        line-height: 1.3;
+    }
+    
+    .equipe-member p {
+        font-size: 13px;
+        line-height: 1.4;
     }
     
     .cta-buttons {
@@ -788,6 +870,10 @@
 }
 
 @media (max-width: 480px) {
+    .container {
+        padding: 0 10px;
+    }
+    
     .sobre-hero {
         height: 50vh;
         min-height: 350px;
@@ -795,10 +881,41 @@
     
     .sobre-hero .hero-title {
         font-size: 2rem;
+        line-height: 1.1;
     }
     
     .sobre-hero .hero-subtitle {
         font-size: 1rem;
+        line-height: 1.4;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+        line-height: 1.1;
+    }
+    
+    .section-description {
+        font-size: 0.95rem;
+        line-height: 1.4;
+    }
+    
+    .equipe-member {
+        padding: 16px;
+    }
+    
+    .equipe-member img {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .equipe-member h4 {
+        font-size: 1rem;
+        line-height: 1.2;
+    }
+    
+    .equipe-member p {
+        font-size: 12px;
+        line-height: 1.3;
     }
     
     .missao-section,

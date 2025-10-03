@@ -252,6 +252,33 @@ body {
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+    .container {
+        padding: 0 20px;
+    }
+    
+    .header {
+        padding: 18px 0;
+    }
+    
+    .logo {
+        font-size: 22px;
+    }
+    
+    .nav ul {
+        gap: 35px;
+    }
+    
+    .section-title {
+        font-size: 3.2rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 35px;
+    }
+}
+
 @media (max-width: 1024px) {
     .container {
         padding: 0 15px;
@@ -416,7 +443,7 @@ body {
 
 .section-title {
     font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
+    font-size: clamp(1.8rem, 5.5vw, 3rem);
     font-weight: 700;
     color: #1a202c;
     margin-bottom: 20px;
