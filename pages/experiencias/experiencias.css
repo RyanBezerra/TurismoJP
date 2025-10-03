@@ -48,7 +48,7 @@
 
 .experiencias-hero .hero-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 6vw, 3.2rem);
+    font-size: 3.5rem;
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 20px;
@@ -58,7 +58,7 @@
 }
 
 .experiencias-hero .hero-subtitle {
-    font-size: clamp(1rem, 2.8vw, 1.2rem);
+    font-size: 1.2rem;
     font-weight: 300;
     opacity: 0.9;
     max-width: 500px;
@@ -592,54 +592,7 @@
 .experiencia-card:nth-child(8) { animation-delay: 0.8s; }
 
 /* Responsive Design */
-@media (max-width: 1200px) {
-    .container {
-        padding: 0 20px;
-    }
-    
-    .experiencias-hero .hero-title {
-        font-size: 3.2rem;
-    }
-    
-    .experiencias-hero .hero-subtitle {
-        font-size: 1.2rem;
-    }
-    
-    .experiencias-grid {
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 28px;
-    }
-    
-    .filters-wrapper {
-        gap: 28px;
-    }
-    
-    .filter-buttons {
-        gap: 14px;
-    }
-    
-    .experiencias-catalog {
-        padding: 80px 0;
-    }
-    
-    .cta-section {
-        padding: 80px 0;
-    }
-}
-
 @media (max-width: 1024px) {
-    .container {
-        padding: 0 15px;
-    }
-    
-    .experiencias-hero .hero-title {
-        font-size: 3rem;
-    }
-    
-    .experiencias-hero .hero-subtitle {
-        font-size: 1.1rem;
-    }
-    
     .experiencias-grid {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 25px;
@@ -652,34 +605,11 @@
     .filter-buttons {
         gap: 12px;
     }
-    
-    .experiencias-catalog {
-        padding: 70px 0;
-    }
-    
-    .cta-section {
-        padding: 70px 0;
-    }
 }
 
 @media (max-width: 768px) {
-    .container {
-        padding: 0 15px;
-    }
-    
-    .experiencias-hero {
-        height: 50vh;
-        min-height: 350px;
-    }
-    
     .experiencias-hero .hero-title {
         font-size: 2.5rem;
-        line-height: 1.2;
-    }
-    
-    .experiencias-hero .hero-subtitle {
-        font-size: 1.1rem;
-        line-height: 1.5;
     }
     
     .experiencias-grid {
@@ -700,25 +630,10 @@
     .filter-btn {
         width: 200px;
         justify-content: center;
-        padding: 12px 20px;
-        font-size: 14px;
     }
     
     .search-box {
         max-width: 100%;
-    }
-    
-    .search-box input {
-        padding: 12px 16px;
-        font-size: 15px;
-    }
-    
-    .experiencias-catalog {
-        padding: 60px 0;
-    }
-    
-    .cta-section {
-        padding: 60px 0;
     }
     
     .cta-buttons {
@@ -735,12 +650,20 @@
     .card-btn {
         width: 100%;
         justify-content: center;
-        padding: 12px 20px;
-        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .experiencias-hero .hero-title {
+        font-size: 2rem;
     }
     
-    .card-image {
-        height: 200px;
+    .experiencias-hero .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .experiencias-catalog {
+        padding: 60px 0;
     }
     
     .card-content {
@@ -748,64 +671,11 @@
     }
     
     .card-title {
-        font-size: 1.3rem;
-        line-height: 1.3;
-    }
-    
-    .card-description {
-        font-size: 14px;
-        line-height: 1.5;
-    }
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 0 10px;
-    }
-    
-    .experiencias-hero {
-        height: 45vh;
-        min-height: 300px;
-    }
-    
-    .experiencias-hero .hero-title {
-        font-size: 2rem;
-        line-height: 1.1;
-    }
-    
-    .experiencias-hero .hero-subtitle {
-        font-size: 1rem;
-        line-height: 1.4;
-    }
-    
-    .experiencias-catalog {
-        padding: 50px 0;
-    }
-    
-    .filters-section {
-        padding: 30px 0;
-    }
-    
-    .card-content {
-        padding: 18px;
-    }
-    
-    .card-title {
         font-size: 1.2rem;
-        line-height: 1.2;
     }
     
     .card-description {
         font-size: 13px;
-        line-height: 1.4;
-    }
-    
-    .card-image {
-        height: 180px;
-    }
-    
-    .cta-section {
-        padding: 50px 0;
     }
     
     .cta-title {
@@ -815,79 +685,6 @@
     .filter-btn {
         width: 100%;
         max-width: 250px;
-    }
-    
-    .search-box input {
-        padding: 12px 15px 12px 45px;
-        font-size: 14px;
-    }
-    
-    .filter-btn {
-        padding: 10px 16px;
-        font-size: 13px;
-    }
-}
-
-@media (max-width: 360px) {
-    .experiencias-hero {
-        height: 40vh;
-        min-height: 280px;
-    }
-    
-    .experiencias-hero .hero-title {
-        font-size: 1.8rem;
-    }
-    
-    .experiencias-hero .hero-subtitle {
-        font-size: 0.95rem;
-    }
-    
-    .experiencias-catalog {
-        padding: 40px 0;
-    }
-    
-    .filters-section {
-        padding: 25px 0;
-    }
-    
-    .card-content {
-        padding: 15px;
-    }
-    
-    .card-title {
-        font-size: 1.1rem;
-    }
-    
-    .card-description {
-        font-size: 12px;
-    }
-    
-    .card-image {
-        height: 160px;
-    }
-    
-    .cta-section {
-        padding: 40px 0;
-    }
-    
-    .cta-title {
-        font-size: 1.8rem;
-    }
-    
-    .search-box input {
-        padding: 10px 12px 10px 40px;
-        font-size: 13px;
-    }
-    
-    .filter-btn {
-        padding: 8px 14px;
-        font-size: 12px;
-        max-width: 220px;
-    }
-    
-    .card-btn {
-        padding: 10px 16px;
-        font-size: 13px;
     }
 }
 
@@ -922,13 +719,6 @@
 .load-more-btn:focus {
     outline: 2px solid #ff6b35;
     outline-offset: 2px;
-}
-
-/* Ajuste mobile: evitar background fixo para performance/estabilidade */
-@media (max-width: 1024px) {
-    .experiencias-hero .hero-background {
-        background-attachment: scroll;
-    }
 }
 
 /* Smooth scrolling para filtros */

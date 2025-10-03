@@ -39,163 +39,78 @@
     <main class="hero">
         <div class="hero-background">
             <div class="hero-overlay"></div>
-            <div class="hero-particles"></div>
         </div>
         
         <div class="hero-content">
             <div class="container">
-                <div class="hero-text">
-                    <div class="hero-badge">
-                        <i class="fas fa-star"></i>
-                        <span>Plataforma #1 em Turismo da Paraíba</span>
-                    </div>
-                    <h1 class="hero-title">
-                        Descubra a Paraíba além do <span class="highlight">sol e mar</span>
-                    </h1>
-                    <p class="hero-subtitle">
-                        Roteiros culturais e ecológicos que conectam você aos negócios locais. 
-                        Viva experiências autênticas e únicas.
-                    </p>
-                    <div class="hero-stats">
-                        <div class="stat-item">
-                            <span class="stat-number">500+</span>
-                            <span class="stat-label">Roteiros</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">50K+</span>
-                            <span class="stat-label">Viajantes</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">4.9</span>
-                            <span class="stat-label">Avaliação</span>
-                        </div>
-                    </div>
-                </div>
+                <h1 class="hero-title">
+                    Descubra a Paraíba além do <span class="highlight">sol e mar</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Roteiros culturais e ecológicos que conectam você aos negócios locais
+                </p>
             </div>
         </div>
 
-        <!-- Interactive Search Section -->
-        <div class="search-section">
+        <!-- Booking Form -->
+        <div class="booking-section">
             <div class="container">
-                <div class="search-container">
-                    <div class="search-tabs">
-                        <button class="search-tab active" data-tab="roteiros">
-                            <i class="fas fa-route"></i>
-                            <span>Roteiros</span>
-                        </button>
-                        <button class="search-tab" data-tab="experiencias">
-                            <i class="fas fa-heart"></i>
-                            <span>Experiências</span>
-                        </button>
-                        <button class="search-tab" data-tab="locais">
-                            <i class="fas fa-store"></i>
-                            <span>Negócios</span>
-                        </button>
+                <form class="booking-form">
+                    <div class="form-group">
+                        <label for="destination">ROTEIRO</label>
+                        <input type="text" id="destination" value="Caminhos do Frio" readonly>
                     </div>
-                    
-                    <div class="search-form-container">
-                        <form class="search-form" id="searchForm">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="destination">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        Destino
-                                    </label>
-                                    <input type="text" id="destination" placeholder="Onde você quer ir?" autocomplete="off">
-                                    <div class="suggestions" id="destinationSuggestions"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="category">
-                                        <i class="fas fa-tags"></i>
-                                        Categoria
-                                    </label>
-                                    <select id="category">
-                                        <option value="">Todas as categorias</option>
-                                        <option value="cultura">Cultura</option>
-                                        <option value="natureza">Natureza</option>
-                                        <option value="gastronomia">Gastronomia</option>
-                                        <option value="aventura">Aventura</option>
-                                        <option value="historia">História</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="duration">
-                                        <i class="fas fa-clock"></i>
-                                        Duração
-                                    </label>
-                                    <select id="duration">
-                                        <option value="">Qualquer duração</option>
-                                        <option value="meio-dia">Meio dia</option>
-                                        <option value="dia-inteiro">Dia inteiro</option>
-                                        <option value="multiplos-dias">Múltiplos dias</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="price">
-                                        <i class="fas fa-dollar-sign"></i>
-                                        Preço
-                                    </label>
-                                    <select id="price">
-                                        <option value="">Qualquer preço</option>
-                                        <option value="gratis">Gratuito</option>
-                                        <option value="ate-50">Até R$ 50</option>
-                                        <option value="50-100">R$ 50 - R$ 100</option>
-                                        <option value="100+">Acima de R$ 100</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <button type="submit" class="search-btn">
-                                <i class="fas fa-search"></i>
-                                <span>Buscar Experiências</span>
-                            </button>
-                        </form>
+                    <div class="form-group">
+                        <label for="person">VIAJANTES</label>
+                        <select id="person">
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5+">5+</option>
+                        </select>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label for="checkin">ENTRADA</label>
+                        <input type="text" id="checkin" value="Dom, 17 Set 2020" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkout">SAÍDA</label>
+                        <input type="text" id="checkout" value="Ter, 17 Out 2020" readonly>
+                    </div>
+                    <a href="../roteiros/roteiros.html" class="btn-book">
+                        Explorar Roteiro
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </form>
             </div>
         </div>
 
+        <!-- Navigation Dots -->
+        <div class="nav-dots">
+            <div class="dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <div class="nav-arrows">
+                <button class="nav-arrow up">
+                    <i class="fas fa-chevron-up"></i>
+                </button>
+                <button class="nav-arrow down">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+        </div>
     </main>
-
-    <!-- Features Section -->
-    <section class="features-section">
-        <div class="container">
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Segurança Garantida</h3>
-                    <p>Roteiros verificados e guias certificados para sua tranquilidade</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Experiências Locais</h3>
-                    <p>Conecte-se com comunidades locais e viva a cultura autêntica</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-leaf"></i>
-                    </div>
-                    <h3>Turismo Sustentável</h3>
-                    <p>Práticas responsáveis que preservam o meio ambiente</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>App Móvel</h3>
-                    <p>Baixe nosso app e leve a Paraíba no seu bolso</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Popular Destinations Section -->
     <section class="popular-destinations">
         <div class="container">
-            <header class="section-header">
+            <!-- Section Header Component -->
+            <header class="destinations-header">
                 <div class="section-badge">
                     <i class="fas fa-star"></i>
                     <span>Mais Procurados</span>
@@ -208,25 +123,41 @@
                 </p>
             </header>
 
-            <div class="destinations-container">
-                <div class="destinations-slider" id="destinationsSlider">
-                    <div class="destination-card featured" data-category="serra">
+            <!-- Destinations Grid -->
+            <div class="destinations-wrapper">
+                <!-- Navigation Controls -->
+                <div class="slider-navigation">
+                    <button class="nav-arrow nav-prev" onclick="navigateDestinations('prev')" aria-label="Destino anterior">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="nav-arrow nav-next" onclick="navigateDestinations('next')" aria-label="Próximo destino">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Slider Indicators -->
+                <div class="slider-dots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                </div>
+                
+                <div class="destinations-container">
+                    <div class="destinations-slider">
+                    <div class="destination-card featured">
                         <div class="card-image">
-                            <img src="../../shared/img/WhatsApp-Image-2022-05-27-at-16.49.42-300x277.jpeg.webp" alt="Caminhos do Frio" loading="lazy">
+                        <img src="../../shared/img/WhatsApp-Image-2022-05-27-at-16.49.42-300x277.jpeg.webp" alt="Caminhos do Frio">
                             <div class="card-overlay">
                                 <div class="card-badge">
                                     <i class="fas fa-mountain"></i>
                                     <span>Serra</span>
                                 </div>
                                 <div class="card-actions">
-                                    <button class="action-btn favorite" title="Favoritar">
+                                    <button class="action-btn" title="Favoritar">
                                         <i class="far fa-heart"></i>
                                     </button>
-                                    <button class="action-btn share" title="Compartilhar">
+                                    <button class="action-btn" title="Compartilhar">
                                         <i class="fas fa-share-alt"></i>
-                                    </button>
-                                    <button class="action-btn compare" title="Comparar">
-                                        <i class="fas fa-balance-scale"></i>
                                     </button>
                                 </div>
                             </div>
@@ -252,11 +183,6 @@
                             <p class="card-description">
                                 Roteiro pelas serras históricas com clima ameno, artesanato local e gastronomia típica.
                             </p>
-                            <div class="card-tags">
-                                <span class="tag">Cultura</span>
-                                <span class="tag">Gastronomia</span>
-                                <span class="tag">Artesanato</span>
-                            </div>
                             <div class="card-footer">
                                 <div class="card-price">
                                     <span class="price-label">A partir de</span>
@@ -271,23 +197,20 @@
                         </div>
                     </div>
 
-                    <div class="destination-card" data-category="historia">
+                    <div class="destination-card">
                         <div class="card-image">
-                            <img src="../../shared/img/canganco.webp" alt="Rota do Cangaço" loading="lazy">
+                        <img src="../../shared/img/canganco.webp" alt="Rota do Cangaço">
                             <div class="card-overlay">
                                 <div class="card-badge">
                                     <i class="fas fa-history"></i>
                                     <span>Histórico</span>
                                 </div>
                                 <div class="card-actions">
-                                    <button class="action-btn favorite" title="Favoritar">
+                                    <button class="action-btn" title="Favoritar">
                                         <i class="far fa-heart"></i>
                                     </button>
-                                    <button class="action-btn share" title="Compartilhar">
+                                    <button class="action-btn" title="Compartilhar">
                                         <i class="fas fa-share-alt"></i>
-                                    </button>
-                                    <button class="action-btn compare" title="Comparar">
-                                        <i class="fas fa-balance-scale"></i>
                                     </button>
                                 </div>
                             </div>
@@ -313,11 +236,6 @@
                             <p class="card-description">
                                 Caminhos de Lampião e a rica história do sertão nordestino.
                             </p>
-                            <div class="card-tags">
-                                <span class="tag">História</span>
-                                <span class="tag">Cultura</span>
-                                <span class="tag">Sertão</span>
-                            </div>
                             <div class="card-footer">
                                 <div class="card-price">
                                     <span class="price-label">A partir de</span>
@@ -332,23 +250,20 @@
                         </div>
                     </div>
 
-                    <div class="destination-card" data-category="natureza">
+                    <div class="destination-card">
                         <div class="card-image">
-                            <img src="../experiencias/imagens/parque_arruda_camara.png" alt="Parque Arruda Câmara" loading="lazy">
+                            <img src="../experiencias/imagens/parque_arruda_camara.png" alt="Parque Arruda Câmara">
                             <div class="card-overlay">
                                 <div class="card-badge">
                                     <i class="fas fa-tree"></i>
                                     <span>Natureza</span>
                                 </div>
                                 <div class="card-actions">
-                                    <button class="action-btn favorite" title="Favoritar">
+                                    <button class="action-btn" title="Favoritar">
                                         <i class="far fa-heart"></i>
                                     </button>
-                                    <button class="action-btn share" title="Compartilhar">
+                                    <button class="action-btn" title="Compartilhar">
                                         <i class="fas fa-share-alt"></i>
-                                    </button>
-                                    <button class="action-btn compare" title="Comparar">
-                                        <i class="fas fa-balance-scale"></i>
                                     </button>
                                 </div>
                             </div>
@@ -374,11 +289,6 @@
                             <p class="card-description">
                                 Parque urbano com trilhas, lago e diversidade de fauna e flora.
                             </p>
-                            <div class="card-tags">
-                                <span class="tag">Natureza</span>
-                                <span class="tag">Trilhas</span>
-                                <span class="tag">Família</span>
-                            </div>
                             <div class="card-footer">
                                 <div class="card-price">
                                     <span class="price-label">A partir de</span>
@@ -393,23 +303,20 @@
                         </div>
                     </div>
 
-                    <div class="destination-card" data-category="historia">
+                    <div class="destination-card">
                         <div class="card-image">
-                            <img src="../experiencias/imagens/centro_historico_jp.png" alt="Centro Histórico de João Pessoa" loading="lazy">
+                            <img src="../experiencias/imagens/centro_historico_jp.png" alt="Centro Histórico de João Pessoa">
                             <div class="card-overlay">
                                 <div class="card-badge">
                                     <i class="fas fa-landmark"></i>
                                     <span>Histórico</span>
                                 </div>
                                 <div class="card-actions">
-                                    <button class="action-btn favorite" title="Favoritar">
+                                    <button class="action-btn" title="Favoritar">
                                         <i class="far fa-heart"></i>
                                     </button>
-                                    <button class="action-btn share" title="Compartilhar">
+                                    <button class="action-btn" title="Compartilhar">
                                         <i class="fas fa-share-alt"></i>
-                                    </button>
-                                    <button class="action-btn compare" title="Comparar">
-                                        <i class="fas fa-balance-scale"></i>
                                     </button>
                                 </div>
                             </div>
@@ -435,11 +342,6 @@
                             <p class="card-description">
                                 Caminhe pelas ruas históricas da terceira cidade mais antiga do Brasil, com arquitetura colonial preservada.
                             </p>
-                            <div class="card-tags">
-                                <span class="tag">História</span>
-                                <span class="tag">Arquitetura</span>
-                                <span class="tag">Cultura</span>
-                            </div>
                             <div class="card-footer">
                                 <div class="card-price">
                                     <span class="price-label">A partir de</span>
@@ -454,23 +356,20 @@
                         </div>
                     </div>
 
-                    <div class="destination-card" data-category="praia">
+                    <div class="destination-card">
                         <div class="card-image">
-                            <img src="../experiencias/imagens/farol_cabo_branco.png" alt="Farol do Cabo Branco" loading="lazy">
+                            <img src="../experiencias/imagens/farol_cabo_branco.png" alt="Farol do Cabo Branco">
                             <div class="card-overlay">
                                 <div class="card-badge">
                                     <i class="fas fa-lighthouse"></i>
                                     <span>Marco</span>
                                 </div>
                                 <div class="card-actions">
-                                    <button class="action-btn favorite" title="Favoritar">
+                                    <button class="action-btn" title="Favoritar">
                                         <i class="far fa-heart"></i>
                                     </button>
-                                    <button class="action-btn share" title="Compartilhar">
+                                    <button class="action-btn" title="Compartilhar">
                                         <i class="fas fa-share-alt"></i>
-                                    </button>
-                                    <button class="action-btn compare" title="Comparar">
-                                        <i class="fas fa-balance-scale"></i>
                                     </button>
                                 </div>
                             </div>
@@ -496,11 +395,6 @@
                             <p class="card-description">
                                 Marco geográfico do ponto mais oriental das Américas, com vista panorâmica do oceano.
                             </p>
-                            <div class="card-tags">
-                                <span class="tag">Marco</span>
-                                <span class="tag">Vista</span>
-                                <span class="tag">Fotografia</span>
-                            </div>
                             <div class="card-footer">
                                 <div class="card-price">
                                     <span class="price-label">A partir de</span>
@@ -515,23 +409,20 @@
                         </div>
                     </div>
 
-                    <div class="destination-card" data-category="praia">
+                    <div class="destination-card">
                         <div class="card-image">
-                            <img src="../experiencias/imagens/praia_de_tambaba.png" alt="Litoral Norte" loading="lazy">
+                            <img src="../experiencias/imagens/praia_de_tambaba.png" alt="Litoral Norte">
                             <div class="card-overlay">
                                 <div class="card-badge">
                                     <i class="fas fa-water"></i>
                                     <span>Praia</span>
                                 </div>
                                 <div class="card-actions">
-                                    <button class="action-btn favorite" title="Favoritar">
+                                    <button class="action-btn" title="Favoritar">
                                         <i class="far fa-heart"></i>
                                     </button>
-                                    <button class="action-btn share" title="Compartilhar">
+                                    <button class="action-btn" title="Compartilhar">
                                         <i class="fas fa-share-alt"></i>
-                                    </button>
-                                    <button class="action-btn compare" title="Comparar">
-                                        <i class="fas fa-balance-scale"></i>
                                     </button>
                                 </div>
                             </div>
@@ -557,11 +448,6 @@
                             <p class="card-description">
                                 Praias paradisíacas com águas cristalinas e coqueirais.
                             </p>
-                            <div class="card-tags">
-                                <span class="tag">Praia</span>
-                                <span class="tag">Relaxamento</span>
-                                <span class="tag">Natureza</span>
-                            </div>
                             <div class="card-footer">
                                 <div class="card-price">
                                     <span class="price-label">A partir de</span>
@@ -575,18 +461,63 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="slider-controls">
-                    <button class="slider-btn prev" id="prevBtn" aria-label="Anterior">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="slider-btn next" id="nextBtn" aria-label="Próximo">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+
+                    <div class="destination-card">
+                        <div class="card-image">
+                            <img src="../experiencias/imagens/serra_da_borborema.png" alt="Serra da Borborema">
+                            <div class="card-overlay">
+                                <div class="card-badge">
+                                    <i class="fas fa-mountain"></i>
+                                    <span>Serra</span>
+                                </div>
+                                <div class="card-actions">
+                                    <button class="action-btn" title="Favoritar">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                    <button class="action-btn" title="Compartilhar">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">Serra da Borborema</h3>
+                                <div class="card-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <span class="rating-text">4.7 (112 avaliações)</span>
+                                </div>
+                            </div>
+                            <div class="card-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Interior da Paraíba, PB</span>
+                            </div>
+                            <p class="card-description">
+                                Paisagens serranas com clima ameno e vistas panorâmicas.
+                            </p>
+                            <div class="card-footer">
+                                <div class="card-price">
+                                    <span class="price-label">A partir de</span>
+                                    <span class="price-value">R$ 82</span>
+                                    <span class="price-period">/pessoa</span>
+                                </div>
+                                <a href="../roteiros/roteiros.html" class="card-btn">
+                                    <span>Explorar</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
+            <!-- View All Button -->
             <div class="view-all-section">
                 <a class="view-all-btn" href="../roteiros/roteiros.html">
                     <span>Ver Todos os Destinos</span>
@@ -596,161 +527,177 @@
         </div>
     </section>
 
-    <!-- Interactive Map Section -->
-    <section class="map-section">
+
+    <!-- Gastronomia Section -->
+    <section class="gastronomy-section">
         <div class="container">
             <header class="section-header">
                 <div class="section-badge">
-                    <i class="fas fa-map"></i>
-                    <span>Explore a Paraíba</span>
+                    <i class="fas fa-utensils"></i>
+                    <span>Gastronomia</span>
                 </div>
                 <h2 class="section-title">
-                    Descubra a Paraíba <span class="highlight-text">interativamente</span>
+                    Sabores que <span class="highlight-text">conquistam</span> o paladar
                 </h2>
                 <p class="section-description">
-                    Navegue pelo mapa e descubra os principais pontos turísticos, roteiros e experiências em cada região.
+                    Descubra a rica culinária paraibana, onde tradição e sabor se encontram em pratos únicos.
                 </p>
             </header>
-            
-            <div class="map-container">
-                <div class="map-wrapper">
-                    <div class="map-placeholder">
-                        <i class="fas fa-map-marked-alt"></i>
-                        <h3>Mapa Interativo</h3>
-                        <p>Explore os destinos da Paraíba de forma visual e interativa</p>
-                        <button class="map-btn">Abrir Mapa</button>
+
+            <div class="gastronomy-grid">
+                <div class="gastronomy-card">
+                    <div class="gastronomy-image">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Carne de Sol">
+                    </div>
+                    <div class="gastronomy-content">
+                        <h3 class="gastronomy-title">Carne de Sol</h3>
+                        <p class="gastronomy-description">
+                            Tradicional prato nordestino com carne salgada e seca ao sol, servida com feijão verde.
+                        </p>
+                        <div class="gastronomy-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span>4.9</span>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="map-legend">
-                    <div class="legend-item">
-                        <div class="legend-color cultura"></div>
-                        <span>Cultura & História</span>
+
+                <div class="gastronomy-card">
+                    <div class="gastronomy-image">
+                        <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tapioca">
                     </div>
-                    <div class="legend-item">
-                        <div class="legend-color natureza"></div>
-                        <span>Natureza & Ecoturismo</span>
+                    <div class="gastronomy-content">
+                        <h3 class="gastronomy-title">Tapioca</h3>
+                        <p class="gastronomy-description">
+                            Deliciosa tapioca recheada, uma das iguarias mais populares da culinária local.
+                        </p>
+                        <div class="gastronomy-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span>4.7</span>
+                        </div>
                     </div>
-                    <div class="legend-item">
-                        <div class="legend-color gastronomia"></div>
-                        <span>Gastronomia</span>
+                </div>
+
+                <div class="gastronomy-card">
+                    <div class="gastronomy-image">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Peixe Frito">
                     </div>
-                    <div class="legend-item">
-                        <div class="legend-color praia"></div>
-                        <span>Praias & Litoral</span>
+                    <div class="gastronomy-content">
+                        <h3 class="gastronomy-title">Peixe Frito</h3>
+                        <p class="gastronomy-description">
+                            Peixe fresco frito na hora, especialidade das barracas de praia de João Pessoa.
+                        </p>
+                        <div class="gastronomy-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span>4.8</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gastronomy-card">
+                    <div class="gastronomy-image">
+                        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Açaí">
+                    </div>
+                    <div class="gastronomy-content">
+                        <h3 class="gastronomy-title">Açaí</h3>
+                        <p class="gastronomy-description">
+                            Açaí cremoso servido com frutas tropicais, perfeito para refrescar no calor.
+                        </p>
+                        <div class="gastronomy-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span>4.6</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials-section">
+    <!-- Cultura Section -->
+    <section class="culture-section">
         <div class="container">
             <header class="section-header">
                 <div class="section-badge">
-                    <i class="fas fa-quote-left"></i>
-                    <span>Depoimentos</span>
+                    <i class="fas fa-theater-masks"></i>
+                    <span>Cultura</span>
                 </div>
                 <h2 class="section-title">
-                    O que nossos <span class="highlight-text">viajantes</span> dizem
+                    Tradições que <span class="highlight-text">encantam</span> a alma
                 </h2>
                 <p class="section-description">
-                    Histórias reais de pessoas que descobriram a Paraíba conosco.
+                    Conheça a rica cultura paraibana através de festivais, artesanato e manifestações populares.
                 </p>
             </header>
-            
-            <div class="testimonials-slider">
-                <div class="testimonial-card active">
-                    <div class="testimonial-content">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p>"Uma experiência incrível! O roteiro pelos Caminhos do Frio foi perfeito. Conhecemos lugares lindos e a gastronomia local é de outro mundo."</p>
-                        <div class="testimonial-author">
-                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Maria Silva">
-                            <div class="author-info">
-                                <h4>Maria Silva</h4>
-                                <span>São Paulo, SP</span>
-                            </div>
-                        </div>
+
+            <div class="culture-grid">
+                <div class="culture-item">
+                    <div class="culture-icon">
+                        <i class="fas fa-music"></i>
                     </div>
+                    <h3 class="culture-title">Forró</h3>
+                    <p class="culture-description">
+                        O ritmo que embala as noites paraibanas, com danças tradicionais e muita animação.
+                    </p>
                 </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p>"A Paraíba surpreendeu! História rica, natureza preservada e pessoas acolhedoras. Voltaremos com certeza!"</p>
-                        <div class="testimonial-author">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="João Santos">
-                            <div class="author-info">
-                                <h4>João Santos</h4>
-                                <span>Rio de Janeiro, RJ</span>
-                            </div>
-                        </div>
+
+                <div class="culture-item">
+                    <div class="culture-icon">
+                        <i class="fas fa-palette"></i>
                     </div>
+                    <h3 class="culture-title">Artesanato</h3>
+                    <p class="culture-description">
+                        Peças únicas feitas por artesãos locais, representando a identidade cultural da região.
+                    </p>
                 </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p>"O Parque Arruda Câmara é um oásis na cidade. Perfeito para relaxar e conectar com a natureza."</p>
-                        <div class="testimonial-author">
-                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Ana Costa">
-                            <div class="author-info">
-                                <h4>Ana Costa</h4>
-                                <span>Brasília, DF</span>
-                            </div>
-                        </div>
+
+                <div class="culture-item">
+                    <div class="culture-icon">
+                        <i class="fas fa-calendar-alt"></i>
                     </div>
+                    <h3 class="culture-title">Festivais</h3>
+                    <p class="culture-description">
+                        Eventos culturais que celebram as tradições e unem a comunidade local.
+                    </p>
                 </div>
-            </div>
-            
-            <div class="testimonials-nav">
-                <button class="testimonial-nav-btn active" data-testimonial="0"></button>
-                <button class="testimonial-nav-btn" data-testimonial="1"></button>
-                <button class="testimonial-nav-btn" data-testimonial="2"></button>
+
+                <div class="culture-item">
+                    <div class="culture-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="culture-title">Literatura</h3>
+                    <p class="culture-description">
+                        Rica tradição literária com grandes nomes da literatura brasileira.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Pronto para descobrir a Paraíba?</h2>
-                <p>Junte-se a milhares de viajantes que já descobriram os encantos da Paraíba conosco.</p>
-                <div class="cta-buttons">
-                    <a href="../roteiros/roteiros.html" class="btn-primary">
-                        <i class="fas fa-route"></i>
-                        <span>Explorar Roteiros</span>
-                    </a>
-                    <a href="../experiencias/experiencias.html" class="btn-secondary">
-                        <i class="fas fa-heart"></i>
-                        <span>Ver Experiências</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <script src="../../shared/js/common.js"></script>
     <script src="script.js"></script>
 </body>
-</html>
+</html> 
