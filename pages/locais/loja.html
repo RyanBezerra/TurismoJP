@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja - Negócios Locais</title>
+    <link rel="stylesheet" href="../../shared/css/common.css">
+    <link rel="stylesheet" href="locais.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .local-card{max-width:840px;margin:24px auto}
+        /* Hero full-bleed (igual ao locais/) */
+        #loja-hero.container{max-width:none;padding:0}
+        .loja-hero{width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);height:360px;background-size:cover;background-position:center;position:relative;overflow:hidden}
+        .loja-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.55));}
+        .hero-content{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:#fff;text-align:center;padding:0 16px;z-index:1}
+        .hero-title{font-family:'Playfair Display',serif;font-size:34px;font-weight:600;letter-spacing:.2px}
+        .hero-sub{opacity:.95;font-size:14px}
+        @media (max-width: 768px){ .loja-hero{height:240px} .hero-title{font-size:22px} }
+        /* Botão adicionar estilo Figma */
+        .add-card{display:flex;align-items:center;justify-content:center;border:2px dashed #fde1d6;background:#fffaf7;min-height:180px;border-radius:16px;cursor:pointer;box-shadow:0 2px 8px rgba(2,6,23,.04)}
+        .add-card .plus{width:52px;height:52px;border-radius:50%;background:#ff6b35;color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800}
+        /* Catálogo: cards quadrados, maiores e consistentes (estilo Figma) */
+        #catalogo-container .local-card{border:1px solid #e2e8f0;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 8px 20px rgba(2,6,23,.06);transition:transform .2s ease, box-shadow .2s ease;display:flex;flex-direction:column;width:260px}
+        #catalogo-container .local-card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(2,6,23,.12)}
+        #catalogo-container .local-cover{width:100%;aspect-ratio:1/1;background:#f1f5f9}
+        #catalogo-container .local-cover img{width:100%;height:100%;object-fit:cover;display:block}
+        #catalogo-container .local-content{padding:12px 14px;display:flex;flex-direction:column;gap:6px;height:160px;overflow:hidden}
+        #catalogo-container .local-title{font-size:16px}
+        #catalogo-container .local-meta{display:none}
+        #catalogo-container .price{color:#ff6b35;font-weight:700;font-size:18px;margin-top:4px}
+        #catalogo-container .local-tags .tag{font-size:13px;color:#1f2937;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+        @media (max-width:640px){
+            #catalogo-container .local-content{height:140px}
+        }
+        /* Grade do catálogo com colunas de largura fixa para uniformizar todos os cards */
+        .catalog-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(260px,260px));gap:20px;justify-content:flex-start}
+        .catalog-item{display:flex;flex-direction:column;gap:8px;width:260px}
+        .card-actions{display:flex;gap:8px;padding:0 4px}
+        /* Painel responsivo */
+        #panel{max-width:920px;width:calc(100% - 32px)}
+        /* Produto detail */
+        .produto-detail{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;margin-top:24px}
+        .produto-img{width:100%;border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+        .produto-img img{width:100%;height:100%;object-fit:cover}
+        .produto-title{font-size:28px;margin:0 0 8px 0}
+        .produto-price{color:#ff6b35;font-weight:800;font-size:24px;margin-bottom:12px}
+        .produto-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:16px}
+        .produto-actions{margin-top:16px}
+        .btn-order{display:inline-flex;align-items:center;gap:8px;background:#ff6b35;color:#fff;border:0;padding:14px 18px;border-radius:12px;font-weight:800;cursor:pointer}
+        .produto-back{display:inline-flex;align-items:center;gap:6px;color:#334155;margin:8px 0}
+        @media(max-width:900px){.produto-detail{grid-template-columns:1fr}}
+        /* Pedido */
+        .pedido-card{max-width:500px;margin:24px auto;background:#fff;border-radius:16px;padding:24px;box-shadow:0 8px 24px rgba(0,0,0,.1)}
+        .pedido-title{font-size:24px;margin:0 0 16px 0;color:#1f2937}
+        .pedido-info{background:#f1f5f9;padding:12px;border-radius:8px;margin-bottom:16px}
+        .pedido-section{margin-bottom:20px}
+        .pedido-section h3{color:#374151;margin:0 0 8px 0;font-size:16px}
+        .pedido-contact{color:#4b5563;margin-bottom:8px}
+        .btn-pedido{display:inline-block;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:600;margin-right:8px;margin-bottom:8px;cursor:pointer}
+        .btn-pedido-primary{background:#ff6b35;color:white;border:0}
+        .btn-pedido-secondary{background:#e5e7eb;color:#374151;border:0}
+        .btn-pedido:hover{opacity:0.9}
+    </style>
+    </head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo"><i class="fas fa-store"></i><span>Negócios Locais</span></div>
+            <nav class="nav"><ul><li><a href="./locais.html">Voltar</a></li></ul></nav>
+        </div>
+    </header>
+
+    <main class="locais-grid-section">
+        <div class="container" id="loja-hero"></div>
+        <div class="container" id="loja-container"></div>
+        <div class="container" id="catalogo-container"></div>
+        <div class="container" id="produto-container" style="display:none"></div>
+        <div class="container" id="pedido-container" style="display:none"></div>
+        <div id="panel" class="cadastro-form" style="display:none; position:fixed; left:50%; transform:translateX(-50%); bottom:24px; z-index:50; box-shadow:0 12px 40px rgba(0,0,0,.2)"></div>
+    </main>
+
+    <script>
+        (function(){
+            const STORAGE_KEY = 'turismojp.locais.v2';
+            const USERS_KEY = 'turismojp.users.v1';
+            const SESSION_KEY = 'turismojp.session.v1';
+            const CATALOG_KEY_PREFIX = 'turismojp.catalog.'; // + ownerId
+            const params = new URLSearchParams(location.search);
+            const id = params.get('id');
+            const hero = document.getElementById('loja-hero');
+            const container = document.getElementById('loja-container');
+            const catalogo = document.getElementById('catalogo-container');
+            const items = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]') || [];
+            const users = JSON.parse(localStorage.getItem(USERS_KEY) || '[]') || [];
+            const item = items.find(i => i.id === id);
+            if(!item){ container.innerHTML = '<p>Loja não encontrada.</p>'; return; }
+            const user = users.find(u => u.id === item.ownerId);
+
+            // Hero com overlay e título
+            hero.innerHTML = `
+                <div class="loja-hero" style="background-image:url('${item.imagem}')">
+                    <div class="hero-content">
+                        <div class="hero-title">${item.nome}</div>
+                        <div class="hero-sub">${(item.descricao||'').slice(0,90)}</div>
+                    </div>
+                </div>`;
+
+            container.innerHTML = `
+                <article class="local-card">
+                    <div class="local-content">
+                        <h2 class="local-title" style="display:flex; align-items:center; gap:8px">${item.nome}</h2>
+                        <div class="local-meta"><span><i class=\"fas fa-tag\"></i> ${item.tipo}</span><span>•</span><span><i class=\"fas fa-location-dot\"></i> ${item.bairro}</span></div>
+                        <p style="margin-top:10px;color:#334155;">${item.descricao}</p>
+                        <hr style="margin:16px 0; border:none; border-top:1px solid #e2e8f0;"/>
+                        <h3>Sobre o vendedor</h3>
+                        <p><strong>Nome:</strong> ${user?user.name:'-'}</p>
+                        <p><strong>Contato:</strong> ${item.contato ? item.contato : (user?user.email:'-')}</p>
+                    </div>
+                </article>`;
+
+            // Catálogo (produtos/serviços) do dono
+            const currentUser = getCurrentUser();
+            const isOwner = currentUser && currentUser.id === item.ownerId;
+            const catalogKey = CATALOG_KEY_PREFIX + item.ownerId;
+            const list = JSON.parse(localStorage.getItem(catalogKey) || '[]');
+            renderCatalog(list);
+            if(isOwner){
+                // Lápis ao lado do título
+                const titleEl = container.querySelector('.local-title');
+                const editBtn = document.createElement('button');
+                editBtn.id = 'btnEditLoja';
+                editBtn.className = 'btn-secondary';
+                editBtn.title = 'Editar loja';
+                editBtn.innerHTML = '<i class="fas fa-pen"></i>';
+                editBtn.style.marginLeft = '8px';
+                titleEl.appendChild(editBtn);
+                editBtn.addEventListener('click', () => openLojaPanel());
+                // Botão excluir loja
+                const delBtn = document.createElement('button');
+                delBtn.id = 'btnDeleteLoja';
+                delBtn.className = 'btn-secondary';
+                delBtn.title = 'Excluir loja';
+                delBtn.style.marginLeft = '8px';
+                delBtn.textContent = 'Excluir loja';
+                titleEl.parentElement.appendChild(delBtn);
+                delBtn.addEventListener('click', () => deleteLoja());
+            }
+
+            function renderCatalog(entries){
+                let listToRender = entries || [];
+                const gridStart = `<section class="catalog-grid" style="margin-top:12px;">`;
+                const gridEnd = `</section>`;
+                let html = gridStart;
+                if(isOwner){
+                    html += `
+                        <div class="catalog-item">
+                            <article class="local-card add-card" id="addCard">
+                                <div class="plus">+</div>
+                            </article>
+                        </div>`;
+                }
+                html += listToRender.map(e => `
+                    <div class="catalog-item">
+                        <article class="local-card" data-open-prod="${e.id}">
+                            <div class="local-cover"><img src="${e.imagem}" alt="${e.nome}"></div>
+                            <div class="local-content">
+                                <h4 class="local-title">${e.nome}</h4>
+                                ${(e.preco||0)>0?`<div class=\"price\">R$ ${e.preco.toFixed(2)}</div>`:''}
+                                <div class="local-tags"><span class="tag">${e.descricao||''}</span></div>
+                            </div>
+                        </article>
+                        ${isOwner ? `<div class="card-actions">
+                            <button class="btn-secondary" data-cat-edit="${e.id}">Editar</button>
+                            <button class="btn-secondary" data-cat-del="${e.id}">Excluir</button>
+                        </div>` : ''}
+                    </div>
+                `).join('');
+                html += gridEnd;
+                catalogo.innerHTML = html;
+
+                if(isOwner){
+                    const add = document.getElementById('addCard');
+                    add && add.addEventListener('click', () => openCatalogPanel());
+                    catalogo.querySelectorAll('[data-cat-del]')?.forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const cur = JSON.parse(localStorage.getItem(catalogKey) || '[]');
+                            const after = cur.filter(x => x.id !== btn.getAttribute('data-cat-del'));
+                            localStorage.setItem(catalogKey, JSON.stringify(after));
+                            renderCatalog(after);
+                        });
+                    });
+                    catalogo.querySelectorAll('[data-cat-edit]')?.forEach(btn => {
+                        btn.addEventListener('click', () => openCatalogPanel(btn.getAttribute('data-cat-edit')));
+                    });
+                }
+                // abrir detalhe
+                catalogo.querySelectorAll('[data-open-prod]')?.forEach(card => {
+                    card.addEventListener('click', () => openProdutoDetail(card.getAttribute('data-open-prod')));
+                });
+            }
+
+            function getCurrentUser(){
+                try{
+                    const sess = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+                    const users = JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
+                    if(!sess) return null;
+                    return users.find(u => u.id === sess.userId) || null;
+                }catch(e){ return null; }
+            }
+
+            function genId(){ return Math.random().toString(36).slice(2) + Date.now().toString(36); }
+            function escapeHtml(str){ return String(str||'').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[s])); }
+            
+            // Function to extract coordinates from Google Maps URL
+            function extractCoordinatesFromGoogleMapsUrl(url) {
+                if (!url) return null;
+                
+                try {
+                    // Check if it's a shortened URL (goo.gl or maps.app.goo.gl)
+                    if (url.includes('goo.gl') || url.includes('maps.app.goo.gl')) {
+                        return 'SHORTENED_URL';
+                    }
+                    
+                    // Pattern 1: Direct coordinates in URL like maps.google.com/maps?q=lat,lng
+                    let match = url.match(/[?&]q=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+                    if (match) {
+                        return {
+                            latitude: parseFloat(match[1]),
+                            longitude: parseFloat(match[2])
+                        };
+                    }
+                    
+                    // Pattern 2: @lat,lng in URL like maps.google.com/maps/@lat,lng,zoom
+                    match = url.match(/@(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+                    if (match) {
+                        return {
+                            latitude: parseFloat(match[1]),
+                            longitude: parseFloat(match[2])
+                        };
+                    }
+                    
+                    // Pattern 3: Place coordinates in URL
+                    match = url.match(/!3d(-?\d+\.?\d*)!4d(-?\d+\.?\d*)/);
+                    if (match) {
+                        return {
+                            latitude: parseFloat(match[1]),
+                            longitude: parseFloat(match[2])
+                        };
+                    }
+                    
+                    return null;
+                } catch (e) {
+                    return null;
+                }
+            }
+
+            function openLojaPanel(){
+                const panel = document.getElementById('panel');
+                panel.style.display = 'block';
+                panel.innerHTML = `
+                    <div class="form-grid">
+                        <div class="form-group"><label>Nome</label><input id="lojaNome" type="text" value="${escapeHtml(item.nome)}"></div>
+                        <div class="form-group">
+                            <label>Bairro</label>
+                            <select id="lojaBairro">
+                                <option value="">Selecione o bairro</option>
+                                <option value="Centro" ${item.bairro === 'Centro' ? 'selected' : ''}>Centro</option>
+                                <option value="Tambaú" ${item.bairro === 'Tambaú' ? 'selected' : ''}>Tambaú</option>
+                                <option value="Jaguaribe" ${item.bairro === 'Jaguaribe' ? 'selected' : ''}>Jaguaribe</option>
+                                <option value="Cabo Branco" ${item.bairro === 'Cabo Branco' ? 'selected' : ''}>Cabo Branco</option>
+                                <option value="Manaíra" ${item.bairro === 'Manaíra' ? 'selected' : ''}>Manaíra</option>
+                                <option value="Mangabeira" ${item.bairro === 'Mangabeira' ? 'selected' : ''}>Mangabeira</option>
+                                <option value="Valentina" ${item.bairro === 'Valentina' ? 'selected' : ''}>Valentina</option>
+                                <option value="Jardim Cidade Universitária" ${item.bairro === 'Jardim Cidade Universitária' ? 'selected' : ''}>Jardim Cidade Universitária</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-span-2"><label>Descrição</label><textarea id="lojaDesc" rows="2">${escapeHtml(item.descricao)}</textarea></div>
+                        <div class="form-group"><label>Contato</label><input id="lojaContato" type="text" value="${escapeHtml(item.contato||'')}" placeholder="WhatsApp ou e-mail"></div>
+                        <div class="form-group"><label>Link de Pagamento (PIX/Stripe, etc.)</label><input id="lojaPagamento" type="url" value="${escapeHtml(item.pagamentoUrl||'')}" placeholder="https://..."></div>
+                        <div class="form-group"><label>Imagem da Loja (URL)</label><input id="lojaImg" type="text" value="${escapeHtml(item.imagem)}" placeholder="URL da imagem da sua loja"></div>
+                        <div class="form-group form-span-2">
+                            <label>Localização do Google Maps (opcional)</label>
+                            <div class="location-input-group">
+                                <input id="lojaGoogleMaps" type="url" value="${escapeHtml(item.googleMapsUrl||'')}" placeholder="Cole aqui o link do Google Maps do seu estabelecimento" />
+                                <button type="button" id="getLocationBtnLoja" class="btn-secondary">📍 Usar minha localização atual</button>
+                            </div>
+                            <small class="form-help">
+                                <strong>⚠️ IMPORTANTE:</strong> Cole a URL completa da barra de endereços do Google Maps (não o link compartilhado).<br>
+                                <strong>Como obter:</strong><br>
+                                1. Abra o Google Maps e busque seu estabelecimento<br>
+                                2. <strong>Copie a URL da barra de endereços do navegador</strong> (ela contém as coordenadas)<br>
+                                3. Cole aqui esta URL completa<br>
+                                <em>Se informado corretamente, seu estabelecimento aparecerá no mapa do site.</em>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button id="lojaSave" class="btn-primary" type="button">Salvar alterações</button>
+                        <button id="panelClose" class="btn-secondary" type="button">Fechar</button>
+                    </div>`;
+                document.getElementById('panelClose').onclick = () => panel.style.display='none';
+                
+                // Add validation for Google Maps URL in edit panel
+                const googleMapsInputLoja = document.getElementById('lojaGoogleMaps');
+                if(googleMapsInputLoja) {
+                    googleMapsInputLoja.addEventListener('input', function() {
+                        const url = this.value.trim();
+                        const feedback = document.getElementById('location-feedback-loja');
+                        
+                        // Remove existing feedback if any
+                        if(feedback) feedback.remove();
+                        
+                        if(url) {
+                            const coords = extractCoordinatesFromGoogleMapsUrl(url);
+                            const feedbackEl = document.createElement('small');
+                            feedbackEl.id = 'location-feedback-loja';
+                            feedbackEl.style.display = 'block';
+                            feedbackEl.style.marginTop = '4px';
+                            
+                            if(coords && coords !== 'SHORTENED_URL' && coords.latitude && coords.longitude) {
+                                feedbackEl.style.color = '#059669';
+                                feedbackEl.innerHTML = `✅ Localização detectada: ${coords.latitude.toFixed(4)}, ${coords.longitude.toFixed(4)}`;
+                            } else if(coords === 'SHORTENED_URL') {
+                                feedbackEl.style.color = '#ffc107';
+                                feedbackEl.innerHTML = `⚠️ Link encurtado detectado. Para usar a localização:<br>
+                                    <strong>1.</strong> Abra este link no Google Maps<br>
+                                    <strong>2.</strong> Copie a URL da barra de endereço (ela terá as coordenadas)<br>
+                                    <strong>3.</strong> Cole aqui a nova URL`;
+                            } else if(url.includes('maps.google') || url.includes('goo.gl')) {
+                                feedbackEl.style.color = '#dc2626';
+                                feedbackEl.innerHTML = '❌ Link do Google Maps inválido. Tente copiar novamente.';
+                            }
+                            
+                            if(feedbackEl.innerHTML) {
+                                this.parentNode.insertBefore(feedbackEl, this.parentNode.querySelector('.form-help'));
+                            }
+                        }
+                    });
+                }
+                
+                // Location button for edit panel
+                const getLocationBtnLoja = document.getElementById('getLocationBtnLoja');
+                if(getLocationBtnLoja) {
+                    getLocationBtnLoja.addEventListener('click', function() {
+                        getLocationBtnLoja.textContent = '📍 Obtendo localização...';
+                        getLocationBtnLoja.disabled = true;
+                        
+                        if (navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(
+                                function(position) {
+                                    const lat = position.coords.latitude.toFixed(6);
+                                    const lng = position.coords.longitude.toFixed(6);
+                                    const googleMapsUrl = `https://maps.google.com/maps?q=${lat},${lng}`;
+                                    document.getElementById('lojaGoogleMaps').value = googleMapsUrl;
+                                    getLocationBtnLoja.textContent = '✅ Localização obtida';
+                                    setTimeout(() => {
+                                        getLocationBtnLoja.textContent = '📍 Usar minha localização atual';
+                                        getLocationBtnLoja.disabled = false;
+                                    }, 2000);
+                                },
+                                function(error) {
+                                    console.error('Erro ao obter localização:', error);
+                                    getLocationBtnLoja.textContent = '❌ Erro na localização';
+                                    setTimeout(() => {
+                                        getLocationBtnLoja.textContent = '📍 Usar minha localização atual';
+                                        getLocationBtnLoja.disabled = false;
+                                    }, 2000);
+                                }
+                            );
+                        } else {
+                            getLocationBtnLoja.textContent = '❌ Não suportado';
+                            setTimeout(() => {
+                                getLocationBtnLoja.textContent = '📍 Usar minha localização atual';
+                                getLocationBtnLoja.disabled = false;
+                            }, 2000);
+                        }
+                    });
+                }
+                
+                document.getElementById('lojaSave').onclick = () => {
+                    const list = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+                    const idx = list.findIndex(x => x.id === id);
+                    if(idx >= 0){
+                        const googleMapsUrl = (document.getElementById('lojaGoogleMaps').value||'').trim();
+                        const updatedItem = {
+                            ...list[idx],
+                            nome: (document.getElementById('lojaNome').value||'').trim(),
+                            bairro: (document.getElementById('lojaBairro').value||'').trim(),
+                            descricao: (document.getElementById('lojaDesc').value||'').trim(),
+                            contato: (document.getElementById('lojaContato').value||'').trim(),
+                            imagem: (document.getElementById('lojaImg').value||'').trim() || list[idx].imagem,
+                            pagamentoUrl: (document.getElementById('lojaPagamento').value||'').trim(),
+                            googleMapsUrl: googleMapsUrl
+                        };
+                        
+                        // Extract coordinates from Google Maps URL if provided
+                        if(googleMapsUrl) {
+                            const coords = extractCoordinatesFromGoogleMapsUrl(googleMapsUrl);
+                            if(coords && coords !== 'SHORTENED_URL') {
+                                updatedItem.latitude = coords.latitude;
+                                updatedItem.longitude = coords.longitude;
+                                updatedItem.hasLocation = true;
+                            } else {
+                                // Remove location info if URL is invalid
+                                delete updatedItem.latitude;
+                                delete updatedItem.longitude;
+                                updatedItem.hasLocation = false;
+                            }
+                        } else {
+                            // Remove location info if no URL provided
+                            delete updatedItem.latitude;
+                            delete updatedItem.longitude;
+                            updatedItem.hasLocation = false;
+                        }
+                        
+                        list[idx] = updatedItem;
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+                        location.reload();
+                    }
+                };
+            }
+
+            function openCatalogPanel(editId){
+                const panel = document.getElementById('panel');
+                const cur = JSON.parse(localStorage.getItem(catalogKey) || '[]');
+                const existing = editId ? cur.find(x => x.id === editId) : null;
+                panel.style.display = 'block';
+                panel.innerHTML = `
+                    <div class="form-grid" style="grid-template-columns: repeat(3,1fr);">
+                        <div class="form-group"><label>Tipo</label>
+                            <select id="catTipo"><option value="Produto">Produto</option><option value="Serviço">Serviço</option></select>
+                        </div>
+                        <div class="form-group"><label>Nome</label><input id="catNome" type="text" value="${existing?escapeHtml(existing.nome):''}" placeholder="Ex.: Prato executivo / Tour pôr-do-sol"></div>
+                        <div class="form-group"><label>Preço (R$)</label><input id="catPreco" type="number" step="0.01" value="${existing?(existing.preco||0):''}" placeholder="0,00"></div>
+                        <div class="form-group form-span-2"><label>Descrição</label><textarea id="catDesc" rows="2" placeholder="Detalhes">${existing?escapeHtml(existing.descricao||''):''}</textarea></div>
+                        <div class="form-group"><label>Imagem (URL)</label><input id="catImg" type="text" value="${existing?escapeHtml(existing.imagem||''):''}" placeholder="https://..."></div>
+                        <div class="form-group form-span-2"><label>Informações adicionais</label><textarea id="catInfo" rows="2" placeholder="Ex.: Tempo de preparo, serve quantas pessoas, etc.">${existing?escapeHtml(existing.info||''):''}</textarea></div>
+                    </div>
+                    <div class="form-actions">
+                        <button id="catSave" class="btn-primary" type="button">${existing?'Salvar':'Adicionar ao catálogo'}</button>
+                        <button id="panelClose" class="btn-secondary" type="button">Fechar</button>
+                    </div>`;
+                document.getElementById('panelClose').onclick = () => panel.style.display='none';
+                document.getElementById('catTipo').value = existing? (existing.tipo||'Produto') : 'Produto';
+                document.getElementById('catSave').onclick = () => {
+                    const entry = {
+                        id: existing? existing.id : genId(),
+                        tipo: document.getElementById('catTipo').value || 'Produto',
+                        nome: (document.getElementById('catNome').value||'').trim(),
+                        preco: parseFloat(document.getElementById('catPreco').value||'0') || 0,
+                        descricao: (document.getElementById('catDesc').value||'').trim(),
+                        imagem: (document.getElementById('catImg').value||'').trim() || item.imagem,
+                        info: (document.getElementById('catInfo').value||'').trim()
+                    };
+                    if(!entry.nome){ alert('Informe o nome.'); return; }
+                    let next = cur.slice();
+                    if(existing){
+                        const idx = next.findIndex(x => x.id === existing.id);
+                        next[idx] = entry;
+                    }else{
+                        next.unshift(entry);
+                    }
+                    localStorage.setItem(catalogKey, JSON.stringify(next));
+                    renderCatalog(next);
+                    panel.style.display = 'none';
+                };
+            }
+
+            function deleteLoja(){
+                if(!confirm('Tem certeza que deseja excluir sua loja? Esta ação não pode ser desfeita.')) return;
+                const list = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+                const next = list.filter(x => x.id !== id);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+                // limpa também o catálogo do dono
+                try{ localStorage.removeItem(CATALOG_KEY_PREFIX + item.ownerId); }catch(e){}
+                // volta para a listagem
+                location.href = './locais.html';
+            }
+
+            function openProdutoDetail(prodId){
+                const cur = JSON.parse(localStorage.getItem(catalogKey) || '[]');
+                const p = cur.find(x => x.id === prodId);
+                if(!p) return;
+                const detail = document.getElementById('produto-container');
+                const listEl = document.getElementById('catalogo-container');
+                listEl.style.display = 'none';
+                detail.style.display = 'block';
+                detail.innerHTML = `
+                    <a class="produto-back" href="#" id="btnBackProdutos"><i class="fas fa-arrow-left"></i> Voltar para produtos</a>
+                    <section class="produto-detail">
+                        <div class="produto-img"><img src="${p.imagem}" alt="${p.nome}"></div>
+                        <div>
+                            <h2 class="produto-title">${p.nome}</h2>
+                            ${(p.preco||0)>0?`<div class="produto-price">R$ ${p.preco.toFixed(2)}</div>`:''}
+                            <div class="produto-box">
+                                <h4>Descrição do Produto</h4>
+                                <p>${(p.descricao||'').replace(/\n/g,'<br/>')}</p>
+                            </div>
+                            <div class="produto-box" style="margin-top:16px">
+                                <h4>Informações</h4>
+                                <p><strong>Categoria:</strong> ${p.tipo||'Produto'}</p>
+                                ${p.info ? `<div style="margin-top:8px">${(p.info||'').replace(/\n/g,'<br/>')}</div>` : ''}
+                            </div>
+                            <div class="produto-actions">
+                                <button class="btn-order" id="btnOrder"><i class="fas fa-shopping-cart"></i> Realizar Pedido</button>
+                            </div>
+                        </div>
+                    </section>`;
+                document.getElementById('btnBackProdutos').onclick = (ev) => { ev.preventDefault(); detail.style.display='none'; listEl.style.display='block'; };
+                document.getElementById('btnOrder').onclick = () => {
+                    const contato = item.contato || (user?user.email:'');
+                    const pagamentoUrl = item.pagamentoUrl || '';
+                    const userEmail = user ? user.email : '';
+                    
+                    // Mostra tela de pedido na mesma página
+                    const detail = document.getElementById('produto-container');
+                    const pedido = document.getElementById('pedido-container');
+                    detail.style.display = 'none';
+                    pedido.style.display = 'block';
+                    
+                    pedido.innerHTML = `
+                        <a class="produto-back" href="#" id="btnBackProduto"><i class="fas fa-arrow-left"></i> Voltar ao produto</a>
+                        <div class="pedido-card">
+                            <h1 class="pedido-title">Realizar Pedido</h1>
+                            <div class="pedido-info">
+                                <strong>${p.nome}</strong><br>
+                                ${(p.preco||0)>0 ? `R$ ${p.preco.toFixed(2)}` : 'Consulte o preço'}
+                            </div>
+                            
+                            <div class="pedido-section">
+                                <h3>📞 Contato do Fornecedor</h3>
+                                <div class="pedido-contact">${contato || 'Contato não informado'}</div>
+                                ${contato && contato.includes('@') ? `<button class="btn-pedido btn-pedido-primary" onclick="window.open('mailto:${contato}')">Enviar E-mail</button>` : ''}
+                                ${contato && contato.includes('whatsapp') ? `<button class="btn-pedido btn-pedido-primary" onclick="window.open('https://wa.me/${contato.replace(/[^0-9]/g,'')}')">WhatsApp</button>` : ''}
+                            </div>
+                            
+                            ${userEmail ? `
+                            <div class="pedido-section">
+                                <h3>👤 E-mail do Fornecedor</h3>
+                                <div class="pedido-contact">${userEmail}</div>
+                            </div>
+                            ` : ''}
+                            
+                            ${pagamentoUrl ? `
+                            <div class="pedido-section">
+                                <h3>💳 Pagamento</h3>
+                                <button class="btn-pedido btn-pedido-primary" onclick="window.open('${pagamentoUrl}', '_blank')">Pagar Agora</button>
+                            </div>
+                            ` : ''}
+                            
+                            <p style="color: #6b7280; font-size: 14px; margin-top: 20px;">
+                                Entre em contato com o fornecedor para finalizar seu pedido.
+                            </p>
+                        </div>
+                    `;
+                    
+                    document.getElementById('btnBackProduto').onclick = (ev) => { 
+                        ev.preventDefault(); 
+                        pedido.style.display = 'none'; 
+                        detail.style.display = 'block'; 
+                    };
+                };
+            }
+        })();
+    </script>
+</body>
+</html>
+
+

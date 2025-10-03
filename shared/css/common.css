@@ -44,6 +44,8 @@ body {
     flex: 1;
     display: flex;
     justify-content: center;
+    min-width: 0;
+    overflow: visible;
 }
 
 .logo {
@@ -62,7 +64,10 @@ body {
 .nav ul {
     display: flex;
     list-style: none;
-    gap: 40px;
+    gap: 30px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    align-items: center;
 }
 
 .nav a {
@@ -252,6 +257,12 @@ body {
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .nav ul {
+        gap: 20px;
+    }
+}
+
 @media (max-width: 768px) {
     .mobile-menu-toggle {
         display: flex;

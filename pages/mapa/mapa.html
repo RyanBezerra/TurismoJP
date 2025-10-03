@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Interativo - Paraíba Turismo</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+          crossorigin=""/>
+    
+    <!-- Leaflet MarkerCluster CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../shared/css/common.css?v=10">
+    <link rel="stylesheet" href="mapa.css?v=10">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-map-marked-alt"></i>
+                <span>Paraíba Turismo</span>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../inicio/index.html">Início</a></li>
+                    <li><a href="../roteiros/roteiros.html">Roteiros</a></li>
+                    <li><a href="../experiencias/experiencias.html">Experiências</a></li>
+                    <li><a href="../locais/locais.html">Negócios Locais</a></li>
+                    <li><a href="mapa.html" class="active">Mapa</a></li>
+                    <li><a href="../sobre/sobre.html">Sobre</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Map Controls -->
+    <div class="map-controls">
+        <div class="container">
+            <div class="controls-row">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="mapSearch" placeholder="Buscar localização...">
+                </div>
+                
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-globe"></i>
+                        Todos
+                    </button>
+                    <button class="filter-btn" data-filter="roteiros">
+                        <i class="fas fa-route"></i>
+                        Roteiros
+                    </button>
+                    <button class="filter-btn" data-filter="servicos">
+                        <i class="fas fa-store"></i>
+                        Serviços
+                    </button>
+                    <button class="filter-btn" data-filter="gastronomia">
+                        <i class="fas fa-utensils"></i>
+                        Gastronomia
+                    </button>
+                    <button class="filter-btn" data-filter="artesanato">
+                        <i class="fas fa-palette"></i>
+                        Artesanato
+                    </button>
+                </div>
+                
+                <div class="map-actions">
+                    <button class="action-btn" id="locateBtn" title="Minha Localização">
+                        <i class="fas fa-crosshairs"></i>
+                    </button>
+                    <button class="action-btn" id="offlineBtn" title="Modo Offline">
+                        <i class="fas fa-wifi"></i>
+                    </button>
+                    <button class="action-btn" id="fullscreenBtn" title="Tela Cheia">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Container -->
+    <div id="map"></div>
+
+    <!-- Map Legend -->
+    <div class="map-legend">
+        <h4>Legenda</h4>
+        <div class="legend-items">
+            <div class="legend-item">
+                <i class="fas fa-route" style="color: #ff6b35;"></i>
+                <span>Roteiros</span>
+            </div>
+            <div class="legend-item">
+                <i class="fas fa-store" style="color: #4CAF50;"></i>
+                <span>Serviços</span>
+            </div>
+            <div class="legend-item">
+                <i class="fas fa-utensils" style="color: #FF9800;"></i>
+                <span>Gastronomia</span>
+            </div>
+            <div class="legend-item">
+                <i class="fas fa-palette" style="color: #9C27B0;"></i>
+                <span>Artesanato</span>
+            </div>
+            <div class="legend-item">
+                <i class="fas fa-map-marker-alt" style="color: #E91E63;"></i>
+                <span>Sua Localização</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offline Status -->
+    <div class="offline-status" id="offlineStatus">
+        <i class="fas fa-wifi-slash"></i>
+        <span>Modo Offline Ativo</span>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Carregando mapa...</p>
+        </div>
+    </div>
+
+    <!-- Service Worker Registration - Completamente removido -->
+    <script>
+        // Limpar TODOS os Service Workers e cache
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                    console.log('Service Worker removido:', registration);
+                }
+            });
+            // Limpar cache também
+            if ('caches' in window) {
+                caches.keys().then(function(names) {
+                    for (let name of names) {
+                        caches.delete(name);
+                        console.log('Cache removido:', name);
+                    }
+                });
+            }
+        }
+        // Forçar reload da página
+        setTimeout(() => {
+            console.log('Cache limpo, recarregando...');
+        }, 1000);
+    </script>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+            crossorigin=""></script>
+    
+    <!-- Leaflet MarkerCluster -->
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    
+    <!-- Common JS -->
+    <script src="../../shared/js/common.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="mapa.js?v=14"></script>
+</body>
+</html>
+

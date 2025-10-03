@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar - Negócios Locais</title>
+    <link rel="stylesheet" href="../../shared/css/common.css">
+    <link rel="stylesheet" href="locais.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .login-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #1f2937;
+            margin: 0 0 8px 0;
+        }
+        .login-subtitle {
+            color: #6b7280;
+            font-size: 14px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff6b35;
+        }
+        .form-actions {
+            margin-top: 30px;
+        }
+        .btn-login {
+            width: 100%;
+            background: #ff6b35;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-login:hover {
+            background: #e55a2b;
+        }
+        .btn-login:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        .form-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .form-links a {
+            color: #ff6b35;
+            text-decoration: none;
+            font-size: 14px;
+            margin: 0 10px;
+        }
+        .form-links a:hover {
+            text-decoration: underline;
+        }
+        .form-divider {
+            text-align: center;
+            margin: 20px 0;
+            color: #9ca3af;
+            font-size: 14px;
+            position: relative;
+        }
+        .form-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e5e7eb;
+        }
+        .form-divider span {
+            background: white;
+            padding: 0 15px;
+        }
+        .error-message {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+        .success-message {
+            background: #f0fdf4;
+            color: #16a34a;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="./locais.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Voltar
+    </a>
+    
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1 class="login-title">Entrar</h1>
+                <p class="login-subtitle">Acesse sua conta para gerenciar seus negócios</p>
+            </div>
+            
+            <div id="errorMessage" class="error-message"></div>
+            <div id="successMessage" class="success-message"></div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" required placeholder="Sua senha">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-login" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i> Entrar
+                    </button>
+                </div>
+            </form>
+            
+            <div class="form-links">
+                <a href="#" id="forgotPasswordLink">Esqueceu a senha?</a>
+            </div>
+            
+            <div class="form-divider">
+                <span>ou</span>
+            </div>
+            
+            <div class="form-actions">
+                <button type="button" class="btn-login" id="signupBtn" style="background: #6b7280;">
+                    <i class="fas fa-user-plus"></i> Criar conta
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const USERS_KEY = 'turismojp.users.v1';
+            const SESSION_KEY = 'turismojp.session.v1';
+            
+            const loginForm = document.getElementById('loginForm');
+            const signupBtn = document.getElementById('signupBtn');
+            const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            const loginBtn = document.getElementById('loginBtn');
+            
+            // Verificar se já está logado
+            if (getCurrentUser()) {
+                window.location.href = './locais.html';
+                return;
+            }
+            
+            loginForm.addEventListener('submit', handleLogin);
+            signupBtn.addEventListener('click', showSignupForm);
+            forgotPasswordLink.addEventListener('click', showForgotPasswordForm);
+            
+            function handleLogin(e) {
+                e.preventDefault();
+                hideMessages();
+                
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+                
+                if (!email || !password) {
+                    showError('Por favor, preencha todos os campos.');
+                    return;
+                }
+                
+                loginBtn.disabled = true;
+                loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
+                
+                // Simular delay de login
+                setTimeout(() => {
+                    const users = getUsers();
+                    const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+                    
+                    if (!user) {
+                        showError('E-mail não encontrado. <a href="#" id="createAccountLink">Criar conta</a>');
+                        loginBtn.disabled = false;
+                        loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Entrar';
+                        return;
+                    }
+                    
+                    if (user.password !== password) {
+                        showError('Senha incorreta.');
+                        loginBtn.disabled = false;
+                        loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Entrar';
+                        return;
+                    }
+                    
+                    // Login bem-sucedido
+                    localStorage.setItem(SESSION_KEY, JSON.stringify({ userId: user.id }));
+                    showSuccess('Login realizado com sucesso! Redirecionando...');
+                    
+                    setTimeout(() => {
+                        window.location.href = './locais.html';
+                    }, 1500);
+                }, 1000);
+            }
+            
+            function showSignupForm() {
+                const card = document.querySelector('.login-card');
+                card.innerHTML = `
+                    <div class="login-header">
+                        <h1 class="login-title">Criar Conta</h1>
+                        <p class="login-subtitle">Cadastre-se para começar a vender</p>
+                    </div>
+                    
+                    <div id="errorMessage" class="error-message"></div>
+                    <div id="successMessage" class="success-message"></div>
+                    
+                    <form id="signupForm">
+                        <div class="form-group">
+                            <label for="signupName">Nome completo</label>
+                            <input type="text" id="signupName" name="name" required placeholder="Seu nome completo">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="signupEmail">E-mail</label>
+                            <input type="email" id="signupEmail" name="email" required placeholder="seu@email.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="signupPassword">Senha</label>
+                            <input type="password" id="signupPassword" name="password" required placeholder="Mínimo 6 caracteres">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirmar senha</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Digite a senha novamente">
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn-login" id="signupSubmitBtn">
+                                <i class="fas fa-user-plus"></i> Criar conta
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div class="form-links">
+                        <a href="#" id="backToLoginLink">Já tem uma conta? Entrar</a>
+                    </div>
+                `;
+                
+                document.getElementById('signupForm').addEventListener('submit', handleSignup);
+                document.getElementById('backToLoginLink').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    location.reload();
+                });
+            }
+            
+            function handleSignup(e) {
+                e.preventDefault();
+                hideMessages();
+                
+                const name = document.getElementById('signupName').value.trim();
+                const email = document.getElementById('signupEmail').value.trim();
+                const password = document.getElementById('signupPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                if (!name || !email || !password || !confirmPassword) {
+                    showError('Por favor, preencha todos os campos.');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    showError('A senha deve ter pelo menos 6 caracteres.');
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    showError('As senhas não coincidem.');
+                    return;
+                }
+                
+                const users = getUsers();
+                if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
+                    showError('Este e-mail já está cadastrado.');
+                    return;
+                }
+                
+                const newUser = {
+                    id: generateId(),
+                    name: name,
+                    email: email,
+                    password: password,
+                    createdAt: new Date().toISOString()
+                };
+                
+                users.push(newUser);
+                localStorage.setItem(USERS_KEY, JSON.stringify(users));
+                
+                showSuccess('Conta criada com sucesso! Fazendo login...');
+                
+                setTimeout(() => {
+                    localStorage.setItem(SESSION_KEY, JSON.stringify({ userId: newUser.id }));
+                    window.location.href = './locais.html';
+                }, 1500);
+            }
+            
+            function showForgotPasswordForm() {
+                const card = document.querySelector('.login-card');
+                card.innerHTML = `
+                    <div class="login-header">
+                        <h1 class="login-title">Recuperar Senha</h1>
+                        <p class="login-subtitle">Digite seu e-mail para receber instruções</p>
+                    </div>
+                    
+                    <div id="errorMessage" class="error-message"></div>
+                    <div id="successMessage" class="success-message"></div>
+                    
+                    <form id="forgotPasswordForm">
+                        <div class="form-group">
+                            <label for="forgotEmail">E-mail</label>
+                            <input type="email" id="forgotEmail" name="email" required placeholder="seu@email.com">
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn-login" id="forgotSubmitBtn">
+                                <i class="fas fa-paper-plane"></i> Enviar instruções
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div class="form-links">
+                        <a href="#" id="backToLoginFromForgot">Voltar ao login</a>
+                    </div>
+                `;
+                
+                document.getElementById('forgotPasswordForm').addEventListener('submit', handleForgotPassword);
+                document.getElementById('backToLoginFromForgot').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    location.reload();
+                });
+            }
+            
+            function handleForgotPassword(e) {
+                e.preventDefault();
+                hideMessages();
+                
+                const email = document.getElementById('forgotEmail').value.trim();
+                
+                if (!email) {
+                    showError('Por favor, digite seu e-mail.');
+                    return;
+                }
+                
+                const users = getUsers();
+                const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+                
+                if (!user) {
+                    showError('E-mail não encontrado.');
+                    return;
+                }
+                
+                showSuccess('Instruções de recuperação enviadas para seu e-mail! (Simulação)');
+            }
+            
+            function showError(message) {
+                errorMessage.innerHTML = message;
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+            }
+            
+            function showSuccess(message) {
+                successMessage.innerHTML = message;
+                successMessage.style.display = 'block';
+                errorMessage.style.display = 'none';
+            }
+            
+            function hideMessages() {
+                errorMessage.style.display = 'none';
+                successMessage.style.display = 'none';
+            }
+            
+            function getUsers() {
+                try {
+                    const raw = localStorage.getItem(USERS_KEY);
+                    return raw ? JSON.parse(raw) : [];
+                } catch(e) {
+                    return [];
+                }
+            }
+            
+            function getCurrentUser() {
+                try {
+                    const sess = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+                    if (!sess) return null;
+                    return getUsers().find(u => u.id === sess.userId) || null;
+                } catch(e) {
+                    return null;
+                }
+            }
+            
+            function generateId() {
+                return Math.random().toString(36).slice(2) + Date.now().toString(36);
+            }
+        })();
+    </script>
+</body>
+</html>
