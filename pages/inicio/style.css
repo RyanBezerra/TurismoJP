@@ -23,14 +23,7 @@ body {
     padding: 0 20px;
 }
 
-/* Header Styles - Usando CSS comum */
-
-/* Garantindo estilos de header */
-.header {
-    transition: background 0.3s ease;
-}
-
-/* Hero Section - Redesign Moderno */
+/* Hero Section */
 .hero {
     position: relative;
     min-height: 100vh;
@@ -446,44 +439,6 @@ body {
     transform: scale(1.1);
 }
 
-/* Mobile Menu Toggle - Usando CSS comum */
-
-/* Responsive Design - Nova Versão */
-@media (max-width: 1200px) {
-    .container {
-        padding: 0 20px;
-    }
-    
-    .hero-title {
-        font-size: clamp(2.8rem, 6vw, 4rem);
-    }
-    
-    .hero-subtitle {
-        font-size: 1.2rem;
-    }
-    
-    .search-container {
-        padding: 30px 25px;
-    }
-    
-    .form-row {
-        grid-template-columns: 2fr 1fr 1fr 1fr;
-        gap: 18px;
-    }
-    
-    .features-grid {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 25px;
-    }
-    
-    .destinations-slider {
-        gap: 24px;
-    }
-    
-    .destination-card {
-        flex: 0 0 clamp(280px, 30vw, 360px);
-    }
-}
 
 @media (max-width: 1024px) {
     .container {
@@ -505,51 +460,8 @@ body {
     .hero-stats {
         gap: 20px;
     }
-    
-    .search-container {
-        padding: 25px;
-    }
-    
-    .form-row {
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-    }
-    
-    .features-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-    }
-    
-    .map-container {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-    
-    .cta-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .btn-primary,
-    .btn-secondary {
-        width: 100%;
-        max-width: 300px;
-        justify-content: center;
-    }
-    
-    .destinations-wrapper {
-        padding: 0 50px;
-    }
-    
-    .destination-card {
-        flex: 0 0 clamp(260px, 28vw, 320px);
-    }
 }
 
-@media (max-width: 768px) {
-    .container {
-        padding: 0 15px;
-    }
     
     .hero-title {
         font-size: clamp(2rem, 7vw, 3rem);

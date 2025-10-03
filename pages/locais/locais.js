@@ -1,58 +1,39 @@
 window.LocaisPage = (function(){
-    const MOCK_DATA = [
-        { nome: 'Centro Histórico de João Pessoa', categoria: 'Entretenimento', bairro: 'Centro', descricao: 'Caminhe pelas ruas históricas da terceira cidade mais antiga do Brasil, com arquitetura colonial preservada e igrejas centenárias', nota: 4.9, imagem: '../experiencias/imagens/centro_historico_jp.png' },
-        { nome: 'Farol do Cabo Branco', categoria: 'Entretenimento', bairro: 'Cabo Branco', descricao: 'Marco geográfico do ponto mais oriental das Américas, com vista panorâmica do oceano e arquitetura única em formato de cajueiro', nota: 4.8, imagem: '../experiencias/imagens/farol_cabo_branco.png' },
-        { nome: 'Parque Arruda Câmara', categoria: 'Entretenimento', bairro: 'Centro', descricao: 'Conhecido como Bica, este parque urbano oferece trilhas, lago, zoológico e uma rica diversidade de fauna e flora da Mata Atlântica', nota: 4.8, imagem: '../experiencias/imagens/parque_arruda_camara.png' },
-        { nome: 'Praia de Tambaba', categoria: 'Entretenimento', bairro: 'Conde', descricao: 'Praia paradisíaca com falésias coloridas, águas cristalinas e uma das poucas praias de naturismo do Brasil', nota: 4.9, imagem: '../experiencias/imagens/praia_de_tambaba.png' },
-        { nome: 'Serra da Borborema', categoria: 'Entretenimento', bairro: 'Interior', descricao: 'Paisagens serranas com clima ameno, trilhas ecológicas e vistas panorâmicas que encantam os visitantes', nota: 4.7, imagem: '../experiencias/imagens/serra_da_borborema.png' },
-        { nome: 'Lajedo de Pai Mateus', categoria: 'Entretenimento', bairro: 'Cabaceiras', descricao: 'Formação rochosa única com pedras gigantes em equilíbrio, cenário de filmes e espetáculo natural impressionante', nota: 4.8, imagem: '../experiencias/imagens/lajedo_do_pai_mateus.png' },
-        { nome: 'Mercado de Artesanato Paraibano', categoria: 'Entretenimento', bairro: 'Centro', descricao: 'Mercado coberto com barracas de artesanato local, souvenirs e local público para fotos', nota: 4.6, imagem: 'img/Mercado de Artesanato Paraibano.jpg' },
-        { nome: 'Feirinha de Tambaú', categoria: 'Entretenimento', bairro: 'Tambaú', descricao: 'Mercado ao ar livre com comida de rua, barracas de artesanato, música ao vivo e apresentações de dança', nota: 4.6, imagem: 'img/Feirinha de Tambaú.jpg' },
-        { nome: 'Centro Cultural São Francisco', categoria: 'Entretenimento', bairro: 'Jaguaribe', descricao: 'Visitas guiadas a uma igreja católica de estilo barroco com arquitetura ornamentada e elementos dourados', nota: 4.7, imagem: 'img/Centro Cultural São Francisco.jpg' },
-        { nome: 'Estação Cabo Branco - Ciência, Cultura e Artes', categoria: 'Entretenimento', bairro: 'Cabo Branco', descricao: 'Complexo de cunho educacional com mostras diversas, observações astronômicas orientadas e oficinas de arte', nota: 4.3, imagem: 'img/Estação Cabo Branco.jpg' },
-        { nome: 'Theatro Santa Roza', categoria: 'Entretenimento', bairro: 'Centro', descricao: 'Teatro histórico de 200 poltronas com balcão duplo e agenda cultural variada com bilheteria convencional', nota: 4.7, imagem: 'img/Theatro Santa Roza.jpg' },
-        { nome: 'Gastronomia Paraibana', categoria: 'Gastronomia', bairro: 'João Pessoa', descricao: 'Saboreie os pratos típicos da Paraíba como carne de sol, tapioca, peixe frito e outras iguarias da culinária regional', nota: 4.9, imagem: '../experiencias/imagens/gastronomia_paraibana.png' },
-        { nome: 'Peixada do Amor', categoria: 'Gastronomia', bairro: 'Cabo Branco', descricao: 'Especialidades em frutos do mar com vista panorâmica do oceano', nota: 4.7, imagem: 'img/Peixada do Amor.jpg' },
-        { nome: 'Mangai', categoria: 'Gastronomia', bairro: 'Manaíra', descricao: 'Restaurante intimista fino serve especialidades brasileiras repaginadas e criativas em menu diversificado', nota: 4.6, imagem: 'img/Mangai.jpg' },
-        { nome: 'Nau Frutos do Mar', categoria: 'Gastronomia', bairro: 'Tambaú', descricao: 'Culinária contemporânea de frutos do mar, além de carnes e sobremesas, em ambiente requintado de ar intimista', nota: 4.7, imagem: 'img/Nau Frutos do Mar.jpg' },
-        { nome: 'Sal e Brasa João Pessoa', categoria: 'Gastronomia', bairro: 'Cabo Branco', descricao: 'Variedade de cortes de carne na brasa e buffet com diversos tipos de entradas e saladas, em espaço familiar', nota: 4.6, imagem: 'img/Sal e Brasa João Pessoa.jpg' },
-        { nome: 'Feijoada do João', categoria: 'Gastronomia', bairro: 'Jaguaribe', descricao: 'Café tradicional com doces caseiros e ambiente histórico aconchegante', nota: 4.6, imagem: 'img/Feijoada do João.jpg' },
-        { nome: 'Manaíra Shopping', categoria: 'Shoppings e Lojas', bairro: 'Manaíra', descricao: 'Shopping com mais de 250 lojas, cinema e praça de alimentação, além de opções descontraídas da culinária internacional', nota: 4.5, imagem: 'img/Manaíra Shopping.jpg' },
-        { nome: 'Mangabeira Shopping', categoria: 'Shoppings e Lojas', bairro: 'Mangabeira', descricao: 'Shopping dinâmico com uma variedade de lojas, um cinema, boliche e opções gastronômicas', nota: 4.6, imagem: 'img/Mangabeira Shopping.jpg' },
-        { nome: 'Shopping Sul', categoria: 'Shoppings e Lojas', bairro: 'Valentina', descricao: 'Shopping de 1998 com lojas, praça de alimentação, área de recreação infantil e serviços bancários', nota: 4.2, imagem: 'img/Shopping Sul.jpg' },
-        { nome: 'Shopping Tambiá', categoria: 'Shoppings e Lojas', bairro: 'Centro', descricao: 'Shopping com praça de alimentação, além de lojas de roupas, calçados, joias, eletrônicos etc.', nota: 4.5, imagem: 'img/Shopping Tambiá.jpg' },
-        { nome: 'Mag Shopping', categoria: 'Shoppings e Lojas', bairro: 'Manaíra', descricao: 'Shopping à beira-mar com visual náutico, mais de 100 lojas, além de praça de alimentação e cinema', nota: 4.5, imagem: 'img/Mag Shopping.jpg' },
-        { nome: 'Ville Des Plantes Open Mall', categoria: 'Shoppings e Lojas', bairro: 'Jardim Cidade Universitária', descricao: 'Shopping a céu aberto com arquitetura moderna e área verde integrada', nota: 4.7, imagem: 'img/Ville Des Plantes Open Mall.jpg' },
-        { nome: 'Hotel Verdegreen', categoria: 'Hospedagem', bairro: 'Manaíra', descricao: 'Hotel descontraído em frente à praia de João Pessoa com obras de arte renomadas, próximo ao Parque Zoobotânico e ao Farol do Cabo Branco', nota: 4.7, imagem: 'img/Hotel Verdegreen.jpg' },
-        { nome: 'Tambaú Hotel', categoria: 'Hospedagem', bairro: 'Tambaú', descricao: 'Símbolo arquitetônico da cidade com design icônico à beira-mar', nota: 4.8, imagem: 'img/Tambaú Hotel.jpg' },
-        { nome: 'Nord Luxxor Tambaú', categoria: 'Hospedagem', bairro: 'Tambaú', descricao: 'Hotel moderno em frente à praia, próximo à Feirinha de Artesanato de Tambaú e ao Centro Cultural São Francisco', nota: 4.6, imagem: 'img/Nord Luxxor Tambaú.jpg' },
-        { nome: 'Hardman Praia Hotel', categoria: 'Hospedagem', bairro: 'Manaíra', descricao: 'Hotel descontraído em frente à Praia de Manaíra, perto da Praça Alcides Carneiro e do Aeroporto Internacional de João Pessoa-Bayeux', nota: 4.3, imagem: 'img/Hardman Praia Hotel.jpg' },
-        { nome: 'Hotel Cabo Branco Atlântico', categoria: 'Hospedagem', bairro: 'Cabo Branco', descricao: 'Hotel sofisticado em frente à praia, próximo ao Centro de Convenções e ao Aeroporto Internacional Castro Pinto', nota: 4.5, imagem: 'img/Hotel Cabo Branco Atlântico.jpg' }
-    ]; 
+    const STORAGE_KEY = 'turismojp.locais.v2';
+    const USERS_KEY = 'turismojp.users.v1';
+    const SESSION_KEY = 'turismojp.session.v1';
+    const MOCK_DATA = [];
+    
 
     function initialize(){
+        try { localStorage.removeItem('turismojp.locais.v1'); } catch(e){}
         bindFilters();
-        render(MOCK_DATA);
+        bindCadastro();
+        bindAuthBar();
+        // Renderiza imediatamente com cache local e busca atualização no servidor
+        const cached = getAllItems();
+        render(cached);
+        fetchAndSyncFromApi();
     }
 
     function bindFilters(){
         const search = document.getElementById('search');
-        const categoria = document.getElementById('categoria');
+        const tipoFilter = document.getElementById('tipoFilter');
         const bairro = document.getElementById('bairro');
         const handler = () => {
             const term = (search?.value || '').toLowerCase();
-            const cat = categoria?.value || 'todas';
+            const tipo = tipoFilter?.value || 'todos';
             const bai = bairro?.value || 'todos';
-            const filtered = MOCK_DATA.filter(item => {
+            const filtered = getAllItems().filter(item => {
                 const okText = item.nome.toLowerCase().includes(term) || (item.descricao||'').toLowerCase().includes(term);
-                const okCat = cat === 'todas' || item.categoria === cat;
+                const okTipo = tipo === 'todos' || (item.tipo || '').toLowerCase() === tipo.toLowerCase();
                 const okBairro = bai === 'todos' || item.bairro === bai;
-                return okText && okCat && okBairro;
+                return okText && okTipo && okBairro;
             });
             render(filtered);
         };
-        [search, categoria, bairro].forEach(el => el && el.addEventListener('input', handler));
-        [categoria, bairro].forEach(el => el && el.addEventListener('change', handler));
+        [search, tipoFilter, bairro].forEach(el => el && el.addEventListener('input', handler));
+        [tipoFilter, bairro].forEach(el => el && el.addEventListener('change', handler));
     }
 
     function render(lista){
@@ -68,17 +49,359 @@ window.LocaisPage = (function(){
                 <img src="${item.imagem}" alt="${item.nome}">
             </div>
             <div class="local-content">
-                <div class="local-rating"><i class="fas fa-star"></i> ${item.nota.toFixed(1)}</div>
+                <div class="local-rating"></div>
                 <h3 class="local-title">${item.nome}</h3>
                 <div class="local-meta">
-                    <span><i class="fas fa-tag"></i> ${item.categoria}</span>
+                    <span><i class="fas fa-tag"></i> ${item.tipo || item.categoria}</span>
                     <span>•</span>
                     <span><i class="fas fa-location-dot"></i> ${item.bairro}</span>
                 </div>
                 <div class="local-tags"><span class="tag">${item.descricao}</span></div>
+                <div style="margin-top:10px"><a class="btn-primary" href="./loja.html?id=${item.id}">Ver loja</a></div>
             </div>
         </article>`;
     }
+
+    function getAllItems(){
+        try{
+            const raw = localStorage.getItem(STORAGE_KEY);
+            const userItems = raw ? JSON.parse(raw) : [];
+            return userItems;
+        }catch(e){
+            return [];
+        }
+    }
+
+    async function fetchAndSyncFromApi(){
+        try{
+            const url = '../../api/businesses.php';
+            const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+            if(!res.ok) throw new Error('HTTP '+res.status);
+            const payload = await res.json();
+            const items = Array.isArray(payload.items) ? payload.items : [];
+            // Normaliza campos para o formato existente da UI
+            const normalized = items.map(it => ({
+                id: it.id,
+                ownerId: it.owner_id,
+                nome: it.nome,
+                tipo: it.tipo,
+                categoria: it.tipo,
+                bairro: it.bairro,
+                descricao: it.descricao,
+                imagem: it.imagem || '../experiencias/imagens/gastronomia_paraibana.png',
+                contato: it.contato || '',
+                pagamentoUrl: it.pagemento_url || it.pagamento_url || '',
+                googleMapsUrl: it.google_maps_url || '',
+                latitude: it.latitude ? Number(it.latitude) : undefined,
+                longitude: it.longitude ? Number(it.longitude) : undefined,
+                hasLocation: it.has_location === 1 || it.has_location === true
+            }));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
+            render(normalized);
+        }catch(err){
+            console.warn('Falha ao buscar dados do servidor:', err);
+        }
+    }
+
+    function bindCadastro(){
+        const form = document.getElementById('cadastro-form');
+        const feedback = document.getElementById('cadastro-feedback');
+        const getLocationBtn = document.getElementById('getLocationBtn');
+        
+        
+        // Add validation for Google Maps URL
+        const googleMapsInput = document.getElementById('googleMapsUrl');
+        if(googleMapsInput) {
+            googleMapsInput.addEventListener('input', function() {
+                const url = this.value.trim();
+                const feedback = document.getElementById('location-feedback');
+                
+                // Remove existing feedback if any
+                if(feedback) feedback.remove();
+                
+                if(url) {
+                    const coords = extractCoordinatesFromGoogleMapsUrl(url);
+                    const feedbackEl = document.createElement('small');
+                    feedbackEl.id = 'location-feedback';
+                    feedbackEl.style.display = 'block';
+                    feedbackEl.style.marginTop = '4px';
+                    
+                    if(coords && coords !== 'SHORTENED_URL' && coords.latitude && coords.longitude) {
+                        feedbackEl.style.color = '#059669';
+                        feedbackEl.innerHTML = `✅ Localização detectada: ${coords.latitude.toFixed(4)}, ${coords.longitude.toFixed(4)}`;
+                    } else if(coords === 'SHORTENED_URL') {
+                        feedbackEl.style.color = '#ffc107';
+                        feedbackEl.innerHTML = `⚠️ Link encurtado detectado. Para usar a localização:<br>
+                            <strong>1.</strong> Abra este link no Google Maps<br>
+                            <strong>2.</strong> Copie a URL da barra de endereço (ela terá as coordenadas)<br>
+                            <strong>3.</strong> Cole aqui a nova URL`;
+                    } else if(url.includes('maps.google') || url.includes('goo.gl')) {
+                        feedbackEl.style.color = '#dc2626';
+                        feedbackEl.innerHTML = '❌ Link do Google Maps inválido. Tente copiar novamente.';
+                    }
+                    
+                    if(feedbackEl.innerHTML) {
+                        this.parentNode.insertBefore(feedbackEl, this.parentNode.querySelector('.form-help'));
+                    }
+                }
+            });
+        }
+
+        // Bind location button - now uses current location and fills Google Maps URL
+        if(getLocationBtn) {
+            getLocationBtn.addEventListener('click', function() {
+                getLocationBtn.textContent = '📍 Obtendo localização...';
+                getLocationBtn.disabled = true;
+                
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        function(position) {
+                            const lat = position.coords.latitude.toFixed(6);
+                            const lng = position.coords.longitude.toFixed(6);
+                            // Create a Google Maps URL with the coordinates
+                            const googleMapsUrl = `https://maps.google.com/maps?q=${lat},${lng}`;
+                            document.getElementById('googleMapsUrl').value = googleMapsUrl;
+                            getLocationBtn.textContent = '✅ Localização obtida';
+                            setTimeout(() => {
+                                getLocationBtn.textContent = '📍 Usar minha localização atual';
+                                getLocationBtn.disabled = false;
+                            }, 2000);
+                        },
+                        function(error) {
+                            console.error('Erro ao obter localização:', error);
+                            getLocationBtn.textContent = '❌ Erro na localização';
+                            setTimeout(() => {
+                                getLocationBtn.textContent = '📍 Usar minha localização atual';
+                                getLocationBtn.disabled = false;
+                            }, 2000);
+                        }
+                    );
+                } else {
+                    getLocationBtn.textContent = '❌ Não suportado';
+                    setTimeout(() => {
+                        getLocationBtn.textContent = '📍 Usar minha localização atual';
+                        getLocationBtn.disabled = false;
+                    }, 2000);
+                }
+            });
+        }
+        
+        if(!form) return;
+        form.addEventListener('submit', function(ev){
+            ev.preventDefault();
+            const user = getCurrentUser();
+            if(!user){
+                if(feedback){ feedback.textContent = 'Você precisa estar logado para publicar.'; feedback.style.color = '#dc2626'; }
+                return;
+            }
+            if(hasUserItem(user.id)){
+                if(feedback){ feedback.textContent = 'Cada conta pode ter apenas 1 oferta.'; feedback.style.color = '#dc2626'; }
+                return;
+            }
+            const item = buildItemFromForm();
+            if(!item){
+                if(feedback) { feedback.textContent = 'Preencha os campos obrigatórios.'; feedback.style.color = '#dc2626'; }
+                return;
+            }
+            const list = getStoredList();
+            const newItem = { ...item, ownerId: user.id, id: generateId() };
+            list.unshift(newItem);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+            if(feedback) { feedback.textContent = 'Oferta publicada com sucesso!'; feedback.style.color = '#059669'; }
+            // Redireciona direto para a página da loja criada para visualizar contato imediatamente
+            location.href = `./loja.html?id=${newItem.id}`;
+        });
+    }
+
+    // Function to extract coordinates from Google Maps URL
+    function extractCoordinatesFromGoogleMapsUrl(url) {
+        if (!url) return null;
+        
+        try {
+            // Check if it's a shortened URL (goo.gl or maps.app.goo.gl)
+            if (url.includes('goo.gl') || url.includes('maps.app.goo.gl')) {
+                return 'SHORTENED_URL';
+            }
+            
+            // Pattern 1: Direct coordinates in URL like maps.google.com/maps?q=lat,lng
+            let match = url.match(/[?&]q=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+            if (match) {
+                return {
+                    latitude: parseFloat(match[1]),
+                    longitude: parseFloat(match[2])
+                };
+            }
+            
+            // Pattern 2: @lat,lng in URL like maps.google.com/maps/@lat,lng,zoom
+            match = url.match(/@(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+            if (match) {
+                return {
+                    latitude: parseFloat(match[1]),
+                    longitude: parseFloat(match[2])
+                };
+            }
+            
+            // Pattern 3: Place coordinates in URL
+            match = url.match(/!3d(-?\d+\.?\d*)!4d(-?\d+\.?\d*)/);
+            if (match) {
+                return {
+                    latitude: parseFloat(match[1]),
+                    longitude: parseFloat(match[2])
+                };
+            }
+            
+            return null;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function buildItemFromForm(){
+        const nome = document.getElementById('nomeItem')?.value?.trim();
+        const bairro = document.getElementById('bairroForm')?.value?.trim();
+        const descricao = document.getElementById('descricaoForm')?.value?.trim();
+        const pagamentoUrl = document.getElementById('pagamentoUrl')?.value?.trim();
+        const contato = document.getElementById('contatoForm')?.value?.trim();
+        const googleMapsUrl = document.getElementById('googleMapsUrl')?.value?.trim();
+        const imagemLojaCustom = document.getElementById('imagemLoja')?.value?.trim();
+        
+        if(!nome || !bairro || !descricao) return null;
+        const tipo = document.getElementById('tipo')?.value || 'Serviços';
+        const imagem = imagemLojaCustom || '../experiencias/imagens/gastronomia_paraibana.png';
+        
+        const item = {
+            nome,
+            categoria: tipo,
+            bairro,
+            descricao,
+            imagem,
+            tipo,
+            pagamentoUrl: pagamentoUrl || '',
+            contato: contato || '',
+            googleMapsUrl: googleMapsUrl || ''
+        };
+        
+        // Extract coordinates from Google Maps URL if provided
+        if(googleMapsUrl) {
+            const coords = extractCoordinatesFromGoogleMapsUrl(googleMapsUrl);
+            if(coords && coords !== 'SHORTENED_URL') {
+                item.latitude = coords.latitude;
+                item.longitude = coords.longitude;
+                item.hasLocation = true;
+            }
+        }
+        
+        return item;
+    }
+
+    function getStoredList(){
+        try{
+            const raw = localStorage.getItem(STORAGE_KEY);
+            return raw ? JSON.parse(raw) : [];
+        }catch(e){
+            return [];
+        }
+    }
+
+    function hasUserItem(userId){
+        return getStoredList().some(i => i.ownerId === userId);
+    }
+
+    function generateId(){
+        return Math.random().toString(36).slice(2) + Date.now().toString(36);
+    }
+
+    // Auth
+    function bindAuthBar(){
+        const btnLogin = document.getElementById('btn-login');
+        const btnLogout = document.getElementById('btn-logout');
+        const statusEl = document.getElementById('auth-status');
+        const cadastroAcc = document.getElementById('cadastro-accordion');
+        updateAuthBar();
+        btnLogin && btnLogin.addEventListener('click', () => openAuthDialog());
+        btnLogout && btnLogout.addEventListener('click', () => { logout(); updateAuthBar(); });
+
+        function updateAuthBar(){
+            const user = getCurrentUser();
+            if(user){
+                if(statusEl) statusEl.textContent = `Conectado como ${user.name}`;
+                if(btnLogin) btnLogin.style.display = 'none';
+                if(btnLogout) btnLogout.style.display = 'inline-flex';
+                
+                // Verifica se o usuário já tem uma loja
+                const userHasStore = hasUserItem(user.id);
+                if(userHasStore){
+                    // Esconde o formulário de cadastro
+                    if(cadastroAcc) cadastroAcc.style.display = 'none';
+                    
+                    // Cria ou atualiza o botão "Ver minha loja"
+                    let viewStoreBtn = document.getElementById('view-store-btn');
+                    if(!viewStoreBtn){
+                        viewStoreBtn = document.createElement('div');
+                        viewStoreBtn.id = 'view-store-btn';
+                        viewStoreBtn.className = 'view-store-section';
+                        viewStoreBtn.innerHTML = `
+                            <div class="view-store-card">
+                                <div class="view-store-content">
+                                    <h3>✅ Sua loja está ativa!</h3>
+                                    <p>Gerencie seus produtos, serviços e informações de contato.</p>
+                                    <button id="btn-view-store" class="btn-primary">Ver minha loja</button>
+                                </div>
+                            </div>
+                        `;
+                        cadastroAcc.parentNode.insertBefore(viewStoreBtn, cadastroAcc);
+                        
+                        // Adiciona evento ao botão
+                        document.getElementById('btn-view-store').addEventListener('click', () => {
+                            const userStore = getStoredList().find(item => item.ownerId === user.id);
+                            if(userStore){
+                                window.location.href = `./loja.html?id=${userStore.id}`;
+                            }
+                        });
+                    }
+                } else {
+                    // Remove o botão "Ver minha loja" se existir e mostra o formulário
+                    const viewStoreBtn = document.getElementById('view-store-btn');
+                    if(viewStoreBtn) viewStoreBtn.remove();
+                    if(cadastroAcc) cadastroAcc.style.display = 'block';
+                }
+            }else{
+                if(statusEl) statusEl.textContent = 'Você está desconectado';
+                if(btnLogin) btnLogin.style.display = 'inline-flex';
+                if(btnLogout) btnLogout.style.display = 'none';
+                if(cadastroAcc) cadastroAcc.style.display = 'none';
+                
+                // Remove o botão "Ver minha loja" se existir
+                const viewStoreBtn = document.getElementById('view-store-btn');
+                if(viewStoreBtn) viewStoreBtn.remove();
+            }
+        }
+    }
+
+    function openAuthDialog(){
+        // Redireciona para página de login
+        window.location.href = './login.html';
+    }
+
+    function logout(){
+        try{ localStorage.removeItem(SESSION_KEY); }catch(e){}
+    }
+
+    function getUsers(){
+        try{
+            const raw = localStorage.getItem(USERS_KEY);
+            return raw ? JSON.parse(raw) : [];
+        }catch(e){ return []; }
+    }
+
+    function getCurrentUser(){
+        try{
+            const sess = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+            if(!sess) return null;
+            return getUsers().find(u => u.id === sess.userId) || null;
+        }catch(e){ return null; }
+    }
+
 
     function capitalize(str){ return str.charAt(0).toUpperCase() + str.slice(1); }
 

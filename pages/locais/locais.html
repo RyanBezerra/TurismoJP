@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Negócios Locais - Paraíba Turismo</title>
-    <link rel="stylesheet" href="../../shared/css/common.css">
-    <link rel="stylesheet" href="locais.css?v=2">
+    <link rel="stylesheet" href="../../shared/css/common.css?v=4">
+    <link rel="stylesheet" href="locais.css?v=6">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -27,6 +27,7 @@
                     <li><a href="../roteiros/roteiros.html">Roteiros</a></li>
                     <li><a href="../experiencias/experiencias.html">Experiências</a></li>
                     <li><a href="#" class="active">Negócios Locais</a></li>
+                    <li><a href="../mapa/mapa.html">Mapa</a></li>
                     <li><a href="../sobre/sobre.html">Sobre</a></li>
                 </ul>
             </nav>
@@ -38,18 +39,22 @@
             <h1 class="page-title">Descubra e apoie <span class="highlight">negócios</span> locais</h1>
             <p class="page-subtitle">Comércio, gastronomia, artesanato e serviços que movimentam a economia criativa da Paraíba.</p>
             <div class="filters">
+                <div class="auth-bar">
+                    <span id="auth-status">Você está desconectado</span>
+                    <button id="btn-login" class="btn-secondary">Entrar para adicionar serviço</button>
+                    <button id="btn-logout" class="btn-secondary" style="display:none">Sair</button>
+                </div>
                 <div class="filter-group">
                     <label for="search">Buscar</label>
                     <input id="search" type="text" placeholder="Ex.: café, artesanato, pousada" />
                 </div>
                 <div class="filter-group">
-                    <label for="categoria">Categoria</label>
-                    <select id="categoria">
-                        <option value="todas" selected>Todas</option>
-                        <option value="Entretenimento">Entretenimento</option>
-                        <option value="Gastronomia">Gastronomia</option>
-                        <option value="Shoppings e Lojas">Shoppings e Lojas</option>
-                        <option value="Hospedagem">Hospedagem</option>
+                    <label for="tipoFilter">Tipo</label>
+                    <select id="tipoFilter">
+                        <option value="todos" selected>Todos</option>
+                        <option value="Guia">Guia</option>
+                        <option value="Artesão">Artesão</option>
+                        <option value="Restaurante">Restaurante</option>
                     </select>
                 </div>
                 <div class="filter-group">
@@ -70,6 +75,80 @@
         </div>
     </main>
 
+    <section class="ecosistema-section">
+        <div class="container">
+            <details id="cadastro-accordion" class="cadastro-accordion" open>
+                <summary class="cadastro-summary">Cadastrar serviço ou produto</summary>
+                <p class="ecosistema-subtitle">Guias turísticos, artesãos e restaurantes podem divulgar ofertas e adicionar um link de pagamento.</p>
+                <form id="cadastro-form" class="cadastro-form" novalidate>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="tipo">Tipo</label>
+                            <select id="tipo" required>
+                                <option value="Guia">Guia</option>
+                                <option value="Artesão">Artesão</option>
+                                <option value="Restaurante">Restaurante</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nomeItem">Nome</label>
+                            <input id="nomeItem" type="text" placeholder="Ex.: Tour Centro Histórico, Cerâmica, Almoço executivo" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="bairroForm">Bairro</label>
+                            <select id="bairroForm" required>
+                                <option value="">Selecione o bairro</option>
+                                <option value="Centro">Centro</option>
+                                <option value="Tambaú">Tambaú</option>
+                                <option value="Jaguaribe">Jaguaribe</option>
+                                <option value="Cabo Branco">Cabo Branco</option>
+                                <option value="Manaíra">Manaíra</option>
+                                <option value="Mangabeira">Mangabeira</option>
+                                <option value="Valentina">Valentina</option>
+                                <option value="Jardim Cidade Universitária">Jardim Cidade Universitária</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-span-2">
+                            <label for="descricaoForm">Descrição</label>
+                            <textarea id="descricaoForm" rows="3" placeholder="Conte em poucas linhas o que você oferece" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="contatoForm">Contato</label>
+                            <input id="contatoForm" type="text" placeholder="WhatsApp ou e-mail" />
+                        </div>
+                        <div class="form-group">
+                            <label for="pagamentoUrl">Link de Pagamento (PIX/Stripe, etc.)</label>
+                            <input id="pagamentoUrl" type="url" placeholder="https://..." />
+                        </div>
+                        <div class="form-group">
+                            <label for="imagemLoja">Foto da Loja (opcional)</label>
+                            <input id="imagemLoja" type="url" placeholder="URL da imagem da sua loja" />
+                        </div>
+                        <div class="form-group form-span-2">
+                            <label for="localizacao">Localização do Google Maps (opcional)</label>
+                            <div class="location-input-group">
+                                <input id="googleMapsUrl" type="url" placeholder="Cole aqui o link do Google Maps do seu estabelecimento" />
+                                <button type="button" id="getLocationBtn" class="btn-secondary">📍 Usar minha localização atual</button>
+                            </div>
+                            <small class="form-help">
+                                <strong>⚠️ IMPORTANTE:</strong> Cole a URL completa da barra de endereços do Google Maps (não o link compartilhado).<br>
+                                <strong>Como obter:</strong><br>
+                                1. Abra o Google Maps e busque seu estabelecimento<br>
+                                2. <strong>Copie a URL da barra de endereços do navegador</strong> (ela contém as coordenadas)<br>
+                                3. Cole aqui esta URL completa<br>
+                                <em>Se informado corretamente, seu estabelecimento aparecerá no mapa do site.</em>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Publicar oferta</button>
+                        <span id="cadastro-feedback" class="form-feedback" aria-live="polite"></span>
+                    </div>
+                </form>
+            </details>
+        </div>
+    </section>
+
     <section class="locais-grid-section">
         <div class="container">
             <div id="locais-grid" class="locais-grid"></div>
@@ -83,7 +162,7 @@
     </footer>
 
     <script src="../../shared/js/common.js"></script>
-    <script src="locais.js?v=2"></script>
+    <script src="locais.js?v=6"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function(){
             if (window.LocaisPage && typeof window.LocaisPage.initialize === 'function') {
