@@ -2,15 +2,18 @@ window.LocaisPage = (function(){
     const STORAGE_KEY = 'turismojp.locais.v2';
     const USERS_KEY = 'turismojp.users.v1';
     const SESSION_KEY = 'turismojp.session.v1';
-    const MOCK_DATA = []; 
+    const MOCK_DATA = [];
+    
 
     function initialize(){
         try { localStorage.removeItem('turismojp.locais.v1'); } catch(e){}
         bindFilters();
         bindCadastro();
         bindAuthBar();
-        const data = getAllItems();
-        render(data);
+        // Renderiza imediatamente com cache local e busca atualização no servidor
+        const cached = getAllItems();
+        render(cached);
+        fetchAndSyncFromApi();
     }
 
     function bindFilters(){
@@ -69,9 +72,120 @@ window.LocaisPage = (function(){
         }
     }
 
+    async function fetchAndSyncFromApi(){
+        try{
+            const url = '../../api/businesses.php';
+            const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+            if(!res.ok) throw new Error('HTTP '+res.status);
+            const payload = await res.json();
+            const items = Array.isArray(payload.items) ? payload.items : [];
+            // Normaliza campos para o formato existente da UI
+            const normalized = items.map(it => ({
+                id: it.id,
+                ownerId: it.owner_id,
+                nome: it.nome,
+                tipo: it.tipo,
+                categoria: it.tipo,
+                bairro: it.bairro,
+                descricao: it.descricao,
+                imagem: it.imagem || '../experiencias/imagens/gastronomia_paraibana.png',
+                contato: it.contato || '',
+                pagamentoUrl: it.pagemento_url || it.pagamento_url || '',
+                googleMapsUrl: it.google_maps_url || '',
+                latitude: it.latitude ? Number(it.latitude) : undefined,
+                longitude: it.longitude ? Number(it.longitude) : undefined,
+                hasLocation: it.has_location === 1 || it.has_location === true
+            }));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
+            render(normalized);
+        }catch(err){
+            console.warn('Falha ao buscar dados do servidor:', err);
+        }
+    }
+
     function bindCadastro(){
         const form = document.getElementById('cadastro-form');
         const feedback = document.getElementById('cadastro-feedback');
+        const getLocationBtn = document.getElementById('getLocationBtn');
+        
+        
+        // Add validation for Google Maps URL
+        const googleMapsInput = document.getElementById('googleMapsUrl');
+        if(googleMapsInput) {
+            googleMapsInput.addEventListener('input', function() {
+                const url = this.value.trim();
+                const feedback = document.getElementById('location-feedback');
+                
+                // Remove existing feedback if any
+                if(feedback) feedback.remove();
+                
+                if(url) {
+                    const coords = extractCoordinatesFromGoogleMapsUrl(url);
+                    const feedbackEl = document.createElement('small');
+                    feedbackEl.id = 'location-feedback';
+                    feedbackEl.style.display = 'block';
+                    feedbackEl.style.marginTop = '4px';
+                    
+                    if(coords && coords !== 'SHORTENED_URL' && coords.latitude && coords.longitude) {
+                        feedbackEl.style.color = '#059669';
+                        feedbackEl.innerHTML = `✅ Localização detectada: ${coords.latitude.toFixed(4)}, ${coords.longitude.toFixed(4)}`;
+                    } else if(coords === 'SHORTENED_URL') {
+                        feedbackEl.style.color = '#ffc107';
+                        feedbackEl.innerHTML = `⚠️ Link encurtado detectado. Para usar a localização:<br>
+                            <strong>1.</strong> Abra este link no Google Maps<br>
+                            <strong>2.</strong> Copie a URL da barra de endereço (ela terá as coordenadas)<br>
+                            <strong>3.</strong> Cole aqui a nova URL`;
+                    } else if(url.includes('maps.google') || url.includes('goo.gl')) {
+                        feedbackEl.style.color = '#dc2626';
+                        feedbackEl.innerHTML = '❌ Link do Google Maps inválido. Tente copiar novamente.';
+                    }
+                    
+                    if(feedbackEl.innerHTML) {
+                        this.parentNode.insertBefore(feedbackEl, this.parentNode.querySelector('.form-help'));
+                    }
+                }
+            });
+        }
+
+        // Bind location button - now uses current location and fills Google Maps URL
+        if(getLocationBtn) {
+            getLocationBtn.addEventListener('click', function() {
+                getLocationBtn.textContent = '📍 Obtendo localização...';
+                getLocationBtn.disabled = true;
+                
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        function(position) {
+                            const lat = position.coords.latitude.toFixed(6);
+                            const lng = position.coords.longitude.toFixed(6);
+                            // Create a Google Maps URL with the coordinates
+                            const googleMapsUrl = `https://maps.google.com/maps?q=${lat},${lng}`;
+                            document.getElementById('googleMapsUrl').value = googleMapsUrl;
+                            getLocationBtn.textContent = '✅ Localização obtida';
+                            setTimeout(() => {
+                                getLocationBtn.textContent = '📍 Usar minha localização atual';
+                                getLocationBtn.disabled = false;
+                            }, 2000);
+                        },
+                        function(error) {
+                            console.error('Erro ao obter localização:', error);
+                            getLocationBtn.textContent = '❌ Erro na localização';
+                            setTimeout(() => {
+                                getLocationBtn.textContent = '📍 Usar minha localização atual';
+                                getLocationBtn.disabled = false;
+                            }, 2000);
+                        }
+                    );
+                } else {
+                    getLocationBtn.textContent = '❌ Não suportado';
+                    setTimeout(() => {
+                        getLocationBtn.textContent = '📍 Usar minha localização atual';
+                        getLocationBtn.disabled = false;
+                    }, 2000);
+                }
+            });
+        }
+        
         if(!form) return;
         form.addEventListener('submit', function(ev){
             ev.preventDefault();
@@ -99,16 +213,63 @@ window.LocaisPage = (function(){
         });
     }
 
+    // Function to extract coordinates from Google Maps URL
+    function extractCoordinatesFromGoogleMapsUrl(url) {
+        if (!url) return null;
+        
+        try {
+            // Check if it's a shortened URL (goo.gl or maps.app.goo.gl)
+            if (url.includes('goo.gl') || url.includes('maps.app.goo.gl')) {
+                return 'SHORTENED_URL';
+            }
+            
+            // Pattern 1: Direct coordinates in URL like maps.google.com/maps?q=lat,lng
+            let match = url.match(/[?&]q=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+            if (match) {
+                return {
+                    latitude: parseFloat(match[1]),
+                    longitude: parseFloat(match[2])
+                };
+            }
+            
+            // Pattern 2: @lat,lng in URL like maps.google.com/maps/@lat,lng,zoom
+            match = url.match(/@(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+            if (match) {
+                return {
+                    latitude: parseFloat(match[1]),
+                    longitude: parseFloat(match[2])
+                };
+            }
+            
+            // Pattern 3: Place coordinates in URL
+            match = url.match(/!3d(-?\d+\.?\d*)!4d(-?\d+\.?\d*)/);
+            if (match) {
+                return {
+                    latitude: parseFloat(match[1]),
+                    longitude: parseFloat(match[2])
+                };
+            }
+            
+            return null;
+        } catch (e) {
+            return null;
+        }
+    }
+
     function buildItemFromForm(){
         const nome = document.getElementById('nomeItem')?.value?.trim();
         const bairro = document.getElementById('bairroForm')?.value?.trim();
         const descricao = document.getElementById('descricaoForm')?.value?.trim();
         const pagamentoUrl = document.getElementById('pagamentoUrl')?.value?.trim();
         const contato = document.getElementById('contatoForm')?.value?.trim();
+        const googleMapsUrl = document.getElementById('googleMapsUrl')?.value?.trim();
+        const imagemLojaCustom = document.getElementById('imagemLoja')?.value?.trim();
+        
         if(!nome || !bairro || !descricao) return null;
         const tipo = document.getElementById('tipo')?.value || 'Serviços';
-        const imagem = '../experiencias/imagens/gastronomia_paraibana.png';
-        return {
+        const imagem = imagemLojaCustom || '../experiencias/imagens/gastronomia_paraibana.png';
+        
+        const item = {
             nome,
             categoria: tipo,
             bairro,
@@ -116,8 +277,21 @@ window.LocaisPage = (function(){
             imagem,
             tipo,
             pagamentoUrl: pagamentoUrl || '',
-            contato: contato || ''
+            contato: contato || '',
+            googleMapsUrl: googleMapsUrl || ''
         };
+        
+        // Extract coordinates from Google Maps URL if provided
+        if(googleMapsUrl) {
+            const coords = extractCoordinatesFromGoogleMapsUrl(googleMapsUrl);
+            if(coords && coords !== 'SHORTENED_URL') {
+                item.latitude = coords.latitude;
+                item.longitude = coords.longitude;
+                item.hasLocation = true;
+            }
+        }
+        
+        return item;
     }
 
     function getStoredList(){
@@ -153,12 +327,53 @@ window.LocaisPage = (function(){
                 if(statusEl) statusEl.textContent = `Conectado como ${user.name}`;
                 if(btnLogin) btnLogin.style.display = 'none';
                 if(btnLogout) btnLogout.style.display = 'inline-flex';
-                if(cadastroAcc) cadastroAcc.style.display = 'block';
+                
+                // Verifica se o usuário já tem uma loja
+                const userHasStore = hasUserItem(user.id);
+                if(userHasStore){
+                    // Esconde o formulário de cadastro
+                    if(cadastroAcc) cadastroAcc.style.display = 'none';
+                    
+                    // Cria ou atualiza o botão "Ver minha loja"
+                    let viewStoreBtn = document.getElementById('view-store-btn');
+                    if(!viewStoreBtn){
+                        viewStoreBtn = document.createElement('div');
+                        viewStoreBtn.id = 'view-store-btn';
+                        viewStoreBtn.className = 'view-store-section';
+                        viewStoreBtn.innerHTML = `
+                            <div class="view-store-card">
+                                <div class="view-store-content">
+                                    <h3>✅ Sua loja está ativa!</h3>
+                                    <p>Gerencie seus produtos, serviços e informações de contato.</p>
+                                    <button id="btn-view-store" class="btn-primary">Ver minha loja</button>
+                                </div>
+                            </div>
+                        `;
+                        cadastroAcc.parentNode.insertBefore(viewStoreBtn, cadastroAcc);
+                        
+                        // Adiciona evento ao botão
+                        document.getElementById('btn-view-store').addEventListener('click', () => {
+                            const userStore = getStoredList().find(item => item.ownerId === user.id);
+                            if(userStore){
+                                window.location.href = `./loja.html?id=${userStore.id}`;
+                            }
+                        });
+                    }
+                } else {
+                    // Remove o botão "Ver minha loja" se existir e mostra o formulário
+                    const viewStoreBtn = document.getElementById('view-store-btn');
+                    if(viewStoreBtn) viewStoreBtn.remove();
+                    if(cadastroAcc) cadastroAcc.style.display = 'block';
+                }
             }else{
                 if(statusEl) statusEl.textContent = 'Você está desconectado';
                 if(btnLogin) btnLogin.style.display = 'inline-flex';
                 if(btnLogout) btnLogout.style.display = 'none';
                 if(cadastroAcc) cadastroAcc.style.display = 'none';
+                
+                // Remove o botão "Ver minha loja" se existir
+                const viewStoreBtn = document.getElementById('view-store-btn');
+                if(viewStoreBtn) viewStoreBtn.remove();
             }
         }
     }

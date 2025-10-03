@@ -212,6 +212,49 @@
 
             function genId(){ return Math.random().toString(36).slice(2) + Date.now().toString(36); }
             function escapeHtml(str){ return String(str||'').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[s])); }
+            
+            // Function to extract coordinates from Google Maps URL
+            function extractCoordinatesFromGoogleMapsUrl(url) {
+                if (!url) return null;
+                
+                try {
+                    // Check if it's a shortened URL (goo.gl or maps.app.goo.gl)
+                    if (url.includes('goo.gl') || url.includes('maps.app.goo.gl')) {
+                        return 'SHORTENED_URL';
+                    }
+                    
+                    // Pattern 1: Direct coordinates in URL like maps.google.com/maps?q=lat,lng
+                    let match = url.match(/[?&]q=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+                    if (match) {
+                        return {
+                            latitude: parseFloat(match[1]),
+                            longitude: parseFloat(match[2])
+                        };
+                    }
+                    
+                    // Pattern 2: @lat,lng in URL like maps.google.com/maps/@lat,lng,zoom
+                    match = url.match(/@(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+                    if (match) {
+                        return {
+                            latitude: parseFloat(match[1]),
+                            longitude: parseFloat(match[2])
+                        };
+                    }
+                    
+                    // Pattern 3: Place coordinates in URL
+                    match = url.match(/!3d(-?\d+\.?\d*)!4d(-?\d+\.?\d*)/);
+                    if (match) {
+                        return {
+                            latitude: parseFloat(match[1]),
+                            longitude: parseFloat(match[2])
+                        };
+                    }
+                    
+                    return null;
+                } catch (e) {
+                    return null;
+                }
+            }
 
             function openLojaPanel(){
                 const panel = document.getElementById('panel');
@@ -219,28 +262,160 @@
                 panel.innerHTML = `
                     <div class="form-grid">
                         <div class="form-group"><label>Nome</label><input id="lojaNome" type="text" value="${escapeHtml(item.nome)}"></div>
-                        <div class="form-group"><label>Bairro</label><input id="lojaBairro" type="text" value="${escapeHtml(item.bairro)}"></div>
+                        <div class="form-group">
+                            <label>Bairro</label>
+                            <select id="lojaBairro">
+                                <option value="">Selecione o bairro</option>
+                                <option value="Centro" ${item.bairro === 'Centro' ? 'selected' : ''}>Centro</option>
+                                <option value="Tambaú" ${item.bairro === 'Tambaú' ? 'selected' : ''}>Tambaú</option>
+                                <option value="Jaguaribe" ${item.bairro === 'Jaguaribe' ? 'selected' : ''}>Jaguaribe</option>
+                                <option value="Cabo Branco" ${item.bairro === 'Cabo Branco' ? 'selected' : ''}>Cabo Branco</option>
+                                <option value="Manaíra" ${item.bairro === 'Manaíra' ? 'selected' : ''}>Manaíra</option>
+                                <option value="Mangabeira" ${item.bairro === 'Mangabeira' ? 'selected' : ''}>Mangabeira</option>
+                                <option value="Valentina" ${item.bairro === 'Valentina' ? 'selected' : ''}>Valentina</option>
+                                <option value="Jardim Cidade Universitária" ${item.bairro === 'Jardim Cidade Universitária' ? 'selected' : ''}>Jardim Cidade Universitária</option>
+                            </select>
+                        </div>
                         <div class="form-group form-span-2"><label>Descrição</label><textarea id="lojaDesc" rows="2">${escapeHtml(item.descricao)}</textarea></div>
-                        <div class="form-group"><label>Contato</label><input id="lojaContato" type="text" value="${escapeHtml(item.contato||'')}"></div>
-                        <div class="form-group"><label>Imagem (URL)</label><input id="lojaImg" type="text" value="${escapeHtml(item.imagem)}"></div>
+                        <div class="form-group"><label>Contato</label><input id="lojaContato" type="text" value="${escapeHtml(item.contato||'')}" placeholder="WhatsApp ou e-mail"></div>
+                        <div class="form-group"><label>Link de Pagamento (PIX/Stripe, etc.)</label><input id="lojaPagamento" type="url" value="${escapeHtml(item.pagamentoUrl||'')}" placeholder="https://..."></div>
+                        <div class="form-group"><label>Imagem da Loja (URL)</label><input id="lojaImg" type="text" value="${escapeHtml(item.imagem)}" placeholder="URL da imagem da sua loja"></div>
+                        <div class="form-group form-span-2">
+                            <label>Localização do Google Maps (opcional)</label>
+                            <div class="location-input-group">
+                                <input id="lojaGoogleMaps" type="url" value="${escapeHtml(item.googleMapsUrl||'')}" placeholder="Cole aqui o link do Google Maps do seu estabelecimento" />
+                                <button type="button" id="getLocationBtnLoja" class="btn-secondary">📍 Usar minha localização atual</button>
+                            </div>
+                            <small class="form-help">
+                                <strong>⚠️ IMPORTANTE:</strong> Cole a URL completa da barra de endereços do Google Maps (não o link compartilhado).<br>
+                                <strong>Como obter:</strong><br>
+                                1. Abra o Google Maps e busque seu estabelecimento<br>
+                                2. <strong>Copie a URL da barra de endereços do navegador</strong> (ela contém as coordenadas)<br>
+                                3. Cole aqui esta URL completa<br>
+                                <em>Se informado corretamente, seu estabelecimento aparecerá no mapa do site.</em>
+                            </small>
+                        </div>
                     </div>
                     <div class="form-actions">
                         <button id="lojaSave" class="btn-primary" type="button">Salvar alterações</button>
                         <button id="panelClose" class="btn-secondary" type="button">Fechar</button>
                     </div>`;
                 document.getElementById('panelClose').onclick = () => panel.style.display='none';
+                
+                // Add validation for Google Maps URL in edit panel
+                const googleMapsInputLoja = document.getElementById('lojaGoogleMaps');
+                if(googleMapsInputLoja) {
+                    googleMapsInputLoja.addEventListener('input', function() {
+                        const url = this.value.trim();
+                        const feedback = document.getElementById('location-feedback-loja');
+                        
+                        // Remove existing feedback if any
+                        if(feedback) feedback.remove();
+                        
+                        if(url) {
+                            const coords = extractCoordinatesFromGoogleMapsUrl(url);
+                            const feedbackEl = document.createElement('small');
+                            feedbackEl.id = 'location-feedback-loja';
+                            feedbackEl.style.display = 'block';
+                            feedbackEl.style.marginTop = '4px';
+                            
+                            if(coords && coords !== 'SHORTENED_URL' && coords.latitude && coords.longitude) {
+                                feedbackEl.style.color = '#059669';
+                                feedbackEl.innerHTML = `✅ Localização detectada: ${coords.latitude.toFixed(4)}, ${coords.longitude.toFixed(4)}`;
+                            } else if(coords === 'SHORTENED_URL') {
+                                feedbackEl.style.color = '#ffc107';
+                                feedbackEl.innerHTML = `⚠️ Link encurtado detectado. Para usar a localização:<br>
+                                    <strong>1.</strong> Abra este link no Google Maps<br>
+                                    <strong>2.</strong> Copie a URL da barra de endereço (ela terá as coordenadas)<br>
+                                    <strong>3.</strong> Cole aqui a nova URL`;
+                            } else if(url.includes('maps.google') || url.includes('goo.gl')) {
+                                feedbackEl.style.color = '#dc2626';
+                                feedbackEl.innerHTML = '❌ Link do Google Maps inválido. Tente copiar novamente.';
+                            }
+                            
+                            if(feedbackEl.innerHTML) {
+                                this.parentNode.insertBefore(feedbackEl, this.parentNode.querySelector('.form-help'));
+                            }
+                        }
+                    });
+                }
+                
+                // Location button for edit panel
+                const getLocationBtnLoja = document.getElementById('getLocationBtnLoja');
+                if(getLocationBtnLoja) {
+                    getLocationBtnLoja.addEventListener('click', function() {
+                        getLocationBtnLoja.textContent = '📍 Obtendo localização...';
+                        getLocationBtnLoja.disabled = true;
+                        
+                        if (navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(
+                                function(position) {
+                                    const lat = position.coords.latitude.toFixed(6);
+                                    const lng = position.coords.longitude.toFixed(6);
+                                    const googleMapsUrl = `https://maps.google.com/maps?q=${lat},${lng}`;
+                                    document.getElementById('lojaGoogleMaps').value = googleMapsUrl;
+                                    getLocationBtnLoja.textContent = '✅ Localização obtida';
+                                    setTimeout(() => {
+                                        getLocationBtnLoja.textContent = '📍 Usar minha localização atual';
+                                        getLocationBtnLoja.disabled = false;
+                                    }, 2000);
+                                },
+                                function(error) {
+                                    console.error('Erro ao obter localização:', error);
+                                    getLocationBtnLoja.textContent = '❌ Erro na localização';
+                                    setTimeout(() => {
+                                        getLocationBtnLoja.textContent = '📍 Usar minha localização atual';
+                                        getLocationBtnLoja.disabled = false;
+                                    }, 2000);
+                                }
+                            );
+                        } else {
+                            getLocationBtnLoja.textContent = '❌ Não suportado';
+                            setTimeout(() => {
+                                getLocationBtnLoja.textContent = '📍 Usar minha localização atual';
+                                getLocationBtnLoja.disabled = false;
+                            }, 2000);
+                        }
+                    });
+                }
+                
                 document.getElementById('lojaSave').onclick = () => {
                     const list = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
                     const idx = list.findIndex(x => x.id === id);
                     if(idx >= 0){
-                        list[idx] = {
+                        const googleMapsUrl = (document.getElementById('lojaGoogleMaps').value||'').trim();
+                        const updatedItem = {
                             ...list[idx],
                             nome: (document.getElementById('lojaNome').value||'').trim(),
                             bairro: (document.getElementById('lojaBairro').value||'').trim(),
                             descricao: (document.getElementById('lojaDesc').value||'').trim(),
                             contato: (document.getElementById('lojaContato').value||'').trim(),
-                            imagem: (document.getElementById('lojaImg').value||'').trim() || list[idx].imagem
+                            imagem: (document.getElementById('lojaImg').value||'').trim() || list[idx].imagem,
+                            pagamentoUrl: (document.getElementById('lojaPagamento').value||'').trim(),
+                            googleMapsUrl: googleMapsUrl
                         };
+                        
+                        // Extract coordinates from Google Maps URL if provided
+                        if(googleMapsUrl) {
+                            const coords = extractCoordinatesFromGoogleMapsUrl(googleMapsUrl);
+                            if(coords && coords !== 'SHORTENED_URL') {
+                                updatedItem.latitude = coords.latitude;
+                                updatedItem.longitude = coords.longitude;
+                                updatedItem.hasLocation = true;
+                            } else {
+                                // Remove location info if URL is invalid
+                                delete updatedItem.latitude;
+                                delete updatedItem.longitude;
+                                updatedItem.hasLocation = false;
+                            }
+                        } else {
+                            // Remove location info if no URL provided
+                            delete updatedItem.latitude;
+                            delete updatedItem.longitude;
+                            updatedItem.hasLocation = false;
+                        }
+                        
+                        list[idx] = updatedItem;
                         localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
                         location.reload();
                     }
